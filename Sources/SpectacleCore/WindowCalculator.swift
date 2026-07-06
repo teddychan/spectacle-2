@@ -31,6 +31,8 @@ public enum WindowCalculator {
         case .fullscreen: return frame
         case .makeLarger: return WindowSizeAdjuster.resize(win, frame, offset: 30)
         case .makeSmaller: return WindowSizeAdjuster.resize(win, frame, offset: -30)
+        case .nextThird:     return third(win, frame, step: +1)
+        case .previousThird: return third(win, frame, step: -1)
         default:          return nil   // filled in by later tasks
         }
     }
@@ -150,5 +152,32 @@ public enum WindowCalculator {
         r.origin.x = ((f.width - win.width) / 2.0).rounded() + f.origin.x
         r.origin.y = ((f.height - win.height) / 2.0).rounded() + f.origin.y
         return r
+    }
+
+    // MARK: Thirds — 3 vertical columns then 3 horizontal rows
+
+    static func thirds(_ f: CGRect) -> [CGRect] {
+        var regions: [CGRect] = []
+        let w = floor(f.width / 3.0)
+        for i in 0..<3 {
+            var r = f; r.origin.x = f.origin.x + w * CGFloat(i); r.size.width = w; regions.append(r)
+        }
+        let h = floor(f.height / 3.0)
+        for i in 0..<3 {
+            var r = f
+            r.origin.y = f.origin.y + f.height - h * CGFloat(i + 1)
+            r.size.height = h
+            regions.append(r)
+        }
+        return regions
+    }
+
+    static func third(_ win: CGRect, _ f: CGRect, step: Int) -> CGRect {
+        let regions = thirds(f)
+        for (i, region) in regions.enumerated() where SpectacleGeometry.rectCenteredWithin(container: region, win: win) {
+            let j = ((i + step) % regions.count + regions.count) % regions.count
+            return regions[j]
+        }
+        return regions[0]
     }
 }
