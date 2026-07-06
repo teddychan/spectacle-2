@@ -10,9 +10,11 @@ let package = Package(
         .package(url: "https://github.com/teddychan/dragon-kit", from: "1.2.1"),
     ],
     targets: [
+        .target(name: "SpectacleCore"),
         .executableTarget(
             name: "Spectacle2",
             dependencies: [
+                "SpectacleCore",
                 .product(name: "DragonKit", package: "dragon-kit"),
                 .product(name: "DragonKitUpdates", package: "dragon-kit"),
             ],
@@ -29,5 +31,6 @@ let package = Package(
                 .unsafeFlags(["-Xlinker", "-rpath", "-Xlinker", "@loader_path/../Frameworks"])
             ]
         ),
+        .testTarget(name: "SpectacleCoreTests", dependencies: ["SpectacleCore"]),
     ]
 )
