@@ -21,6 +21,7 @@ final class AccessibilityElement {
     }
 
     func frame(of window: AXUIElement) -> CGRect? {
+        guard !NSScreen.screens.isEmpty else { return nil }
         guard let pos = point(window, kAXPositionAttribute),
               let size = size(window, kAXSizeAttribute) else { return nil }
         let h = primaryHeight()
