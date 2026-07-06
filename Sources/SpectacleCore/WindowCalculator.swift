@@ -74,7 +74,7 @@ public enum WindowCalculator {
     static func topHalf(_ win: CGRect, _ f: CGRect) -> CGRect {
         var base = f
         base.size.height = floor(f.height / 2.0)
-        base.origin.y += base.height + f.height.truncatingRemainder(dividingBy: 2.0)
+        base.origin.y = topY(f)
         guard abs(win.midX - base.midX) <= 1.0 else { return base }
         var twoThirds = base
         twoThirds.size.height = floor(f.height * 2.0 / 3.0)
