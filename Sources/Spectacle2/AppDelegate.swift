@@ -14,6 +14,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private let model = SettingsModel()
     private let updater = DragonUpdater()
     private var statusItem: NSStatusItem?
+    private let shortcutStore = ShortcutStore(suiteName: SettingsModel.suiteName)
+    private let windowActions = WindowActionController()
 
     // Host-owned selection: the AppDelegate can set the pane before showing the window (so
     // the menu-bar "About" item lands on the About pane), which is why this uses
@@ -33,11 +35,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }()
 
     // Sidebar order (host-owned): General → Shortcuts → Permissions → Sync & Backup →
-    // What's New → Updates → About → Uninstall. The Shortcuts pane is added in a later
-    // feature commit; the shell wires up every DragonKit-provided pane now.
+    // What's New → Updates → About → Uninstall.
     private var settingsPanes: [AnySettingsPane] {
         [
             AnySettingsPane(GeneralPane(model: model)),
+            AnySettingsPane(ShortcutsPane(store: shortcutStore, onChange: { [windowActions] map in
+                windowActions.updateShortcuts(map)
+            })),
             AnySettingsPane(PermissionsSettingsPane(permissions: [.accessibility()])),
             AnySettingsPane(BackupSettingsPane(config: backupConfig)),
             AnySettingsPane(WhatsNewSettingsPane(content: WhatsNewConfig.content)),
@@ -114,6 +118,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         if !model.showInMenuBar {
             settingsController.show()
         }
+
+        // Start the window-action engine with the persisted (or default) shortcut map.
+        windowActions.start(with: shortcutStore.load())
     }
 
     /// Build the menu-bar menu with localized titles. Rebuilt on language change.
