@@ -27,6 +27,8 @@ public enum WindowCalculator {
         case .upperRight: return upperRight(win, frame)
         case .lowerLeft:  return lowerLeft(win, frame)
         case .lowerRight: return lowerRight(win, frame)
+        case .center:     return center(win, frame)
+        case .fullscreen: return frame
         default:          return nil   // filled in by later tasks
         }
     }
@@ -137,5 +139,14 @@ public enum WindowCalculator {
             return widthVariant(floor(f.width / 3.0))
         }
         return q
+    }
+
+    // MARK: Center
+
+    static func center(_ win: CGRect, _ f: CGRect) -> CGRect {
+        var r = win
+        r.origin.x = ((f.width - win.width) / 2.0).rounded() + f.origin.x
+        r.origin.y = ((f.height - win.height) / 2.0).rounded() + f.origin.y
+        return r
     }
 }
