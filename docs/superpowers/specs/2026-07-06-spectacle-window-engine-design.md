@@ -1,17 +1,17 @@
 # Spectacle 2 — Window-Action Engine Design
 
-- **Date:** 2026-07-06
-- **Status:** Proposed (awaiting review)
+- **Date:** 2026-07-06 (rev. 2 — review fixes)
+- **Status:** Proposed (awaiting final review)
 - **Branch:** `rewrite/dragonkit-swift6`
-- **Scope:** The keyboard-driven window mover/resizer that is the point of the app. The
-  DragonKit menu-bar shell (Settings, About, What's New, Permissions, Backup, Updates,
-  Uninstall, localization) is already scaffolded and out of scope here.
+- **Scope:** The keyboard-driven window mover/resizer that is the point of the app. This spec
+  covers the **engine only**. The DragonKit menu-bar shell and all release/packaging concerns
+  are tracked in §12 (not this spec).
 
 ## 1. Goals & non-goals
 
 **Goals**
-- Reimplement Spectacle's 20 window actions with **full behavior parity** (confirmed decision),
-  including the signature ½→⅔→⅓ repeat-press cycling and the six-region thirds cycling.
+- Reimplement Spectacle's **18 window actions** with **full behavior parity** (confirmed
+  decision), including the signature ½→⅔→⅓ repeat-press cycling and six-region thirds cycling.
 - Every action bound to a **user-configurable global shortcut**, shipping Spectacle's classic
   defaults.
 - Modern, public APIs only: Accessibility (AX) for window control, Carbon
@@ -24,7 +24,9 @@
   separable so a sandbox-viable subset *could* become a MAS target later, but do not design
   for it now).
 
-## 2. The 20 actions and default shortcuts
+## 2. The 18 actions and default shortcuts
+
+16 **geometry** actions + 2 **history** actions (Undo/Redo). All 18 are bound to a shortcut.
 
 | Action | Default | Action | Default |
 |---|---|---|---|
@@ -48,23 +50,22 @@ Spectacle2 (executableTarget)  ──depends──▶  SpectacleCore (library, p
    ScreenProvider                                WindowCalculator
    HotKeyManager (Carbon)                        WindowGeometry helpers
    WindowActionController (@MainActor)           WindowHistory
-   ShortcutStore + ShortcutsPane (SwiftUI)       Shortcut (model)
+   ShortcutStore + ShortcutsPane (SwiftUI)       Shortcut + ModifierFlags (neutral)
                                               ▲
                           SpectacleCoreTests ─┘  (swift-testing)
 ```
 
-- **`SpectacleCore`** depends only on Foundation/CoreGraphics (`CGRect`, `CGFloat`). No AppKit,
-  no AX, no Carbon, no `NSScreen`. This is what makes it testable and MAS-separable.
+- **`SpectacleCore`** depends only on Foundation/CoreGraphics (`CGRect`, `CGFloat`). **No AppKit,
+  no AX, no Carbon, no `NSScreen`.** This is what makes it testable and MAS-separable.
 - **`Spectacle2`** owns everything platform-specific and the UI. It already depends on
   DragonKit + DragonKitUpdates; it adds a dependency on `SpectacleCore`.
 - **`SpectacleCoreTests`** covers `SpectacleCore` exhaustively.
 
-### Coordinate convention (the one tricky thing, isolated)
+### Coordinate convention (the one tricky thing, isolated) — see §5.1 for the exact formula
 
 All `SpectacleCore` math is done in **Cocoa bottom-left–origin coordinates** — the same space
 `NSScreen.visibleFrame` uses and the same space the original Spectacle JavaScript used (in it,
-"upper" = larger `y`). The **only** AX↔Cocoa Y-flip lives in `AccessibilityElement`, at the
-boundary where AX (top-left origin, relative to the primary display) is read/written. The core
+"upper" = larger `y`). The **only** AX↔Cocoa Y-flip lives in `AccessibilityElement`. The core
 never sees AX coordinates.
 
 ## 4. SpectacleCore (pure — implemented test-first)
@@ -81,8 +82,8 @@ enum WindowAction: String, CaseIterable, Codable, Sendable {
     case undo, redo
 }
 ```
-`center … makeSmaller` are *geometry* actions computed by `WindowCalculator`. `undo`/`redo` are
-*history* actions handled by `WindowActionController` via `WindowHistory` (no geometry).
+`center … makeSmaller` (16) are *geometry* actions computed by `WindowCalculator`. `undo`/`redo`
+are *history* actions handled by `WindowActionController` via `WindowHistory` (no geometry).
 
 ### 4.2 `WindowCalculator`
 Input mirrors the original signature:
@@ -94,10 +95,10 @@ struct CalculationInput {
 }
 func calculate(_ action: WindowAction, _ input: CalculationInput) -> CGRect?
 ```
-Returns the new window rect, or `nil` for a no-op (e.g. size below minimum, or a history
-action). Each case is a **1:1 port of the corresponding original JavaScriptCore file** (kept in
-git history on `master` under `Spectacle/Resources/Window Position Calculations/`). Exact
-semantics:
+Returns the new window rect, or `nil` for a no-op (e.g. size below minimum; or if given a
+history action, which it does not handle). Each geometry case is a **1:1 port of the
+corresponding original JavaScriptCore file** (kept in git history on `master` under
+`Spectacle/Resources/Window Position Calculations/`). Exact semantics:
 
 **Shared helpers**
 - `rectCenteredWithin(container:win:)` → `container.contains(win)` AND `|midX(container)−midX(win)| ≤ 1` AND `|midY(container)−midY(win)| ≤ 1`.
@@ -151,44 +152,83 @@ struct WindowHistory {                       // value type, per-window stacks
     mutating func redo(current: CGRect, for id: WindowID) -> CGRect?
 }
 ```
-Standard undo/redo: `record` (called on every successful geometry move) pushes the pre-move
-frame onto the window's undo stack and clears its redo stack; `undo` pops the undo stack, pushes
-the current frame to redo, returns the restored frame; `redo` is the mirror. `WindowID` is an
-opaque `Hashable` the app supplies (see §5). Empty stack → `nil` (no-op).
+Standard undo/redo:
+- `record` is called by the controller **only for geometry moves** (never for undo/redo). It
+  pushes the pre-move frame onto the window's undo stack and clears its redo stack.
+- `undo` pops the undo stack, pushes the given `current` frame onto the redo stack, returns the
+  restored frame (or `nil` if the undo stack is empty).
+- `redo` pops the redo stack, pushes `current` onto the undo stack, returns the frame (or `nil`).
+
+`WindowID` is an opaque `Hashable` supplied by the app (see §5.1). The generic core has no
+knowledge of how identity is derived. Empty stack → `nil` (no-op).
 
 ## 5. Spectacle2 adapters (thin — verified by running the app)
 
-- **`AccessibilityElement`** — resolves the frontmost app's focused window via
-  `AXUIElementCreateApplication(frontmost.pid)` → `kAXFocusedWindowAttribute`.
-  `frame() -> CGRect?` reads `kAXPositionAttribute`/`kAXSizeAttribute` and **flips AX→Cocoa**
-  using the primary display height; `setFrame(_:)` flips Cocoa→AX and writes size then position.
-  `windowID` derives the `WindowID` (pid + `kAXWindowAttribute` identity) for history. Any AX
-  failure → returns `nil` / no-ops.
-- **`ScreenProvider`** — `screensOrderedForCycling()` from `NSScreen.screens`; given the window's
-  current screen, yields `sourceVisibleFrame` and the next/previous `destinationVisibleFrame`
-  for display actions. Same-screen actions use source == destination.
-- **`HotKeyManager`** — wraps Carbon `RegisterEventHotKey`; registers one hot key per bound
-  action from the shortcut map, installs a single `EventHotKeyID` handler that dispatches to the
-  `WindowActionController`, and re-registers when the map changes. Reports registration failures
-  (e.g. a key already taken by the system) so the Shortcuts UI can flag conflicts.
-- **`WindowActionController`** (`@MainActor`) — the orchestrator. On a triggered action:
-  1. gate: if `!AXIsProcessTrusted()` → no-op (Permissions pane is the surface);
-  2. get focused window frame + `WindowID` (else no-op);
-  3. resolve source/destination frames from `ScreenProvider`;
-  4. `undo`/`redo` → `WindowHistory`; otherwise `WindowCalculator.calculate`;
-  5. if a rect comes back, `record` the pre-move frame and `setFrame` the result.
+### 5.1 `AccessibilityElement` (owns the coordinate flip + window identity)
+- Resolves the frontmost app's focused window: `NSWorkspace.shared.frontmostApplication.pid`
+  → `AXUIElementCreateApplication(pid)` → `kAXFocusedWindowAttribute`.
+- `frame() -> CGRect?` reads `kAXPositionAttribute` (top-left origin) + `kAXSizeAttribute` and
+  converts **AX → Cocoa**; `setFrame(_:)` converts **Cocoa → AX** and writes size then position.
+- **Exact global conversion.** Anchor on the primary screen — `NSScreen.screens[0]` (the
+  menu-bar screen, fixed at Cocoa origin `(0,0)`); *not* `NSScreen.main` (which follows key
+  focus). Let `H = NSScreen.screens[0].frame.height` (full `frame`, not `visibleFrame`). For a
+  window of height `h`:
+  - AX→Cocoa: `cocoa.x = ax.x`, `cocoa.y = H − ax.y − h`
+  - Cocoa→AX: `ax.x = cocoa.x`, `ax.y = H − cocoa.y − h`
+  This is correct globally — including displays with negative origins and displays above/below
+  the primary — because both coordinate systems share the primary-screen anchor and differ only
+  by a flip about the primary screen's top edge. (A window above the menu-bar screen has
+  negative `ax.y` → `cocoa.y > H`; a window below has `ax.y > H` → `cocoa.y < 0`.)
+- **`windowID`** — a concrete `struct WindowID: Hashable` that wraps the focused-window
+  `AXUIElement`, with `==`/`hash(into:)` implemented via `CFEqual`/`CFHash`. AX returns
+  CFEqual-equal element refs for the same on-screen window across calls, so this is a stable
+  public-API identity for the lifetime of that window. (Limitation, acceptable: closing and
+  reopening a window yields a new id; window history is transient and per-session anyway.)
+- Any AX failure (no frontmost app, no focused window, non-settable position/size) → `frame()`
+  returns `nil` and `setFrame` is a no-op.
+
+### 5.2 `ScreenProvider`
+- `screenContaining(_ cocoaRect:) -> NSScreen` — the `NSScreen` whose `.frame` contains the
+  window's Cocoa center (fallback `NSScreen.main`), giving `sourceVisibleFrame`.
+- `displayCycle(from:direction:)` — orders `NSScreen.screens` (by `frame.minX`, then `minY`) and
+  returns the next/previous screen's `visibleFrame` as the `destinationVisibleFrame`. Same-screen
+  actions use destination == source.
+
+### 5.3 `HotKeyManager` (owns all Carbon)
+- Wraps Carbon `RegisterEventHotKey`; **translates the core's neutral `ModifierFlags` into Carbon
+  modifier masks** (`cmdKey`/`optionKey`/`controlKey`/`shiftKey`) here — Carbon never leaks into
+  the core.
+- Registers one hot key per bound action from the shortcut map, installs a single Carbon event
+  handler that maps the fired `EventHotKeyID` back to a `WindowAction` and calls the controller,
+  and re-registers when the map changes. Surfaces registration failures (key already taken) so
+  the Shortcuts UI can flag conflicts.
+
+### 5.4 `WindowActionController` (`@MainActor`) — the orchestrator
+On a triggered action:
+1. **Gate:** if `!AXIsProcessTrusted()` → no-op (the Permissions pane is the surface).
+2. Get the focused window `frame` + `WindowID` (else no-op).
+3. Resolve `sourceVisibleFrame` / `destinationVisibleFrame` from `ScreenProvider`.
+4. **History actions** (`undo`/`redo`): ask `WindowHistory.undo/redo(current: frame, for: id)`;
+   if it returns a frame, `setFrame` it. **Do not call `record`** — history already advanced.
+5. **Geometry actions:** `WindowCalculator.calculate(action, input)`; if it returns a rect,
+   `record(frame, for: id)` (the *pre-move* frame) **then** `setFrame(newRect)`.
+
+This split is the fix for the redo-clobbering bug: only step 5 records; step 4 never does.
 
 ## 6. Settings
 
-- **`Shortcut`** — `struct { keyCode: UInt16; modifiers: UInt32 }`, `Codable`/`Equatable`/`Sendable`,
-  with a display string (`⌥⌘←`) and conversion to Carbon modifier flags. Lives in `SpectacleCore`
-  (pure, testable formatting) or the app as needed.
+- **`ModifierFlags`** (in `SpectacleCore`) — a neutral `OptionSet` (`.command`, `.option`,
+  `.control`, `.shift`), independent of Carbon/AppKit. `Codable`/`Sendable`.
+- **`Shortcut`** (in `SpectacleCore`) — `struct { keyCode: UInt16; modifiers: ModifierFlags }`,
+  `Codable`/`Equatable`/`Sendable`, with a **pure display string** builder (`⌥⌘←`). It contains
+  **no Carbon**; the Carbon mask translation lives in `HotKeyManager` (§5.3). Display formatting
+  is unit-tested in the core.
 - **`ShortcutStore`** — `DragonSettingsStore<ShortcutMap>` where `ShortcutMap` is a
   `Codable [WindowAction: Shortcut]`, defaulting to the classic bindings in §2. Persisted in the
   existing settings suite `com.dragonapp.spectacle-2.settings` so Backup & Restore captures it.
 - **`ShortcutsPane: SettingsPane`** — id `"shortcuts"`, sits **between General and Permissions**
   in the sidebar. A `DragonForm` with `DragonSection`s grouping the actions; each row shows the
-  action name and an in-app **recorder** control to view/rebind/clear its shortcut, with
+  action name and an in-app **recorder** to view/rebind/clear its shortcut, with
   `.dragonAnnotation` for conflict/hint text. Rebinding writes `ShortcutStore` and asks
   `HotKeyManager` to re-register. A "Restore Defaults" affordance resets the map.
 
@@ -216,8 +256,9 @@ origin `(0,0)` and a menu-bar-inset frame, plus a two-screen layout. Cases:
   default.
 - Next/Previous Display: fit→centered, oversized→fill.
 - `WindowHistory`: record/undo/redo across multiple windows; empty-stack no-ops; redo cleared by
-  a new record.
-- `Shortcut` formatting and Carbon-modifier conversion.
+  a new record; **and the controller invariant that undo/redo never call record** (asserted via
+  a sequence: move → move → undo → redo returns to the second move, not the first).
+- `Shortcut` display formatting; `ModifierFlags` round-trip.
 
 Adapters (`AccessibilityElement`, `ScreenProvider`, `HotKeyManager`) are deliberately thin and
 side-effectful; they're verified by building and running (`scripts/run.sh`), not unit tests.
@@ -226,8 +267,9 @@ side-effectful; they're verified by building and running (`scripts/run.sh`), not
 
 1. Add `SpectacleCore` library target + `SpectacleCoreTests`; wire `Spectacle2` to depend on it.
 2. TDD `WindowAction`, geometry helpers, and each `WindowCalculator` action (port from the JS in
-   git history), then `WindowHistory`, then `Shortcut`.
-3. Adapters: `AccessibilityElement`, `ScreenProvider`, `HotKeyManager`, `WindowActionController`.
+   git history), then `WindowHistory`, then `ModifierFlags`/`Shortcut`.
+3. Adapters: `AccessibilityElement` (incl. coordinate flip + `WindowID`), `ScreenProvider`,
+   `HotKeyManager`, `WindowActionController`.
 4. `ShortcutStore` (+ default map) and `ShortcutsPane`; wire into the settings sidebar and the
    `HotKeyManager`.
 5. Run end-to-end; confirm each shortcut moves the frontmost window correctly across one and two
@@ -237,5 +279,32 @@ side-effectful; they're verified by building and running (`scripts/run.sh`), not
 
 If an in-app **shortcut recorder** proves generally useful, flag it for DragonKit (a shared
 `ShortcutRecorder`/`KeyboardShortcut` component) rather than keeping it app-private — per the
-"add it to DragonKit and consume" rule. Decide after the app-side recorder exists and its shape
-is known.
+"add it to DragonKit and consume" rule. Decide after the app-side recorder exists.
+
+## 11. Assumptions
+
+- macOS 26 baseline, must also run on macOS 27; Apple Silicon only (arm64).
+- Carbon `RegisterEventHotKey` remains available and is the reliable global-hotkey path.
+- A single focused-window target per action (Spectacle's model); no multi-window batch ops.
+
+## 12. Work outside this spec (whole-app — separate spec/plan coverage)
+
+This spec is the **engine**. The following parts of the original request are **not** covered here
+and need their own tracking. Current status noted:
+
+- **DragonKit shell** — *done* (scaffolded, builds, runs): Settings/About/What's New/Permissions/
+  Backup/Updates/Uninstall, menu-bar wiring, live localization plumbing.
+- **Debug identity + run.sh** — *done* (`com.dragonapp.spectacle-2.debug` / "Spectacle 2 Debug").
+- **Git process** — *in progress*: branch `rewrite/dragonkit-swift6`, do-not-push until owner
+  confirms; ObjC tree removed as one commit.
+- **Localization completeness** — *partial*: shell strings translated in 7 languages; the new
+  Shortcuts pane strings (action names, hints, "Restore Defaults") must be added in all 7.
+- **Release wiring** — *todo*: `vX.Y.Z` tag → shared `dragon-release-ci` reusable workflow
+  (`build_kind: swiftpm`, `app_slug: spectacle-2`, `swiftpm_product_name: Spectacle2`, …),
+  Developer ID sign + notarize (arm64), GitHub Release, signed Sparkle appcast, Homebrew cask bump.
+- **Sparkle** — *todo*: generate a NEW EdDSA key pair (do not reuse another app's); public key →
+  `SUPublicEDKey`, private key → CI secret; self-host `docs/appcast.xml` via raw.githubusercontent.
+- **Homebrew cask** — *todo*: `teddychan/tap/spectacle-2`.
+- **MAS** — *deferred / open question* (sandbox vs. cross-app AX); do not design for it.
+
+Each todo item should get its own short spec/plan before implementation.
