@@ -33,7 +33,9 @@ public enum WindowCalculator {
         case .makeSmaller: return WindowSizeAdjuster.resize(win, frame, offset: -30)
         case .nextThird:     return third(win, frame, step: +1)
         case .previousThird: return third(win, frame, step: -1)
-        default:          return nil   // filled in by later tasks
+        case .nextDisplay, .previousDisplay:
+            return SpectacleGeometry.rectFitsWithin(win: win, screen: frame) ? center(win, frame) : frame
+        case .undo, .redo: return nil
         }
     }
 
