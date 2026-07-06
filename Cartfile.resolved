@@ -1,5 +1,0 @@
-github "hamcrest/OCHamcrest" "v7.1.2"
-github "jonreid/OCMockito" "v5.1.2"
-github "sparkle-project/Sparkle" "1.22.0"
-github "specta/expecta" "v1.0.6"
-github "specta/specta" "v1.0.7"
