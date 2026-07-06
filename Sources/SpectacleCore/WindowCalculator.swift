@@ -29,6 +29,8 @@ public enum WindowCalculator {
         case .lowerRight: return lowerRight(win, frame)
         case .center:     return center(win, frame)
         case .fullscreen: return frame
+        case .makeLarger: return WindowSizeAdjuster.resize(win, frame, offset: 30)
+        case .makeSmaller: return WindowSizeAdjuster.resize(win, frame, offset: -30)
         default:          return nil   // filled in by later tasks
         }
     }
