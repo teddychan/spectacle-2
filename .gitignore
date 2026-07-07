@@ -2,3 +2,6 @@
 .build/
 Package.resolved
 *.xcodeproj/xcuserdata/
+
+# Local agent tooling config (not part of the app)
+.codex/
