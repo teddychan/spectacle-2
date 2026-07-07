@@ -1,0 +1,37 @@
+name: Release Spectacle 2
+
+# Tagging vX.Y.Z builds, signs (Developer ID + hardened runtime), notarizes, staples and
+# publishes Spectacle 2: a GitHub Release on this repo, an EdDSA-signed Sparkle appcast
+# committed to this repo (docs/spectacle-2/appcast.xml, served via raw.githubusercontent —
+# the marketing site is not involved), and a Homebrew cask bump in teddychan/homebrew-tap.
+# Thin caller of the shared reusable workflow (same one clipmenu-2 / the sample app use).
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    uses: teddychan/dragon-release-ci/.github/workflows/release-macos.yml@v5
+    secrets: inherit
+    with:
+      build_kind: swiftpm
+      app_slug: spectacle-2
+      # Self-host the appcast in THIS repo (docs/spectacle-2/appcast.xml) rather than the
+      # marketing site — matches SUFeedURL in Info.plist.
+      appcast_repo: teddychan/spectacle-2
+      # Package.swift / Info.plist / AppIcon.icns live at the repo root.
+      swiftpm_working_directory: '.'
+      swiftpm_product_name: Spectacle2
+      swiftpm_app_name_template: 'Spectacle 2'
+      swiftpm_sparkle: true
+      swiftpm_runner: macos-26
+      assert_tag_matches_plist: true
+      zip_name_template: 'Spectacle2-{TAG}.zip'
+      generate_appcast_glob: swiftpm
+      bot_name: Spectacle 2 Release Bot
+      release_title_prefix: ''

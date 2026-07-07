@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Placeholder appcast. The release CI (dragon-release-ci) regenerates and EdDSA-signs
+     this file on each vX.Y.Z tag. Until the first release it advertises no updates, so
+     "Check for Updates" reports "up to date" instead of erroring. -->
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
+  <channel>
+    <title>Spectacle 2</title>
+    <link>https://raw.githubusercontent.com/teddychan/spectacle-2/main/docs/spectacle-2/appcast.xml</link>
+    <description>Most recent updates to Spectacle 2</description>
+    <language>en</language>
+  </channel>
+</rss>
