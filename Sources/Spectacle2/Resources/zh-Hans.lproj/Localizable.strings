@@ -10,8 +10,8 @@
 "app.about.source" = "源代码";
 "app.about.builtWith" = "构建技术";
 "app.about.license" = "许可证";
-"app.whatsNew.summary" = "小型维护更新。";
-"app.whatsNew.fixed1" = "“新功能”中显示的版本号现在与“关于”窗口一致。";
+"app.whatsNew.summary" = "一个小更新，让菜单栏菜单与其他 Dragon 应用保持一致。";
+"app.whatsNew.fixed1" = "菜单栏菜单现在与 ClipMenu、Ice 和 KeyKey 一致——包含“关于”“检查更新…”“设置…”以及新的“卸载”项——而不再使用自己的顺序。";
 "app.uninstall.item.app" = "App 及其登录项";
 "app.uninstall.item.settings" = "所有设置";
 "app.uninstall.item.state" = "已保存的应用程序状态";
