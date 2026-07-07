@@ -26,18 +26,13 @@ final class WindowActionController {
         let id = WindowID(element: window)
         let source = ScreenProvider.sourceVisibleFrame(for: current)
 
-        switch action {
-        case .undo:
-            if let f = history.undo(current: current, for: id) { ax.setFrame(f, of: window) }
-        case .redo:
-            if let f = history.redo(current: current, for: id) { ax.setFrame(f, of: window) }
-        default:
-            let dir = action == .nextDisplay ? 1 : (action == .previousDisplay ? -1 : 0)
-            let dest = dir == 0 ? source : ScreenProvider.destinationVisibleFrame(for: current, direction: dir)
-            let input = CalculationInput(windowRect: current, sourceVisibleFrame: source, destinationVisibleFrame: dest)
-            guard let newRect = WindowCalculator.calculate(action, input) else { return }
-            history.record(current, for: id)          // pre-move frame; only geometry moves record
-            ax.setFrame(newRect, of: window)
-        }
+        // Decision logic lives in the pure, unit-tested WindowActionResolver (which enforces the
+        // "only geometry moves record history" invariant); the controller just supplies I/O.
+        let dir = WindowActionResolver.displayDirection(for: action)
+        let dest = dir == 0 ? source : ScreenProvider.destinationVisibleFrame(for: current, direction: dir)
+        let outcome = WindowActionResolver.resolve(
+            action: action, windowID: id, currentFrame: current,
+            sourceVisibleFrame: source, destinationVisibleFrame: dest, history: &history)
+        if case .move(let newRect) = outcome { ax.setFrame(newRect, of: window) }
     }
 }

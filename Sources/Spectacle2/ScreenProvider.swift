@@ -1,4 +1,5 @@
 import AppKit
+import SpectacleCore
 
 /// Maps a window's Cocoa rect to source/destination visible frames for the calculator.
 enum ScreenProvider {
@@ -16,13 +17,11 @@ enum ScreenProvider {
         let ordered = NSScreen.screens.sorted {
             ($0.frame.minX, $0.frame.minY) < ($1.frame.minX, $1.frame.minY)
         }
-        guard ordered.count > 1,
-              let src = screen(containing: rect),
-              let idx = ordered.firstIndex(of: src) else {
+        guard let src = screen(containing: rect),
+              let idx = ordered.firstIndex(of: src),
+              let j = ScreenCycle.destinationIndex(count: ordered.count, current: idx, direction: direction) else {
             return sourceVisibleFrame(for: rect)
         }
-        let count = ordered.count
-        let j = ((idx + direction) % count + count) % count
         return ordered[j].visibleFrame
     }
 }
