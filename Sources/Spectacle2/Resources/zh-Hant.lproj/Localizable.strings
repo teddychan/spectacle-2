@@ -49,3 +49,5 @@
 "app.shortcuts.recorder.record" = "點按以錄製";
 "app.shortcuts.recorder.recording" = "錄製中…（Esc 取消）";
 "app.shortcuts.conflict" = "快捷鍵無法使用 — 已被系統或其他 App 佔用";
+"app.about.basedOn" = "基於";
+"app.about.original" = "原版 Spectacle";

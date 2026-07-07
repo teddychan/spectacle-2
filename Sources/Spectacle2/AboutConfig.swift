@@ -30,8 +30,16 @@ enum AboutConfig {
                     systemImage: "chevron.left.forwardslash.chevron.right",
                     url: URL(string: "https://github.com/teddychan/spectacle-2")!
                 ),
+                // Credit + link to the original Spectacle, which this app reimplements.
+                AboutLink(
+                    title: L("app.about.original"),
+                    detail: "eczarny/spectacle",
+                    systemImage: "eyeglasses",
+                    url: URL(string: "https://github.com/eczarny/spectacle")!
+                ),
             ],
             credits: [
+                (label: L("app.about.basedOn"), value: "Spectacle by Eric Czarny"),
                 (label: L("app.about.builtWith"), value: "DragonKit"),
                 (label: L("app.about.license"), value: "MIT"),
             ]

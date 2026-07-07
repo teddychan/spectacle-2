@@ -93,7 +93,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         // Per-bundle-id autosave name so debug/release builds don't pollute each other's
         // menu-bar visibility store.
         item.autosaveName = "Spectacle2StatusItem-\(bundleID)"
-        item.button?.image = NSImage(systemSymbolName: "macwindow", accessibilityDescription: appName)
+        item.button?.image = menuBarIcon()
 
         item.menu = buildMenu()
         item.isVisible = model.showInMenuBar
@@ -121,6 +121,22 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         // Start the window-action engine with the persisted (or default) shortcut map.
         windowActions.start(with: shortcutStore.load())
+    }
+
+    /// The menu-bar status-item image: the app icon (the Spectacle glasses + "2"), drawn small
+    /// and in colour. A monochrome template glyph would lose the icon's identity, so the app
+    /// icon is shown as-is at menu-bar size.
+    private func menuBarIcon() -> NSImage {
+        let size = NSSize(width: 18, height: 18)
+        let image = NSImage(size: size)
+        if let source = NSImage(named: NSImage.applicationIconName) {
+            image.lockFocus()
+            source.draw(in: NSRect(origin: .zero, size: size),
+                        from: .zero, operation: .sourceOver, fraction: 1.0)
+            image.unlockFocus()
+        }
+        image.isTemplate = false
+        return image
     }
 
     /// Build the menu-bar menu with localized titles. Rebuilt on language change.

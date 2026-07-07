@@ -49,3 +49,5 @@
 "app.shortcuts.recorder.record" = "Click to record";
 "app.shortcuts.recorder.recording" = "Recording… (Esc to cancel)";
 "app.shortcuts.conflict" = "Shortcut unavailable — in use by the system or another app";
+"app.about.basedOn" = "Based on";
+"app.about.original" = "Original Spectacle";
