@@ -7,7 +7,7 @@ let package = Package(
     platforms: [.macOS("26")],
     dependencies: [
         // Direct-download app → link BOTH DragonKit and DragonKitUpdates (Sparkle).
-        .package(url: "https://github.com/teddychan/dragon-kit", from: "1.2.1"),
+        .package(url: "https://github.com/teddychan/dragon-kit", from: "1.4.0"),
     ],
     targets: [
         .target(name: "SpectacleCore"),

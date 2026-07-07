@@ -6,10 +6,6 @@
 "app.general.showInMenuBar" = "메뉴 막대에 표시";
 "app.general.showInMenuBarHint" = "메뉴 막대 아이콘을 숨깁니다. 실행 시 숨겨져 있으면 다시 켤 수 있도록 설정이 자동으로 열립니다.";
 "app.general.languageSection" = "언어";
-"app.menu.settings" = "설정";
-"app.menu.checkForUpdates" = "업데이트 확인";
-"app.menu.about" = "정보";
-"app.menu.quit" = "종료";
 "app.about.website" = "웹사이트";
 "app.about.source" = "소스 코드";
 "app.about.builtWith" = "제작 기반";

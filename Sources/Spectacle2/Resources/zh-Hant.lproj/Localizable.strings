@@ -6,10 +6,6 @@
 "app.general.showInMenuBar" = "在選單列中顯示";
 "app.general.showInMenuBarHint" = "隱藏選單列圖像。若啟動時已隱藏，將自動打開設定以便重新開啟。";
 "app.general.languageSection" = "語言";
-"app.menu.settings" = "設定";
-"app.menu.checkForUpdates" = "檢查更新";
-"app.menu.about" = "關於";
-"app.menu.quit" = "結束";
 "app.about.website" = "網站";
 "app.about.source" = "原始碼";
 "app.about.builtWith" = "建置技術";

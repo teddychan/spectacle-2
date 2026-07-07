@@ -6,10 +6,6 @@
 "app.general.showInMenuBar" = "Mostrar en la barra de menús";
 "app.general.showInMenuBarHint" = "Oculta el icono de la barra de menús. Si está oculto al iniciar, los Ajustes se abren automáticamente para que puedas volver a activarlo.";
 "app.general.languageSection" = "Idioma";
-"app.menu.settings" = "Ajustes";
-"app.menu.checkForUpdates" = "Buscar actualizaciones";
-"app.menu.about" = "Acerca de";
-"app.menu.quit" = "Salir";
 "app.about.website" = "Sitio web";
 "app.about.source" = "Código fuente";
 "app.about.builtWith" = "Creado con";
