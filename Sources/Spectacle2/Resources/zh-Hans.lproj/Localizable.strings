@@ -14,8 +14,8 @@
 "app.about.source" = "源代码";
 "app.about.builtWith" = "构建技术";
 "app.about.license" = "许可证";
-"app.whatsNew.summary" = "Spectacle 2 的首个版本——基于 DragonKit 对窗口管理器 Spectacle 的现代化重写。";
-"app.whatsNew.added1" = "基于 DragonKit 搭建的菜单栏 App（设置、权限、备份、更新、关于、卸载）。";
+"app.whatsNew.summary" = "小型维护更新。";
+"app.whatsNew.fixed1" = "“新功能”中显示的版本号现在与“关于”窗口一致。";
 "app.uninstall.item.app" = "App 及其登录项";
 "app.uninstall.item.settings" = "所有设置";
 "app.uninstall.item.state" = "已保存的应用程序状态";

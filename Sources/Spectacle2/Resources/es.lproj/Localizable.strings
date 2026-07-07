@@ -14,8 +14,8 @@
 "app.about.source" = "Código fuente";
 "app.about.builtWith" = "Creado con";
 "app.about.license" = "Licencia";
-"app.whatsNew.summary" = "Primera versión de Spectacle 2, una reescritura moderna del gestor de ventanas Spectacle sobre DragonKit.";
-"app.whatsNew.added1" = "App de barra de menús creada sobre DragonKit (Ajustes, Permisos, Copias de seguridad, Actualizaciones, Acerca de, Desinstalar).";
+"app.whatsNew.summary" = "Pequeña actualización de mantenimiento.";
+"app.whatsNew.fixed1" = "El número de versión en «Novedades» ahora coincide con la ventana «Acerca de».";
 "app.uninstall.item.app" = "La app y su elemento de inicio";
 "app.uninstall.item.settings" = "Todos los ajustes";
 "app.uninstall.item.state" = "Estado guardado de la aplicación";

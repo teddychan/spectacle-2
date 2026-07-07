@@ -14,8 +14,8 @@
 "app.about.source" = "Source";
 "app.about.builtWith" = "Built with";
 "app.about.license" = "License";
-"app.whatsNew.summary" = "First build of Spectacle 2 — a modern rewrite of the Spectacle window manager on DragonKit.";
-"app.whatsNew.added1" = "Menu-bar app scaffolded on DragonKit (Settings, Permissions, Backup, Updates, About, Uninstall).";
+"app.whatsNew.summary" = "A small maintenance update.";
+"app.whatsNew.fixed1" = "The version number in What's New now matches the About window.";
 "app.uninstall.item.app" = "The app and its login item";
 "app.uninstall.item.settings" = "All settings";
 "app.uninstall.item.state" = "Saved application state";

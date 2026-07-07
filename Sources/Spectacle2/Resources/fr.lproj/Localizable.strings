@@ -14,8 +14,8 @@
 "app.about.source" = "Code source";
 "app.about.builtWith" = "Conçu avec";
 "app.about.license" = "Licence";
-"app.whatsNew.summary" = "Première version de Spectacle 2, une réécriture moderne du gestionnaire de fenêtres Spectacle basée sur DragonKit.";
-"app.whatsNew.added1" = "Application de barre des menus créée sur DragonKit (Réglages, Autorisations, Sauvegarde, Mises à jour, À propos, Désinstaller).";
+"app.whatsNew.summary" = "Petite mise à jour de maintenance.";
+"app.whatsNew.fixed1" = "Le numéro de version dans « Nouveautés » correspond désormais à la fenêtre « À propos ».";
 "app.uninstall.item.app" = "L'app et son élément d'ouverture";
 "app.uninstall.item.settings" = "Tous les réglages";
 "app.uninstall.item.state" = "État enregistré de l'application";

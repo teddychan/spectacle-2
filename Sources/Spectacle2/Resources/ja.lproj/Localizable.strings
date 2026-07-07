@@ -14,8 +14,8 @@
 "app.about.source" = "ソースコード";
 "app.about.builtWith" = "使用技術";
 "app.about.license" = "ライセンス";
-"app.whatsNew.summary" = "Spectacle 2 の最初のビルド。ウインドウマネージャ Spectacle を DragonKit 上で刷新しました。";
-"app.whatsNew.added1" = "DragonKit 上にメニューバーアプリを構築（設定、アクセス権、バックアップ、アップデート、情報、アンインストール）。";
+"app.whatsNew.summary" = "小さなメンテナンスアップデートです。";
+"app.whatsNew.fixed1" = "「新機能」に表示されるバージョン番号が「情報」ウインドウと一致するようになりました。";
 "app.uninstall.item.app" = "アプリとログイン項目";
 "app.uninstall.item.settings" = "すべての設定";
 "app.uninstall.item.state" = "保存されたアプリケーションの状態";

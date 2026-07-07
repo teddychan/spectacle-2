@@ -14,8 +14,8 @@
 "app.about.source" = "소스 코드";
 "app.about.builtWith" = "제작 기반";
 "app.about.license" = "라이선스";
-"app.whatsNew.summary" = "Spectacle 2의 첫 번째 빌드 — 창 관리자 Spectacle을 DragonKit 기반으로 새롭게 구현했습니다.";
-"app.whatsNew.added1" = "DragonKit 기반 메뉴 막대 앱 구성(설정, 권한, 백업, 업데이트, 정보, 제거).";
+"app.whatsNew.summary" = "소규모 유지 관리 업데이트입니다.";
+"app.whatsNew.fixed1" = "'새로운 기능'에 표시되는 버전 번호가 '정보' 창과 일치하도록 수정했습니다.";
 "app.uninstall.item.app" = "앱과 로그인 항목";
 "app.uninstall.item.settings" = "모든 설정";
 "app.uninstall.item.state" = "저장된 응용 프로그램 상태";
