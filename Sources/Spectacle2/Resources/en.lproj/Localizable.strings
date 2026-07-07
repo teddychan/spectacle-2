@@ -10,8 +10,8 @@
 "app.about.source" = "Source";
 "app.about.builtWith" = "Built with";
 "app.about.license" = "License";
-"app.whatsNew.summary" = "A small maintenance update.";
-"app.whatsNew.fixed1" = "The version number in What's New now matches the About window.";
+"app.whatsNew.summary" = "A small update that lines the menu-bar menu up with the other Dragon apps.";
+"app.whatsNew.fixed1" = "The menu-bar menu now matches ClipMenu, Ice and KeyKey — About, Check for Updates…, Settings…, plus a new Uninstall item — instead of its own order.";
 "app.uninstall.item.app" = "The app and its login item";
 "app.uninstall.item.settings" = "All settings";
 "app.uninstall.item.state" = "Saved application state";

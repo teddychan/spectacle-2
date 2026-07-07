@@ -10,8 +10,8 @@
 "app.about.source" = "소스 코드";
 "app.about.builtWith" = "제작 기반";
 "app.about.license" = "라이선스";
-"app.whatsNew.summary" = "소규모 유지 관리 업데이트입니다.";
-"app.whatsNew.fixed1" = "'새로운 기능'에 표시되는 버전 번호가 '정보' 창과 일치하도록 수정했습니다.";
+"app.whatsNew.summary" = "메뉴 막대 메뉴를 다른 Dragon 앱과 맞추는 작은 업데이트입니다.";
+"app.whatsNew.fixed1" = "메뉴 막대 메뉴가 고유한 순서 대신 ClipMenu, Ice, KeyKey와 동일해졌습니다(정보, 업데이트 확인…, 설정…, 그리고 새로운 제거 항목).";
 "app.uninstall.item.app" = "앱과 로그인 항목";
 "app.uninstall.item.settings" = "모든 설정";
 "app.uninstall.item.state" = "저장된 응용 프로그램 상태";

@@ -10,8 +10,8 @@
 "app.about.source" = "Code source";
 "app.about.builtWith" = "Conçu avec";
 "app.about.license" = "Licence";
-"app.whatsNew.summary" = "Petite mise à jour de maintenance.";
-"app.whatsNew.fixed1" = "Le numéro de version dans « Nouveautés » correspond désormais à la fenêtre « À propos ».";
+"app.whatsNew.summary" = "Une petite mise à jour qui aligne le menu de la barre des menus sur les autres apps Dragon.";
+"app.whatsNew.fixed1" = "Le menu de la barre des menus correspond désormais à ClipMenu, Ice et KeyKey — À propos, Rechercher les mises à jour…, Réglages… et un nouvel élément Désinstaller — au lieu de son propre ordre.";
 "app.uninstall.item.app" = "L'app et son élément d'ouverture";
 "app.uninstall.item.settings" = "Tous les réglages";
 "app.uninstall.item.state" = "État enregistré de l'application";
