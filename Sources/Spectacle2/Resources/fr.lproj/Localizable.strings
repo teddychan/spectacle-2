@@ -6,10 +6,6 @@
 "app.general.showInMenuBar" = "Afficher dans la barre des menus";
 "app.general.showInMenuBarHint" = "Masque l'icône de la barre des menus. Si elle est masquée au lancement, les Réglages s'ouvrent automatiquement pour la réactiver.";
 "app.general.languageSection" = "Langue";
-"app.menu.settings" = "Réglages";
-"app.menu.checkForUpdates" = "Rechercher les mises à jour";
-"app.menu.about" = "À propos";
-"app.menu.quit" = "Quitter";
 "app.about.website" = "Site web";
 "app.about.source" = "Code source";
 "app.about.builtWith" = "Conçu avec";
