@@ -46,3 +46,5 @@
 "app.action.makeSmaller" = "縮小視窗";
 "app.action.undo" = "還原上一次移動";
 "app.action.redo" = "重做上一次移動";
+"app.shortcuts.recorder.record" = "點按以錄製";
+"app.shortcuts.recorder.recording" = "錄製中…（Esc 取消）";

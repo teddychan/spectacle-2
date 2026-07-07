@@ -1,6 +1,7 @@
 import SwiftUI
 import AppKit
 import Carbon.HIToolbox
+import DragonKit
 import SpectacleCore
 
 /// A click-to-record control: shows the current shortcut; while recording, the next key combo
@@ -26,11 +27,13 @@ struct ShortcutRecorderField: NSViewRepresentable {
             bezelStyle = .rounded
             setButtonType(.momentaryPushIn)
             target = self; action = #selector(toggle)
+            title = display
         }
         required init?(coder: NSCoder) { fatalError() }
 
         private var display: String {
-            recording ? "Recording… (Esc to cancel)" : (shortcut?.displayString ?? "Click to record")
+            recording ? L("app.shortcuts.recorder.recording")
+                      : (shortcut?.displayString ?? L("app.shortcuts.recorder.record"))
         }
 
         @objc private func toggle() { recording.toggle(); if recording { window?.makeFirstResponder(self) } }

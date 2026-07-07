@@ -46,3 +46,5 @@
 "app.action.makeSmaller" = "缩小窗口";
 "app.action.undo" = "撤销上一次移动";
 "app.action.redo" = "重做上一次移动";
+"app.shortcuts.recorder.record" = "点按以录制";
+"app.shortcuts.recorder.recording" = "录制中…（Esc 取消）";

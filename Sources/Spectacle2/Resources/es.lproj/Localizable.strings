@@ -46,3 +46,5 @@
 "app.action.makeSmaller" = "Achicar ventana";
 "app.action.undo" = "Deshacer el último movimiento";
 "app.action.redo" = "Rehacer el último movimiento";
+"app.shortcuts.recorder.record" = "Haz clic para grabar";
+"app.shortcuts.recorder.recording" = "Grabando… (Esc para cancelar)";

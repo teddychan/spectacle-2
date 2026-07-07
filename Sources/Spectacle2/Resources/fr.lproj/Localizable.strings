@@ -46,3 +46,5 @@
 "app.action.makeSmaller" = "Réduire";
 "app.action.undo" = "Annuler le dernier déplacement";
 "app.action.redo" = "Rétablir le dernier déplacement";
+"app.shortcuts.recorder.record" = "Cliquer pour enregistrer";
+"app.shortcuts.recorder.recording" = "Enregistrement… (Échap pour annuler)";

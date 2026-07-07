@@ -46,3 +46,5 @@
 "app.action.makeSmaller" = "Make Smaller";
 "app.action.undo" = "Undo Last Move";
 "app.action.redo" = "Redo Last Move";
+"app.shortcuts.recorder.record" = "Click to record";
+"app.shortcuts.recorder.recording" = "Recording… (Esc to cancel)";

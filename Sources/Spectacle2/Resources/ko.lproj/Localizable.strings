@@ -46,3 +46,5 @@
 "app.action.makeSmaller" = "창 작게 하기";
 "app.action.undo" = "마지막 이동 취소";
 "app.action.redo" = "마지막 이동 다시 실행";
+"app.shortcuts.recorder.record" = "클릭하여 기록";
+"app.shortcuts.recorder.recording" = "기록 중… (Esc로 취소)";

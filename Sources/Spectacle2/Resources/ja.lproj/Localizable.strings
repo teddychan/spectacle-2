@@ -46,3 +46,5 @@
 "app.action.makeSmaller" = "ウインドウを小さくする";
 "app.action.undo" = "直前の移動を元に戻す";
 "app.action.redo" = "直前の移動をやり直す";
+"app.shortcuts.recorder.record" = "クリックして記録";
+"app.shortcuts.recorder.recording" = "記録中…（Esc で取消）";
