@@ -48,3 +48,4 @@
 "app.action.redo" = "Rétablir le dernier déplacement";
 "app.shortcuts.recorder.record" = "Cliquer pour enregistrer";
 "app.shortcuts.recorder.recording" = "Enregistrement… (Échap pour annuler)";
+"app.shortcuts.conflict" = "Raccourci indisponible — utilisé par le système ou une autre app";

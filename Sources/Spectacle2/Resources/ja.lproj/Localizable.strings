@@ -48,3 +48,4 @@
 "app.action.redo" = "直前の移動をやり直す";
 "app.shortcuts.recorder.record" = "クリックして記録";
 "app.shortcuts.recorder.recording" = "記録中…（Esc で取消）";
+"app.shortcuts.conflict" = "ショートカットを使用できません — システムまたは他のアプリが使用中";

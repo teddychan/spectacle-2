@@ -48,3 +48,4 @@
 "app.action.redo" = "Rehacer el último movimiento";
 "app.shortcuts.recorder.record" = "Haz clic para grabar";
 "app.shortcuts.recorder.recording" = "Grabando… (Esc para cancelar)";
+"app.shortcuts.conflict" = "Atajo no disponible: en uso por el sistema u otra app";

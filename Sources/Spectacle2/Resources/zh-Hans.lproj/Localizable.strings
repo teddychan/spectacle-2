@@ -48,3 +48,4 @@
 "app.action.redo" = "重做上一次移动";
 "app.shortcuts.recorder.record" = "点按以录制";
 "app.shortcuts.recorder.recording" = "录制中…（Esc 取消）";
+"app.shortcuts.conflict" = "快捷键不可用 — 已被系统或其他 App 占用";

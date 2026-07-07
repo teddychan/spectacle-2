@@ -48,3 +48,4 @@
 "app.action.redo" = "마지막 이동 다시 실행";
 "app.shortcuts.recorder.record" = "클릭하여 기록";
 "app.shortcuts.recorder.recording" = "기록 중… (Esc로 취소)";
+"app.shortcuts.conflict" = "단축키를 사용할 수 없음 — 시스템 또는 다른 앱이 사용 중";

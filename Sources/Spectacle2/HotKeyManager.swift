@@ -19,8 +19,13 @@ final class HotKeyManager: @unchecked Sendable {
         installHandler()
     }
 
-    func register(_ map: [WindowAction: Shortcut]) {
+    /// Registers a hot key per bound action. Returns the actions whose registration failed
+    /// (e.g. the key combo is already claimed by the system or another app), so the UI can
+    /// flag them as conflicts.
+    @discardableResult
+    func register(_ map: [WindowAction: Shortcut]) -> Set<WindowAction> {
         unregisterAll()
+        var failed: Set<WindowAction> = []
         var nextID: UInt32 = 1
         for action in WindowAction.allCases {
             defer { nextID += 1 }
@@ -29,8 +34,9 @@ final class HotKeyManager: @unchecked Sendable {
             var ref: EventHotKeyRef?
             let status = RegisterEventHotKey(UInt32(sc.keyCode), carbonMask(sc.modifiers),
                                              hotKeyID, GetEventDispatcherTarget(), 0, &ref)
-            if status == noErr { actionByID[nextID] = action; refs.append(ref) }
+            if status == noErr { actionByID[nextID] = action; refs.append(ref) } else { failed.insert(action) }
         }
+        return failed
     }
 
     func unregisterAll() {

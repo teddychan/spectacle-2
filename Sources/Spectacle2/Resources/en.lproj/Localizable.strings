@@ -48,3 +48,4 @@
 "app.action.redo" = "Redo Last Move";
 "app.shortcuts.recorder.record" = "Click to record";
 "app.shortcuts.recorder.recording" = "Recording… (Esc to cancel)";
+"app.shortcuts.conflict" = "Shortcut unavailable — in use by the system or another app";

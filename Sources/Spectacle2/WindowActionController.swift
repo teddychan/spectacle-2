@@ -10,15 +10,23 @@ final class WindowActionController {
     private let ax = AccessibilityElement()
     private var hotKeys: HotKeyManager?
 
-    func start(with map: [WindowAction: Shortcut]) {
+    /// Starts the engine, returning the actions whose global hot key could not be registered
+    /// (conflicts), so the UI can flag them.
+    @discardableResult
+    func start(with map: [WindowAction: Shortcut]) -> Set<WindowAction> {
         let hk = HotKeyManager { action in
             MainActor.assumeIsolated { [weak self] in self?.perform(action) }
         }
-        hk.register(map)
+        let failed = hk.register(map)
         hotKeys = hk
+        return failed
     }
 
-    func updateShortcuts(_ map: [WindowAction: Shortcut]) { hotKeys?.register(map) }
+    /// Re-registers after a rebind. Returns the actions that failed to register (conflicts).
+    @discardableResult
+    func updateShortcuts(_ map: [WindowAction: Shortcut]) -> Set<WindowAction> {
+        hotKeys?.register(map) ?? []
+    }
 
     func perform(_ action: WindowAction) {
         guard AXIsProcessTrusted() else { return }
