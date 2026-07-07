@@ -5,8 +5,8 @@ enum WhatsNewConfig {
     @MainActor
     static var content: WhatsNewContent {
         WhatsNewContent(
-            version: "v0.1.0",
-            date: "2026-07-06",
+            version: "v2.0.0",
+            date: "2026-07-07",
             summary: L("app.whatsNew.summary"),
             sections: [
                 ChangeSection(kind: .added, entries: [

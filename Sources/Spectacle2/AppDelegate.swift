@@ -123,19 +123,39 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         windowActions.start(with: shortcutStore.load())
     }
 
-    /// The menu-bar status-item image: the app icon (the Spectacle glasses + "2"), drawn small
-    /// and in colour. A monochrome template glyph would lose the icon's identity, so the app
-    /// icon is shown as-is at menu-bar size.
+    /// The menu-bar status-item image: a simple line-art of the Spectacle glasses, drawn as a
+    /// monochrome **template** so macOS tints it correctly for light/dark menu bars (the same
+    /// minimalist treatment ClipMenu uses). Vector-drawn so it stays crisp at any scale.
     private func menuBarIcon() -> NSImage {
-        let size = NSSize(width: 18, height: 18)
-        let image = NSImage(size: size)
-        if let source = NSImage(named: NSImage.applicationIconName) {
-            image.lockFocus()
-            source.draw(in: NSRect(origin: .zero, size: size),
-                        from: .zero, operation: .sourceOver, fraction: 1.0)
-            image.unlockFocus()
+        let side: CGFloat = 18
+        let image = NSImage(size: NSSize(width: side, height: side), flipped: false) { _ in
+            // Glasses bounding box, inset so the temple arms stay inside the canvas.
+            let g = NSRect(x: side * 0.14, y: side * 0.34, width: side * 0.72, height: side * 0.30)
+            func X(_ f: CGFloat) -> CGFloat { g.minX + g.width * f }
+            func Y(_ f: CGFloat) -> CGFloat { g.minY + g.height * f }
+            let lw = side * 0.085
+            NSColor.black.setStroke()
+            let lensW = g.width * 0.40, r = g.height * 0.34
+            for lx in [CGFloat(0.0), 0.60] {
+                let lens = NSBezierPath(roundedRect: NSRect(x: X(lx), y: g.minY, width: lensW, height: g.height),
+                                        xRadius: r, yRadius: r)
+                lens.lineWidth = lw; lens.lineJoinStyle = .round; lens.stroke()
+            }
+            let bridge = NSBezierPath()
+            bridge.move(to: NSPoint(x: X(0.40), y: Y(0.72)))
+            bridge.curve(to: NSPoint(x: X(0.60), y: Y(0.72)),
+                         controlPoint1: NSPoint(x: X(0.46), y: Y(1.02)),
+                         controlPoint2: NSPoint(x: X(0.54), y: Y(1.02)))
+            bridge.lineWidth = lw; bridge.lineCapStyle = .round; bridge.stroke()
+            for (sx, ex) in [(CGFloat(0.02), CGFloat(-0.12)), (0.98, 1.12)] {
+                let t = NSBezierPath()
+                t.move(to: NSPoint(x: X(sx), y: Y(0.74)))
+                t.line(to: NSPoint(x: X(ex), y: Y(0.98)))
+                t.lineWidth = lw; t.lineCapStyle = .round; t.stroke()
+            }
+            return true
         }
-        image.isTemplate = false
+        image.isTemplate = true
         return image
     }
 
