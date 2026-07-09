@@ -10,11 +10,8 @@
 "app.about.source" = "Code source";
 "app.about.builtWith" = "Conçu avec";
 "app.about.license" = "Licence";
-"app.whatsNew.summary" = "Des correctifs de fiabilité pour les autorisations, les écrans multiples et les fenêtres récalcitrantes, ainsi qu'un écran Raccourcis plus convivial.";
-"app.whatsNew.fixed1" = "Lorsque l'accès à l'Accessibilité est manquant, appuyer sur un raccourci propose désormais de l'autoriser, et le menu de la barre des menus affiche un avertissement — au lieu de ne rien faire silencieusement.";
-"app.whatsNew.fixed2" = "Les fenêtres sur les écrans secondaires se positionnent désormais correctement, quelle que soit la disposition des écrans.";
-"app.whatsNew.fixed3" = "Les fenêtres en plein écran et à taille fixe ne restent plus à moitié déplacées — Spectacle 2 repositionne ce qu'il peut et laisse le reste intact.";
-"app.whatsNew.fixed4" = "L'écran Raccourcis dispose d'un champ de recherche et signale désormais lorsque deux actions partagent le même raccourci.";
+"app.whatsNew.summary" = "Corrige l'enregistrement d'un raccourci déjà utilisé par une autre action.";
+"app.whatsNew.fixed1" = "Vous pouvez désormais attribuer un raccourci déjà utilisé par une autre action. Pendant l'enregistrement, le raccourci existant ne se déclenche plus et ne déplace plus votre fenêtre — la combinaison de touches est capturée et enregistrée comme vous le souhaitiez.";
 "app.uninstall.item.app" = "L'app et son élément d'ouverture";
 "app.uninstall.item.settings" = "Tous les réglages";
 "app.uninstall.item.state" = "État enregistré de l'application";

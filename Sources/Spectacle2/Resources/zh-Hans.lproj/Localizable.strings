@@ -10,11 +10,8 @@
 "app.about.source" = "源代码";
 "app.about.builtWith" = "构建技术";
 "app.about.license" = "许可证";
-"app.whatsNew.summary" = "针对权限、多显示器和顽固窗口的可靠性修复，以及更友好的快捷键界面。";
-"app.whatsNew.fixed1" = "当缺少辅助功能权限时，按下快捷键现在会提示授予权限，菜单栏菜单也会显示警告——而不再悄无声息地毫无反应。";
-"app.whatsNew.fixed2" = "副显示器上的窗口现在无论显示器如何排列都能正确定位。";
-"app.whatsNew.fixed3" = "全屏窗口和固定大小的窗口不再被移动到一半——Spectacle 2 会调整能调整的部分，其余保持不变。";
-"app.whatsNew.fixed4" = "快捷键界面新增了搜索栏，并会在两个操作使用相同快捷键时进行标记。";
+"app.whatsNew.summary" = "修复了录制已被其他操作占用的快捷键的问题。";
+"app.whatsNew.fixed1" = "现在你可以指定已被其他操作占用的快捷键。录制时，原有快捷键不再触发或移动窗口——按键组合会按你的意图被捕获并保存。";
 "app.uninstall.item.app" = "App 及其登录项";
 "app.uninstall.item.settings" = "所有设置";
 "app.uninstall.item.state" = "已保存的应用程序状态";

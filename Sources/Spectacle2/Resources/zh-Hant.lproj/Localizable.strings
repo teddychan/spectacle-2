@@ -10,11 +10,8 @@
 "app.about.source" = "原始碼";
 "app.about.builtWith" = "建置技術";
 "app.about.license" = "授權";
-"app.whatsNew.summary" = "修正權限、多顯示器與頑固視窗的穩定性問題，並讓快速鍵畫面更友善。";
-"app.whatsNew.fixed1" = "缺少輔助使用權限時，按下快速鍵現在會提示您授予權限，而選單列選單也會顯示警告——不再默默地毫無反應。";
-"app.whatsNew.fixed2" = "無論顯示器如何排列，次要顯示器上的視窗現在都能正確定位。";
-"app.whatsNew.fixed3" = "全螢幕與固定大小的視窗不再被移動到一半——Spectacle 2 會盡可能重新定位，其餘則保持不動。";
-"app.whatsNew.fixed4" = "快速鍵畫面新增了搜尋欄位，並會在兩個動作使用相同快速鍵時提出警示。";
+"app.whatsNew.summary" = "修正錄製已被其他動作使用的快速鍵時的問題。";
+"app.whatsNew.fixed1" = "您現在可以指定已被其他動作使用的快速鍵。錄製期間，既有的快速鍵不再觸發、也不會移動您的視窗——按鍵組合會依您的意圖擷取並儲存。";
 "app.uninstall.item.app" = "App 及其登入項目";
 "app.uninstall.item.settings" = "所有設定";
 "app.uninstall.item.state" = "已儲存的應用程式狀態";
