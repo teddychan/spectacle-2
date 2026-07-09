@@ -10,8 +10,11 @@
 "app.about.source" = "ソースコード";
 "app.about.builtWith" = "使用技術";
 "app.about.license" = "ライセンス";
-"app.whatsNew.summary" = "メニューバーのメニューを他の Dragon アプリと揃える小さなアップデートです。";
-"app.whatsNew.fixed1" = "メニューバーのメニューが独自の並び順ではなく、ClipMenu・Ice・KeyKey と同じになりました（情報、アップデートを確認…、設定…、そして新しいアンインストール項目）。";
+"app.whatsNew.summary" = "権限、複数ディスプレイ、扱いにくいウインドウの信頼性を改善し、ショートカット画面もより使いやすくしました。";
+"app.whatsNew.fixed1" = "アクセシビリティのアクセスがない場合、ショートカットを押すと許可を求めるようになり、メニューバーのメニューにも警告が表示されます — これまでのように何も起きないことはなくなりました。";
+"app.whatsNew.fixed2" = "副ディスプレイ上のウインドウが、ディスプレイの配置に関係なく正しく配置されるようになりました。";
+"app.whatsNew.fixed3" = "フルスクリーンやサイズ固定のウインドウが中途半端に移動されることはなくなりました — Spectacle 2 は動かせるものだけを配置し、それ以外はそのままにします。";
+"app.whatsNew.fixed4" = "ショートカット画面に検索フィールドが追加され、2つの操作が同じショートカットを使っている場合に知らせるようになりました。";
 "app.uninstall.item.app" = "アプリとログイン項目";
 "app.uninstall.item.settings" = "すべての設定";
 "app.uninstall.item.state" = "保存されたアプリケーションの状態";
@@ -45,5 +48,8 @@
 "app.shortcuts.recorder.record" = "クリックして記録";
 "app.shortcuts.recorder.recording" = "記録中…（Esc で取消）";
 "app.shortcuts.conflict" = "ショートカットを使用できません — システムまたは他のアプリが使用中";
+"app.shortcuts.duplicate" = "他の操作と同じショートカットです — どちらかを変更してください";
+"app.shortcuts.search" = "ショートカットを検索";
+"app.menu.accessibilityNeeded" = "アクセシビリティアクセスを有効にする…";
 "app.about.basedOn" = "ベース";
 "app.about.original" = "オリジナルの Spectacle";

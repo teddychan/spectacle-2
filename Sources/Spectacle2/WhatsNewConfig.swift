@@ -8,11 +8,14 @@ enum WhatsNewConfig {
             // Single source of truth: the bundle's marketing version (no "v", no build number),
             // so What's New always matches the shipped release without a second edit.
             version: Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "0.1.0",
-            date: "2026-07-08",
+            date: "2026-07-09",
             summary: L("app.whatsNew.summary"),
             sections: [
                 ChangeSection(kind: .fixed, entries: [
                     L("app.whatsNew.fixed1"),
+                    L("app.whatsNew.fixed2"),
+                    L("app.whatsNew.fixed3"),
+                    L("app.whatsNew.fixed4"),
                 ]),
             ]
         )
