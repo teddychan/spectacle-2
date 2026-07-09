@@ -10,8 +10,11 @@
 "app.about.source" = "原始碼";
 "app.about.builtWith" = "建置技術";
 "app.about.license" = "授權";
-"app.whatsNew.summary" = "一個小更新，讓選單列選單與其他 Dragon App 保持一致。";
-"app.whatsNew.fixed1" = "選單列選單現在與 ClipMenu、Ice 和 KeyKey 一致——包含「關於」「檢查更新…」「設定…」以及新的「解除安裝」項目——而不再使用自己的順序。";
+"app.whatsNew.summary" = "修正權限、多顯示器與頑固視窗的穩定性問題，並讓快速鍵畫面更友善。";
+"app.whatsNew.fixed1" = "缺少輔助使用權限時，按下快速鍵現在會提示您授予權限，而選單列選單也會顯示警告——不再默默地毫無反應。";
+"app.whatsNew.fixed2" = "無論顯示器如何排列，次要顯示器上的視窗現在都能正確定位。";
+"app.whatsNew.fixed3" = "全螢幕與固定大小的視窗不再被移動到一半——Spectacle 2 會盡可能重新定位，其餘則保持不動。";
+"app.whatsNew.fixed4" = "快速鍵畫面新增了搜尋欄位，並會在兩個動作使用相同快速鍵時提出警示。";
 "app.uninstall.item.app" = "App 及其登入項目";
 "app.uninstall.item.settings" = "所有設定";
 "app.uninstall.item.state" = "已儲存的應用程式狀態";
@@ -45,5 +48,8 @@
 "app.shortcuts.recorder.record" = "點按以錄製";
 "app.shortcuts.recorder.recording" = "錄製中…（Esc 取消）";
 "app.shortcuts.conflict" = "快捷鍵無法使用 — 已被系統或其他 App 佔用";
+"app.shortcuts.duplicate" = "與其他動作使用相同的快速鍵 — 請重新設定其中一個";
+"app.shortcuts.search" = "搜尋快速鍵";
+"app.menu.accessibilityNeeded" = "啟用輔助使用權限…";
 "app.about.basedOn" = "基於";
 "app.about.original" = "原版 Spectacle";

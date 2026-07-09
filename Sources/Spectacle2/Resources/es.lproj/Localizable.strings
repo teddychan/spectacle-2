@@ -10,8 +10,11 @@
 "app.about.source" = "Código fuente";
 "app.about.builtWith" = "Creado con";
 "app.about.license" = "Licencia";
-"app.whatsNew.summary" = "Una pequeña actualización que alinea el menú de la barra de menús con las demás apps de Dragon.";
-"app.whatsNew.fixed1" = "El menú de la barra de menús ahora coincide con ClipMenu, Ice y KeyKey —Acerca de, Buscar actualizaciones…, Ajustes… y un nuevo elemento Desinstalar— en lugar de su propio orden.";
+"app.whatsNew.summary" = "Correcciones de fiabilidad para los permisos, varias pantallas y ventanas rebeldes, además de una pantalla de Atajos más amigable.";
+"app.whatsNew.fixed1" = "Cuando falta el acceso de Accesibilidad, al pulsar un atajo ahora se solicita concederlo y el menú de la barra de menús muestra una advertencia, en lugar de no hacer nada en silencio.";
+"app.whatsNew.fixed2" = "Las ventanas en pantallas secundarias ahora se colocan correctamente sin importar la disposición de las pantallas.";
+"app.whatsNew.fixed3" = "Las ventanas en pantalla completa y de tamaño fijo ya no quedan a medio mover: Spectacle 2 reposiciona lo que puede y deja el resto intacto.";
+"app.whatsNew.fixed4" = "La pantalla de Atajos tiene un campo de búsqueda y ahora avisa cuando dos acciones comparten el mismo atajo.";
 "app.uninstall.item.app" = "La app y su elemento de inicio";
 "app.uninstall.item.settings" = "Todos los ajustes";
 "app.uninstall.item.state" = "Estado guardado de la aplicación";
@@ -45,5 +48,8 @@
 "app.shortcuts.recorder.record" = "Haz clic para grabar";
 "app.shortcuts.recorder.recording" = "Grabando… (Esc para cancelar)";
 "app.shortcuts.conflict" = "Atajo no disponible: en uso por el sistema u otra app";
+"app.shortcuts.duplicate" = "Mismo atajo que otra acción: vuelve a asignar uno de ellos";
+"app.shortcuts.search" = "Buscar atajos";
+"app.menu.accessibilityNeeded" = "Activar el acceso de Accesibilidad…";
 "app.about.basedOn" = "Basado en";
 "app.about.original" = "Spectacle original";

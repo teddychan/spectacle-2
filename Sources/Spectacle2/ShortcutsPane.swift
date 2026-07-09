@@ -19,6 +19,7 @@ private struct ShortcutsPaneView: View {
     let onChange: (ShortcutStore.Map) -> Set<WindowAction>
     @State private var map: ShortcutStore.Map = [:]
     @State private var conflicts: Set<WindowAction> = []
+    @State private var search = ""
 
     // Sidebar grouping mirrors Spectacle's preferences layout.
     private let groups: [(String, [WindowAction])] = [
@@ -30,12 +31,28 @@ private struct ShortcutsPaneView: View {
         ("app.shortcuts.section.history", [.undo, .redo]),
     ]
 
+    // Actions bound to a combo that another action is already using. Flagged independently of
+    // the system-conflict set: Carbon only reports which registration lost the race (order-
+    // dependent), so we detect the collision ourselves and flag *both* rows.
+    private var duplicates: Set<WindowAction> {
+        var byShortcut: [Shortcut: [WindowAction]] = [:]
+        for (action, shortcut) in map { byShortcut[shortcut, default: []].append(action) }
+        return Set(byShortcut.values.filter { $0.count > 1 }.joined())
+    }
+
     var body: some View {
         DragonForm {
+            DragonSection {
+                TextField(L("app.shortcuts.search"), text: $search)
+                    .textFieldStyle(.roundedBorder)
+            }
             ForEach(groups, id: \.0) { section in
-                DragonSection(LocalizedStringKey(L(section.0))) {
-                    ForEach(section.1, id: \.self) { action in
-                        row(for: action)
+                let visible = section.1.filter(matchesSearch)
+                if !visible.isEmpty {
+                    DragonSection(LocalizedStringKey(L(section.0))) {
+                        ForEach(visible, id: \.self) { action in
+                            row(for: action)
+                        }
                     }
                 }
             }
@@ -50,6 +67,10 @@ private struct ShortcutsPaneView: View {
             map = store.load()
             conflicts = onChange(map)
         }
+    }
+
+    private func matchesSearch(_ action: WindowAction) -> Bool {
+        search.isEmpty || L("app.action.\(action.rawValue)").localizedCaseInsensitiveContains(search)
     }
 
     @ViewBuilder
@@ -69,7 +90,11 @@ private struct ShortcutsPaneView: View {
             )
             .frame(width: 200)
         }
-        if conflicts.contains(action) {
+        // Duplicate binding takes precedence: it's actionable by the user (rebind one), whereas a
+        // system conflict is not.
+        if duplicates.contains(action) {
+            content.dragonAnnotation(LocalizedStringKey(L("app.shortcuts.duplicate")))
+        } else if conflicts.contains(action) {
             content.dragonAnnotation(LocalizedStringKey(L("app.shortcuts.conflict")))
         } else {
             content

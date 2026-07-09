@@ -29,18 +29,38 @@ final class AccessibilityElement {
     }
 
     func setFrame(_ cocoaRect: CGRect, of window: AXUIElement) {
+        // A window we can't reposition (native full-screen, some modal/utility windows) is left
+        // alone rather than half-moved. Position is the anchor for every action, so if it isn't
+        // settable there's nothing safe to do.
+        guard isSettable(window, kAXPositionAttribute) else { return }
         let h = primaryHeight()
         var axOrigin = CGPoint(x: cocoaRect.origin.x, y: h - cocoaRect.origin.y - cocoaRect.height)
         var size = cocoaRect.size
-        // Set position, then size, then position again — some apps clamp size against the old
+        setPoint(window, kAXPositionAttribute, &axOrigin)
+        // Only resize windows that allow it — fixed-size / fixed-aspect windows reject the write,
+        // so skipping it keeps the move to a clean reposition instead of a fought, clamped resize.
+        // Set position, then size, then position again: some apps clamp size against the old
         // position on the first pass; the second position write lands them correctly.
-        setPoint(window, kAXPositionAttribute, &axOrigin)
-        setSize(window, kAXSizeAttribute, &size)
-        setPoint(window, kAXPositionAttribute, &axOrigin)
+        if isSettable(window, kAXSizeAttribute) {
+            setSize(window, kAXSizeAttribute, &size)
+            setPoint(window, kAXPositionAttribute, &axOrigin)
+        }
     }
 
     // MARK: - AX value plumbing
-    private func primaryHeight() -> CGFloat { NSScreen.screens.first?.frame.height ?? 0 }
+
+    /// The AX global coordinate space is anchored at the top-left of the *primary* screen — the
+    /// one at origin (0,0) carrying the menu bar. That's conventionally `screens.first`, but pick
+    /// it by origin so a reordered `screens` array on a multi-display setup can't skew the flip.
+    private func primaryHeight() -> CGFloat {
+        let screens = NSScreen.screens
+        return (screens.first { $0.frame.origin == .zero } ?? screens.first)?.frame.height ?? 0
+    }
+
+    private func isSettable(_ el: AXUIElement, _ attr: String) -> Bool {
+        var settable = DarwinBoolean(false)
+        return AXUIElementIsAttributeSettable(el, attr as CFString, &settable) == .success && settable.boolValue
+    }
 
     private func point(_ el: AXUIElement, _ attr: String) -> CGPoint? {
         var value: CFTypeRef?

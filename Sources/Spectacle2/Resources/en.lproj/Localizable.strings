@@ -10,8 +10,11 @@
 "app.about.source" = "Source";
 "app.about.builtWith" = "Built with";
 "app.about.license" = "License";
-"app.whatsNew.summary" = "A small update that lines the menu-bar menu up with the other Dragon apps.";
-"app.whatsNew.fixed1" = "The menu-bar menu now matches ClipMenu, Ice and KeyKey — About, Check for Updates…, Settings…, plus a new Uninstall item — instead of its own order.";
+"app.whatsNew.summary" = "Reliability fixes for permissions, multiple displays and stubborn windows, plus a friendlier Shortcuts screen.";
+"app.whatsNew.fixed1" = "When Accessibility access is missing, pressing a shortcut now prompts to grant it, and the menu-bar menu shows a warning — instead of doing nothing silently.";
+"app.whatsNew.fixed2" = "Windows on secondary displays now land correctly regardless of display arrangement.";
+"app.whatsNew.fixed3" = "Full-screen and fixed-size windows are no longer left half-moved — Spectacle 2 repositions what it can and leaves the rest untouched.";
+"app.whatsNew.fixed4" = "The Shortcuts screen has a search field and now flags when two actions share the same shortcut.";
 "app.uninstall.item.app" = "The app and its login item";
 "app.uninstall.item.settings" = "All settings";
 "app.uninstall.item.state" = "Saved application state";
@@ -45,5 +48,8 @@
 "app.shortcuts.recorder.record" = "Click to record";
 "app.shortcuts.recorder.recording" = "Recording… (Esc to cancel)";
 "app.shortcuts.conflict" = "Shortcut unavailable — in use by the system or another app";
+"app.shortcuts.duplicate" = "Same shortcut as another action — rebind one of them";
+"app.shortcuts.search" = "Search shortcuts";
+"app.menu.accessibilityNeeded" = "Enable Accessibility Access…";
 "app.about.basedOn" = "Based on";
 "app.about.original" = "Original Spectacle";

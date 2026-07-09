@@ -29,7 +29,10 @@ final class WindowActionController {
     }
 
     func perform(_ action: WindowAction) {
-        guard AXIsProcessTrusted() else { return }
+        // Without Accessibility permission every action is a silent no-op. Trigger the system
+        // prompt so the first hot-key press explains why nothing happened and offers to open
+        // System Settings; macOS shows it once and suppresses it thereafter until granted.
+        guard ensureTrusted() else { return }
         guard let window = ax.focusedWindow(), let current = ax.frame(of: window) else { return }
         let id = WindowID(element: window)
         let source = ScreenProvider.sourceVisibleFrame(for: current)
@@ -41,6 +44,20 @@ final class WindowActionController {
         let outcome = WindowActionResolver.resolve(
             action: action, windowID: id, currentFrame: current,
             sourceVisibleFrame: source, destinationVisibleFrame: dest, history: &history)
-        if case .move(let newRect) = outcome { ax.setFrame(newRect, of: window) }
+        // Skip the AX write when the frame wouldn't change (e.g. Fullscreen/Center pressed twice,
+        // or a bounded resize already at its limit): the round-trip is pure overhead. History
+        // semantics are untouched — the resolver has already recorded per its parity rules.
+        if case .move(let newRect) = outcome, newRect != current { ax.setFrame(newRect, of: window) }
+    }
+
+    /// Whether Accessibility permission is granted; when it isn't, asks macOS to show its
+    /// "grant access" prompt (a no-op if one is already pending or the user dismissed it).
+    private func ensureTrusted() -> Bool {
+        if AXIsProcessTrusted() { return true }
+        // Literal key value of `kAXTrustedCheckOptionPrompt` — referencing the imported global
+        // `var` directly isn't concurrency-safe under Swift 6.
+        let options = ["AXTrustedCheckOptionPrompt": true] as CFDictionary
+        _ = AXIsProcessTrustedWithOptions(options)
+        return false
     }
 }
