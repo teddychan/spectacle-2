@@ -9,11 +9,14 @@ final class WindowActionController {
     private var history = WindowHistory()
     private let ax = AccessibilityElement()
     private var hotKeys: HotKeyManager?
+    /// The active shortcut map, kept so hot keys can be restored after a recording session.
+    private var currentMap: [WindowAction: Shortcut] = [:]
 
     /// Starts the engine, returning the actions whose global hot key could not be registered
     /// (conflicts), so the UI can flag them.
     @discardableResult
     func start(with map: [WindowAction: Shortcut]) -> Set<WindowAction> {
+        currentMap = map
         let hk = HotKeyManager { action in
             MainActor.assumeIsolated { [weak self] in self?.perform(action) }
         }
@@ -25,7 +28,20 @@ final class WindowActionController {
     /// Re-registers after a rebind. Returns the actions that failed to register (conflicts).
     @discardableResult
     func updateShortcuts(_ map: [WindowAction: Shortcut]) -> Set<WindowAction> {
-        hotKeys?.register(map) ?? []
+        currentMap = map
+        return hotKeys?.register(map) ?? []
+    }
+
+    /// Suspends global hot keys while a shortcut is being recorded, so pressing a combo that is
+    /// already bound lands in the recorder instead of triggering that action; restores the active
+    /// map when recording ends. Must be balanced — every `true` is followed by a `false` (the
+    /// recorder guarantees this even if its window closes mid-recording).
+    func setRecording(_ recording: Bool) {
+        if recording {
+            hotKeys?.unregisterAll()
+        } else {
+            _ = hotKeys?.register(currentMap)
+        }
     }
 
     func perform(_ action: WindowAction) {

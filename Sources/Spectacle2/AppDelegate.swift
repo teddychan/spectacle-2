@@ -110,6 +110,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             name: .spectacleShowInMenuBarChanged,
             object: nil
         )
+        // Suspend global hot keys while a shortcut recorder is capturing (see setRecording).
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(shortcutRecordingChanged(_:)),
+            name: .spectacleShortcutRecordingChanged,
+            object: nil
+        )
         // Menu titles switch language live because the delegate rebuilds the menu on every open.
 
         // Never trap the user: if the icon is hidden at launch, open Settings so they can
@@ -197,6 +204,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     @objc private func showInMenuBarChanged(_ note: Notification) {
         statusItem?.isVisible = (note.object as? Bool) ?? true
+    }
+
+    @objc private func shortcutRecordingChanged(_ note: Notification) {
+        windowActions.setRecording((note.object as? Bool) ?? false)
     }
 
     private func relaunch() {

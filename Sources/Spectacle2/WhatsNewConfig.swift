@@ -13,9 +13,6 @@ enum WhatsNewConfig {
             sections: [
                 ChangeSection(kind: .fixed, entries: [
                     L("app.whatsNew.fixed1"),
-                    L("app.whatsNew.fixed2"),
-                    L("app.whatsNew.fixed3"),
-                    L("app.whatsNew.fixed4"),
                 ]),
             ]
         )

@@ -10,11 +10,8 @@
 "app.about.source" = "소스 코드";
 "app.about.builtWith" = "제작 기반";
 "app.about.license" = "라이선스";
-"app.whatsNew.summary" = "권한, 다중 디스플레이, 말썽 부리는 창에 대한 안정성 개선과 더 친숙해진 단축키 화면을 담았습니다.";
-"app.whatsNew.fixed1" = "손쉬운 사용 접근 권한이 없을 때 단축키를 누르면 이제 아무 반응 없이 넘어가는 대신 권한을 부여하도록 안내하고, 메뉴 막대 메뉴에 경고가 표시됩니다.";
-"app.whatsNew.fixed2" = "보조 디스플레이의 창이 이제 디스플레이 배치와 관계없이 올바른 위치에 배치됩니다.";
-"app.whatsNew.fixed3" = "전체 화면 및 크기가 고정된 창이 더 이상 이동하다 마는 일이 없습니다 — Spectacle 2가 가능한 부분만 다시 배치하고 나머지는 그대로 둡니다.";
-"app.whatsNew.fixed4" = "단축키 화면에 검색 필드가 추가되었고, 두 동작이 같은 단축키를 사용할 때 이를 표시합니다.";
+"app.whatsNew.summary" = "다른 동작이 이미 사용 중인 단축키를 기록하는 문제를 수정했습니다.";
+"app.whatsNew.fixed1" = "이제 다른 동작이 이미 사용 중인 단축키를 지정할 수 있습니다. 기록하는 동안 기존 단축키가 더 이상 실행되어 창을 이동시키지 않으며, 의도한 대로 키 조합이 그대로 기록되어 저장됩니다.";
 "app.uninstall.item.app" = "앱과 로그인 항목";
 "app.uninstall.item.settings" = "모든 설정";
 "app.uninstall.item.state" = "저장된 응용 프로그램 상태";

@@ -20,7 +20,19 @@ struct ShortcutRecorderField: NSViewRepresentable {
     final class RecorderButton: NSButton {
         var shortcut: Shortcut? { didSet { title = display } }
         var onCapture: ((Shortcut?) -> Void)?
-        private var recording = false { didSet { title = display } }
+        // Toggling this posts `.spectacleShortcutRecordingChanged` so global hot keys are
+        // suspended while capturing (otherwise an already-bound combo fires its action instead of
+        // being recorded), and observes the window so recording can't outlive the window it's in
+        // — which would leave the hot keys suspended forever.
+        private var recording = false {
+            didSet {
+                guard recording != oldValue else { return }
+                title = display
+                NotificationCenter.default.post(name: .spectacleShortcutRecordingChanged, object: recording)
+                if recording { observeWindowResignKey() } else { stopObservingWindowResignKey() }
+            }
+        }
+        private weak var observedWindow: NSWindow?
 
         override init(frame: NSRect) {
             super.init(frame: frame)
@@ -30,6 +42,7 @@ struct ShortcutRecorderField: NSViewRepresentable {
             title = display
         }
         required init?(coder: NSCoder) { fatalError() }
+        deinit { NotificationCenter.default.removeObserver(self) }
 
         private var display: String {
             recording ? L("app.shortcuts.recorder.recording")
@@ -38,6 +51,25 @@ struct ShortcutRecorderField: NSViewRepresentable {
 
         @objc private func toggle() { recording.toggle(); if recording { window?.makeFirstResponder(self) } }
         override var acceptsFirstResponder: Bool { true }
+
+        // End recording (restoring hot keys) whenever focus or the window's key status is lost —
+        // e.g. the user clicks another field, switches apps, or closes Settings mid-recording.
+        override func resignFirstResponder() -> Bool { recording = false; return super.resignFirstResponder() }
+        @objc private func windowResignedKey() { recording = false }
+
+        private func observeWindowResignKey() {
+            observedWindow = window
+            guard let win = observedWindow else { return }
+            NotificationCenter.default.addObserver(
+                self, selector: #selector(windowResignedKey),
+                name: NSWindow.didResignKeyNotification, object: win)
+        }
+        private func stopObservingWindowResignKey() {
+            if let win = observedWindow {
+                NotificationCenter.default.removeObserver(self, name: NSWindow.didResignKeyNotification, object: win)
+            }
+            observedWindow = nil
+        }
 
         override func keyDown(with event: NSEvent) {
             guard recording else { super.keyDown(with: event); return }
