@@ -123,8 +123,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             (CGFloat(model.gapSize), model.skipGapTopEdge)
         }
 
-        // Start the window-action engine with the persisted (or default) shortcut map.
-        windowActions.start(with: shortcutStore.load())
+        // Register the 18 global hot keys after the first runloop tick so 18 synchronous Carbon
+        // RegisterEventHotKey calls don't block applicationDidFinishLaunching returning. A hot key
+        // pressed in the first few ms simply won't fire yet — acceptable.
+        let map = shortcutStore.load()
+        DispatchQueue.main.async { [windowActions] in
+            windowActions.start(with: map)
+        }
     }
 
     /// The menu-bar status-item image: a simple line-art of the Spectacle glasses, drawn as a
