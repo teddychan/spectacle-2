@@ -20,7 +20,7 @@ final class DragSnapController {
     private var moving = false
     private var currentTarget: SnapTarget?
     private var lastBottomColumn: SnapGeometry.ThirdColumn?
-    private var restoreRect: CGRect?          // captured pre-snap size, for unsnap-restore
+    private var restoreRects: [WindowID: CGRect] = [:]   // pre-snap sizes, persisted across drags for unsnap-restore
 
     init(controller: WindowActionController, gapProvider: @escaping @MainActor () -> WindowGap) {
         self.controller = controller
@@ -60,7 +60,7 @@ final class DragSnapController {
         let p = NSEvent.mouseLocation
         guard let hit = controller.windowUnderCursor(atCocoaPoint: p) else { resetDrag(); return }
         window = hit.window; windowID = hit.id; initialFrame = hit.frame
-        moving = false; currentTarget = nil; lastBottomColumn = nil; restoreRect = nil
+        moving = false; currentTarget = nil; lastBottomColumn = nil
     }
 
     private func continueDrag() {
@@ -88,11 +88,21 @@ final class DragSnapController {
     private func endDrag() {
         defer { resetDrag() }
         overlay.hide()
-        guard moving, let window, let windowID, let target = currentTarget,
+        guard moving, let window, let windowID,
               let live = controller.frame(of: window),
               let screen = screenFrame(containing: NSEvent.mouseLocation) else { return }
+        // Prefer the tracked zone; otherwise re-check under the cursor (fast-drag fallback).
+        let target: SnapTarget
+        if let t = currentTarget {
+            target = t
+        } else if let zone = SnapGeometry.zone(for: NSEvent.mouseLocation, in: screen) {
+            target = mapZoneToTarget(zone, cursor: NSEvent.mouseLocation, screen: screen)
+        } else {
+            return
+        }
         let vf = visibleFrame(forScreenFrame: screen)
         let rect = SnapGeometry.rect(target, visibleFrame: vf, gap: gapProvider())
+        if restoreRects[windowID] == nil { restoreRects[windowID] = live }   // remember pre-snap size
         controller.apply(rect, to: window, id: windowID, currentFrame: live, record: true)
     }
 
@@ -128,18 +138,13 @@ final class DragSnapController {
     // MARK: - Unsnap-restore
 
     private func unsnapRestoreIfNeeded(window: AXUIElement, id: WindowID, live: CGRect) {
-        // If we have a stored pre-snap size, restore it mid-drag and keep the window under the
-        // cursor. (We store the restore rect on the first move of any drag we don't restore.)
-        if let restore = restoreRect {
-            var r = restore
-            let cursor = NSEvent.mouseLocation
-            r.origin.x = min(max(cursor.x - r.width / 2, live.minX), live.maxX - r.width)
-            r.origin.y = live.maxY - r.height
-            controller.apply(r, to: window, id: id, currentFrame: live, record: false)
-            restoreRect = nil
-        } else {
-            restoreRect = live
-        }
+        guard let restore = restoreRects[id] else { return }
+        var r = restore
+        let cursor = NSEvent.mouseLocation
+        r.origin.x = min(max(cursor.x - r.width / 2, live.minX), live.maxX - r.width)
+        r.origin.y = live.maxY - r.height
+        controller.apply(r, to: window, id: id, currentFrame: live, record: false)
+        restoreRects[id] = nil
     }
 
     // MARK: - Screen helpers
