@@ -36,4 +36,50 @@ public enum SnapGeometry {
         }
         return WindowGap.inset(plain, half: half, skipTop: gap.skipTopEdge)
     }
+
+    public enum SnapZone: Equatable, Sendable {
+        case top, bottom, left, right, topLeft, topRight, bottomLeft, bottomRight
+    }
+    public enum ThirdColumn: Equatable, Sendable { case first, center, last }
+
+    /// Rectangle default zone geometry (points).
+    public static let edgeMargin: CGFloat = 5
+    public static let cornerSize: CGFloat = 20        // → 25pt corner band with the 5pt margin
+    public static let shortEdgeSize: CGFloat = 145
+
+    /// The zone the cursor is in for a screen (Cocoa coords), or nil if in the interior.
+    /// Corners take priority over edges.
+    public static func zone(for c: CGPoint, in s: CGRect) -> SnapZone? {
+        guard s.contains(c) else { return nil }
+        let band = edgeMargin + cornerSize                    // 25
+        let nearLeft = c.x < s.minX + band
+        let nearRight = c.x > s.maxX - band
+        let nearTop = c.y > s.maxY - band                     // Cocoa: top = maxY
+        let nearBottom = c.y < s.minY + band
+        if nearLeft && nearTop { return .topLeft }
+        if nearRight && nearTop { return .topRight }
+        if nearLeft && nearBottom { return .bottomLeft }
+        if nearRight && nearBottom { return .bottomRight }
+        if c.x < s.minX + edgeMargin { return .left }
+        if c.x > s.maxX - edgeMargin { return .right }
+        if c.y > s.maxY - edgeMargin { return .top }
+        if c.y < s.minY + edgeMargin { return .bottom }
+        return nil
+    }
+
+    /// On a left/right edge: within `shortEdgeSize` of the top → top half, of the bottom → bottom
+    /// half, else nil (→ plain side half). Cocoa coords.
+    public static func sideEdgeHalf(cursorY y: CGFloat, in s: CGRect) -> SnapTarget? {
+        if y >= s.maxY - shortEdgeSize { return .topHalf }
+        if y <= s.minY + shortEdgeSize { return .bottomHalf }
+        return nil
+    }
+
+    /// Which horizontal third the cursor's x falls in.
+    public static func bottomEdgeThird(cursorX x: CGFloat, in s: CGRect) -> ThirdColumn {
+        let third = s.width / 3
+        if x <= s.minX + third { return .first }
+        if x >= s.maxX - third { return .last }
+        return .center
+    }
 }

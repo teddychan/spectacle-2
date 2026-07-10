@@ -41,3 +41,39 @@ private let vf = CGRect(x: 0, y: 0, width: 1440, height: 900)
     let snapped = SnapGeometry.rect(.leftHalf, visibleFrame: vf, gap: WindowGap(size: 10))
     #expect(snapped == CGRect(x: 10, y: 10, width: 705, height: 880))
 }
+
+private let screen = CGRect(x: 0, y: 0, width: 1440, height: 900)   // Cocoa: minY bottom, maxY top
+
+@Test func zoneNilInInterior() {
+    #expect(SnapGeometry.zone(for: CGPoint(x: 700, y: 450), in: screen) == nil)
+}
+@Test func zoneTopEdge() {
+    // near maxY (top), away from corners → .top
+    #expect(SnapGeometry.zone(for: CGPoint(x: 700, y: 898), in: screen) == .top)
+}
+@Test func zoneBottomEdge() {
+    #expect(SnapGeometry.zone(for: CGPoint(x: 700, y: 2), in: screen) == .bottom)
+}
+@Test func zoneLeftEdge() {
+    #expect(SnapGeometry.zone(for: CGPoint(x: 2, y: 450), in: screen) == .left)
+}
+@Test func zoneCornerTopLeftWins() {
+    // within 25pt of both the left and the top → corner, not edge
+    #expect(SnapGeometry.zone(for: CGPoint(x: 3, y: 890), in: screen) == .topLeft)
+}
+@Test func zoneCornerBottomRight() {
+    #expect(SnapGeometry.zone(for: CGPoint(x: 1438, y: 3), in: screen) == .bottomRight)
+}
+
+@Test func sideHalfNearTopCorner() {
+    // On the left edge within 145pt of the top → top half; middle → nil (plain left half)
+    #expect(SnapGeometry.sideEdgeHalf(cursorY: 850, in: screen) == .topHalf)
+    #expect(SnapGeometry.sideEdgeHalf(cursorY: 50, in: screen) == .bottomHalf)
+    #expect(SnapGeometry.sideEdgeHalf(cursorY: 450, in: screen) == nil)
+}
+
+@Test func bottomEdgeThirdByCursorX() {
+    #expect(SnapGeometry.bottomEdgeThird(cursorX: 100, in: screen) == .first)
+    #expect(SnapGeometry.bottomEdgeThird(cursorX: 720, in: screen) == .center)
+    #expect(SnapGeometry.bottomEdgeThird(cursorX: 1400, in: screen) == .last)
+}
