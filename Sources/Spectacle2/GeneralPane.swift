@@ -24,6 +24,17 @@ private struct GeneralPaneView: View {
                 Toggle(L("app.general.showInMenuBar"), isOn: $model.showInMenuBar)
                     .dragonAnnotation(LocalizedStringKey(L("app.general.showInMenuBarHint")))
             }
+            DragonSection(LocalizedStringKey(L("app.general.gaps"))) {
+                Stepper(value: $model.gapSize, in: 0...100, step: 2) {
+                    Text("\(L("app.general.gapSize")): \(Int(model.gapSize)) pt")
+                }
+                .dragonAnnotation(LocalizedStringKey(L("app.general.gapSizeHint")))
+                Toggle(L("app.general.skipTopGap"), isOn: $model.skipGapTopEdge)
+            }
+            DragonSection(LocalizedStringKey(L("app.general.snapping"))) {
+                Toggle(L("app.general.dragSnap"), isOn: $model.dragSnapEnabled)
+                    .dragonAnnotation(LocalizedStringKey(L("app.general.dragSnapHint")))
+            }
             // The shared language picker — every DragonKit app drops this in to get the
             // full 7-language switcher (live, no restart).
             DragonSection(LocalizedStringKey(L("app.general.languageSection"))) {

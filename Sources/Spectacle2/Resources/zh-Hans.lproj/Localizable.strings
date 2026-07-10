@@ -47,3 +47,10 @@
 "app.shortcuts.conflict" = "快捷键不可用 — 已被系统或其他 App 占用";
 "app.about.basedOn" = "基于";
 "app.about.original" = "原版 Spectacle";
+"app.general.gaps" = "窗口间距";
+"app.general.gapSize" = "间距大小";
+"app.general.gapSizeHint" = "平铺窗口周围及彼此之间的间距（点）。设为 0 可关闭。";
+"app.general.skipTopGap" = "顶部边缘不留间距";
+"app.general.snapping" = "吸附";
+"app.general.dragSnap" = "拖到屏幕边缘时吸附窗口";
+"app.general.dragSnapHint" = "将窗口拖到屏幕边缘或角落即可将其吸附到位。";

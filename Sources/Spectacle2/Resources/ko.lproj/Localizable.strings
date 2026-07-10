@@ -47,3 +47,10 @@
 "app.shortcuts.conflict" = "단축키를 사용할 수 없음 — 시스템 또는 다른 앱이 사용 중";
 "app.about.basedOn" = "원작";
 "app.about.original" = "원본 Spectacle";
+"app.general.gaps" = "창 간격";
+"app.general.gapSize" = "간격 크기";
+"app.general.gapSizeHint" = "타일 배치된 창 주위와 창 사이의 간격(포인트)입니다. 0으로 설정하면 비활성화됩니다.";
+"app.general.skipTopGap" = "위쪽 가장자리는 간격 제외";
+"app.general.snapping" = "스냅";
+"app.general.dragSnap" = "화면 가장자리로 끌 때 창 스냅";
+"app.general.dragSnapHint" = "창을 화면 가장자리나 모서리로 끌면 제자리에 스냅됩니다.";

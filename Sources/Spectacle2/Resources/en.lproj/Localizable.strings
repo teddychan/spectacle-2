@@ -47,3 +47,10 @@
 "app.shortcuts.conflict" = "Shortcut unavailable — in use by the system or another app";
 "app.about.basedOn" = "Based on";
 "app.about.original" = "Original Spectacle";
+"app.general.gaps" = "Window Gaps";
+"app.general.gapSize" = "Gap size";
+"app.general.gapSizeHint" = "Spacing in points around and between tiled windows. Set to 0 to disable.";
+"app.general.skipTopGap" = "Skip gap at the top edge";
+"app.general.snapping" = "Snapping";
+"app.general.dragSnap" = "Snap windows dragged to screen edges";
+"app.general.dragSnapHint" = "Drag a window to a screen edge or corner to snap it into place.";

@@ -47,3 +47,10 @@
 "app.shortcuts.conflict" = "ショートカットを使用できません — システムまたは他のアプリが使用中";
 "app.about.basedOn" = "ベース";
 "app.about.original" = "オリジナルの Spectacle";
+"app.general.gaps" = "ウインドウの間隔";
+"app.general.gapSize" = "間隔のサイズ";
+"app.general.gapSizeHint" = "タイル表示したウインドウの周囲と相互の間隔（ポイント）。0 で無効になります。";
+"app.general.skipTopGap" = "上端では間隔を空けない";
+"app.general.snapping" = "スナップ";
+"app.general.dragSnap" = "画面端へのドラッグでウインドウをスナップ";
+"app.general.dragSnapHint" = "ウインドウを画面の端や隅にドラッグすると所定の位置にスナップします。";
