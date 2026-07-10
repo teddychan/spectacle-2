@@ -21,3 +21,50 @@ private let vf = CGRect(x: 0, y: 0, width: 1440, height: 900)
     #expect(r == CGRect(x: 5, y: 5, width: 1430, height: 895))
     #expect(r.maxY == vf.maxY)
 }
+
+private func calcGap(_ a: WindowAction, _ win: CGRect, gap: CGFloat, skipTop: Bool = false) -> CGRect? {
+    WindowCalculator.calculate(a, CalculationInput(
+        windowRect: win, sourceVisibleFrame: vf, destinationVisibleFrame: vf,
+        gap: gap, skipGapTopEdge: skipTop))
+}
+
+@Test func gapZeroMatchesUngapped() {
+    // Regression guard: gap 0 reproduces the classic left-half exactly.
+    #expect(calcGap(.leftHalf, CGRect(x: 200, y: 100, width: 400, height: 300), gap: 0)
+            == CGRect(x: 0, y: 0, width: 720, height: 900))
+}
+
+@Test func gapLeftHalfHasOuterAndInnerGap() {
+    // gap 10 → half=5. Working frame = vf inset 5 = (5,5,1430,890); left half width floor(1430/2)=715
+    // at x=5; then inset 5 → (10,10,705,880). Right edge = 715, i.e. 5 short of vf.midX (720).
+    let left = calcGap(.leftHalf, CGRect(x: 0, y: 0, width: 100, height: 100), gap: 10)
+    #expect(left == CGRect(x: 10, y: 10, width: 705, height: 880))
+    // Right half mirrors: left edge 10pt past the midline → 10pt gap between the two halves.
+    let right = calcGap(.rightHalf, CGRect(x: 0, y: 0, width: 100, height: 100), gap: 10)
+    #expect(right?.minX == 725)          // 715 (working right-half x) + 10 (working inset) ... see note
+}
+
+@Test func gapFullscreenLeavesUniformMargin() {
+    #expect(calcGap(.fullscreen, .zero, gap: 20) == CGRect(x: 10, y: 10, width: 1420, height: 880))
+}
+
+@Test func gapDoesNotAffectCenter() {
+    // Center preserves size and centers within the TRUE visible frame regardless of gap.
+    let win = CGRect(x: 0, y: 0, width: 400, height: 300)
+    #expect(calcGap(.center, win, gap: 40) == WindowCalculator.calculate(.center,
+        CalculationInput(windowRect: win, sourceVisibleFrame: vf, destinationVisibleFrame: vf)))
+}
+
+@Test func gapCyclingStillAdvances() {
+    // A gapped left-half, pressed again, must still advance to the (gapped) two-thirds.
+    let half = calcGap(.leftHalf, CGRect(x: 0, y: 0, width: 100, height: 100), gap: 10)!
+    let twoThird = calcGap(.leftHalf, half, gap: 10)!
+    #expect(twoThird.width > half.width)   // advanced, not stuck
+}
+
+@Test func gapSkipTopEdgeOnFullscreen() {
+    // skipTop → no gap at maxY; other three edges still gapped by 20.
+    let r = calcGap(.fullscreen, .zero, gap: 20, skipTop: true)!
+    #expect(r.maxY == vf.maxY)
+    #expect(r.minX == 10 && r.minY == 10 && r.maxX == 1430)
+}
