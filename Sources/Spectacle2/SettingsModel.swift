@@ -8,12 +8,35 @@ import DragonKit
 struct AppSettings: Codable, Sendable, Equatable {
     var launchAtLogin = false
     var showInMenuBar = true
+    var gapSize: Double = 0
+    var skipGapTopEdge = false
+    var dragSnapEnabled = true
+
+    init() {}
+
+    // Tolerant decoder: old payloads (only launchAtLogin/showInMenuBar) must decode cleanly, with
+    // the new fields taking their defaults. Synthesized Decodable would throw on the missing keys
+    // and reset everything (DragonSettingsStore.load falls back to defaultValue on any error).
+    enum CodingKeys: String, CodingKey {
+        case launchAtLogin, showInMenuBar, gapSize, skipGapTopEdge, dragSnapEnabled
+    }
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        launchAtLogin = try c.decodeIfPresent(Bool.self, forKey: .launchAtLogin) ?? false
+        showInMenuBar = try c.decodeIfPresent(Bool.self, forKey: .showInMenuBar) ?? true
+        gapSize = try c.decodeIfPresent(Double.self, forKey: .gapSize) ?? 0
+        skipGapTopEdge = try c.decodeIfPresent(Bool.self, forKey: .skipGapTopEdge) ?? false
+        dragSnapEnabled = try c.decodeIfPresent(Bool.self, forKey: .dragSnapEnabled) ?? true
+    }
 }
 
 extension Notification.Name {
     /// Posted (with a `Bool` object) when "Show in menu bar" changes, so the AppDelegate can
     /// show/hide the status item.
     static let spectacleShowInMenuBarChanged = Notification.Name("spectacleShowInMenuBarChanged")
+    /// Posted when the drag-snap enabled flag changes, so the AppDelegate can start/stop the
+    /// DragSnapController.
+    static let spectacleDragSnapEnabledChanged = Notification.Name("spectacleDragSnapEnabledChanged")
 }
 
 /// Observable bridge between the settings UI and persistence. Each setter persists via the
@@ -51,6 +74,24 @@ final class SettingsModel {
         set {
             settings.showInMenuBar = newValue
             NotificationCenter.default.post(name: .spectacleShowInMenuBarChanged, object: newValue)
+        }
+    }
+
+    var gapSize: Double {
+        get { settings.gapSize }
+        set { settings.gapSize = max(0, min(newValue, 100)) }   // sane clamp; recomputed per action
+    }
+
+    var skipGapTopEdge: Bool {
+        get { settings.skipGapTopEdge }
+        set { settings.skipGapTopEdge = newValue }
+    }
+
+    var dragSnapEnabled: Bool {
+        get { settings.dragSnapEnabled }
+        set {
+            settings.dragSnapEnabled = newValue
+            NotificationCenter.default.post(name: .spectacleDragSnapEnabledChanged, object: newValue)
         }
     }
 }
