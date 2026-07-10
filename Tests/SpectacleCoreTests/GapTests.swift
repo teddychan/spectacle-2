@@ -45,7 +45,9 @@ private func calcGap(_ a: WindowAction, _ win: CGRect, gap: CGFloat, skipTop: Bo
 }
 
 @Test func gapFullscreenLeavesUniformMargin() {
-    #expect(calcGap(.fullscreen, .zero, gap: 20) == CGRect(x: 10, y: 10, width: 1420, height: 880))
+    // gap 20 → full-G (20pt) margin on every edge, so a maximized window sits the same 20pt off
+    // the screen as a half-window's outer edge. vf inset by half twice = 10+10 = 20 all round.
+    #expect(calcGap(.fullscreen, .zero, gap: 20) == CGRect(x: 20, y: 20, width: 1400, height: 860))
 }
 
 @Test func gapDoesNotAffectCenter() {
@@ -66,5 +68,5 @@ private func calcGap(_ a: WindowAction, _ win: CGRect, gap: CGFloat, skipTop: Bo
     // skipTop → no gap at maxY; other three edges still gapped by 20.
     let r = calcGap(.fullscreen, .zero, gap: 20, skipTop: true)!
     #expect(r.maxY == vf.maxY)
-    #expect(r.minX == 10 && r.minY == 10 && r.maxX == 1430)
+    #expect(r.minX == 20 && r.minY == 20 && r.maxX == 1420)
 }

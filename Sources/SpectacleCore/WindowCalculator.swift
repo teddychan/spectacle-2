@@ -44,7 +44,7 @@ public enum WindowCalculator {
         case .lowerLeft:  return g(lowerLeft(win, frame))
         case .lowerRight: return g(lowerRight(win, frame))
         case .center:     return center(win, vf)            // size-preserving → ungapped
-        case .fullscreen: return frame                      // vf inset by half-gap only: fullscreen has no compartment sub-rect to shrink again
+        case .fullscreen: return g(frame)                   // == vf inset by full gap
         case .makeLarger:  return WindowSizeAdjuster.resize(win, vf, offset: 30)
         case .makeSmaller: return WindowSizeAdjuster.resize(win, vf, offset: -30)
         case .nextThird:     return g(third(win, frame, step: +1))
