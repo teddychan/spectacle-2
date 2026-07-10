@@ -10,8 +10,8 @@
 "app.about.source" = "原始碼";
 "app.about.builtWith" = "建置技術";
 "app.about.license" = "授權";
-"app.whatsNew.summary" = "一個小更新，讓選單列選單與其他 Dragon App 保持一致。";
-"app.whatsNew.fixed1" = "選單列選單現在與 ClipMenu、Ice 和 KeyKey 一致——包含「關於」「檢查更新…」「設定…」以及新的「解除安裝」項目——而不再使用自己的順序。";
+"app.whatsNew.summary" = "修正錄製已被其他動作使用的快速鍵時的問題。";
+"app.whatsNew.fixed1" = "您現在可以指定已被其他動作使用的快速鍵。錄製期間，既有的快速鍵不再觸發、也不會移動您的視窗——按鍵組合會依您的意圖擷取並儲存。";
 "app.uninstall.item.app" = "App 及其登入項目";
 "app.uninstall.item.settings" = "所有設定";
 "app.uninstall.item.state" = "已儲存的應用程式狀態";
@@ -45,6 +45,9 @@
 "app.shortcuts.recorder.record" = "點按以錄製";
 "app.shortcuts.recorder.recording" = "錄製中…（Esc 取消）";
 "app.shortcuts.conflict" = "快捷鍵無法使用 — 已被系統或其他 App 佔用";
+"app.shortcuts.duplicate" = "與其他動作使用相同的快速鍵 — 請重新設定其中一個";
+"app.shortcuts.search" = "搜尋快速鍵";
+"app.menu.accessibilityNeeded" = "啟用輔助使用權限…";
 "app.about.basedOn" = "基於";
 "app.about.original" = "原版 Spectacle";
 "app.general.gaps" = "視窗間距";

@@ -10,8 +10,8 @@
 "app.about.source" = "Código fuente";
 "app.about.builtWith" = "Creado con";
 "app.about.license" = "Licencia";
-"app.whatsNew.summary" = "Una pequeña actualización que alinea el menú de la barra de menús con las demás apps de Dragon.";
-"app.whatsNew.fixed1" = "El menú de la barra de menús ahora coincide con ClipMenu, Ice y KeyKey —Acerca de, Buscar actualizaciones…, Ajustes… y un nuevo elemento Desinstalar— en lugar de su propio orden.";
+"app.whatsNew.summary" = "Corrige la grabación de un atajo que ya usa otra acción.";
+"app.whatsNew.fixed1" = "Ahora puedes asignar un atajo que ya usa otra acción. Durante la grabación, el atajo existente ya no se activa ni mueve tu ventana: se captura la combinación de teclas y se guarda tal como querías.";
 "app.uninstall.item.app" = "La app y su elemento de inicio";
 "app.uninstall.item.settings" = "Todos los ajustes";
 "app.uninstall.item.state" = "Estado guardado de la aplicación";
@@ -45,6 +45,9 @@
 "app.shortcuts.recorder.record" = "Haz clic para grabar";
 "app.shortcuts.recorder.recording" = "Grabando… (Esc para cancelar)";
 "app.shortcuts.conflict" = "Atajo no disponible: en uso por el sistema u otra app";
+"app.shortcuts.duplicate" = "Mismo atajo que otra acción: vuelve a asignar uno de ellos";
+"app.shortcuts.search" = "Buscar atajos";
+"app.menu.accessibilityNeeded" = "Activar el acceso de Accesibilidad…";
 "app.about.basedOn" = "Basado en";
 "app.about.original" = "Spectacle original";
 "app.general.gaps" = "Espaciado de ventanas";

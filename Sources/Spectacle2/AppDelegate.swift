@@ -1,4 +1,5 @@
 import AppKit
+import ApplicationServices
 import SwiftUI
 import DragonKit
 import DragonKitUpdates
@@ -97,7 +98,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         item.autosaveName = "Spectacle2StatusItem-\(bundleID)"
         item.button?.image = menuBarIcon()
 
-        item.menu = buildMenu()
+        // A delegate-owned menu so it can be rebuilt on every open — that keeps its titles in the
+        // current language and lets the Accessibility warning appear/disappear as permission changes.
+        let menu = NSMenu()
+        menu.delegate = self
+        item.menu = menu
         item.isVisible = model.showInMenuBar
         self.statusItem = item
 
@@ -107,16 +112,17 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             name: .spectacleShowInMenuBarChanged,
             object: nil
         )
-        // Rebuild the menu when the language changes so its titles switch live.
+        // Suspend global hot keys while a shortcut recorder is capturing (see setRecording).
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(languageChanged),
-            name: .dragonLanguageChanged,
+            selector: #selector(shortcutRecordingChanged(_:)),
+            name: .spectacleShortcutRecordingChanged,
             object: nil
         )
         NotificationCenter.default.addObserver(
             self, selector: #selector(dragSnapEnabledChanged(_:)),
             name: .spectacleDragSnapEnabledChanged, object: nil)
+        // Menu titles switch language live because the delegate rebuilds the menu on every open.
 
         // Never trap the user: if the icon is hidden at launch, open Settings so they can
         // toggle it back on.
@@ -191,11 +197,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         ))
     }
 
-    @objc private func languageChanged() {
-        statusItem?.menu = buildMenu()
+    @objc private func openSettings() {
+        settingsController.show()
     }
 
-    @objc private func openSettings() {
+    @objc private func openPermissions() {
+        selection.paneID = "permissions"
         settingsController.show()
     }
 
@@ -224,12 +231,37 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         if enabled { dragSnap?.start() } else { dragSnap?.stop() }
     }
 
+    @objc private func shortcutRecordingChanged(_ note: Notification) {
+        windowActions.setRecording((note.object as? Bool) ?? false)
+    }
+
     private func relaunch() {
         let url = Bundle.main.bundleURL
         let configuration = NSWorkspace.OpenConfiguration()
         configuration.createsNewApplicationInstance = true
         NSWorkspace.shared.openApplication(at: url, configuration: configuration) { _, _ in
             DispatchQueue.main.async { NSApp.terminate(nil) }
+        }
+    }
+}
+
+extension AppDelegate: NSMenuDelegate {
+    /// Rebuilds the status-item menu just before it opens: fresh (current-language) items from
+    /// the canonical `DragonAppMenu`, topped with an Accessibility-access warning whenever the
+    /// permission is missing — so a user whose hot keys do nothing has a visible way to fix it.
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        menu.removeAllItems()
+        if !AXIsProcessTrusted() {
+            let warn = NSMenuItem(title: L("app.menu.accessibilityNeeded"),
+                                  action: #selector(openPermissions), keyEquivalent: "")
+            warn.target = self
+            menu.addItem(warn)
+            menu.addItem(.separator())
+        }
+        let base = buildMenu()
+        for item in base.items {
+            base.removeItem(item)
+            menu.addItem(item)
         }
     }
 }

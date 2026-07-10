@@ -37,6 +37,11 @@ extension Notification.Name {
     /// Posted when the drag-snap enabled flag changes, so the AppDelegate can start/stop the
     /// DragSnapController.
     static let spectacleDragSnapEnabledChanged = Notification.Name("spectacleDragSnapEnabledChanged")
+
+    /// Posted (with a `Bool` object) while a shortcut recorder is capturing. The AppDelegate
+    /// suspends the global hot keys during recording so pressing an already-bound combo lands in
+    /// the recorder instead of firing that action, then restores them when recording ends.
+    static let spectacleShortcutRecordingChanged = Notification.Name("spectacleShortcutRecordingChanged")
 }
 
 /// Observable bridge between the settings UI and persistence. Each setter persists via the

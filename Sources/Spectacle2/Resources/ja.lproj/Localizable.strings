@@ -10,8 +10,8 @@
 "app.about.source" = "ソースコード";
 "app.about.builtWith" = "使用技術";
 "app.about.license" = "ライセンス";
-"app.whatsNew.summary" = "メニューバーのメニューを他の Dragon アプリと揃える小さなアップデートです。";
-"app.whatsNew.fixed1" = "メニューバーのメニューが独自の並び順ではなく、ClipMenu・Ice・KeyKey と同じになりました（情報、アップデートを確認…、設定…、そして新しいアンインストール項目）。";
+"app.whatsNew.summary" = "他の操作ですでに使われているショートカットを記録する際の不具合を修正しました。";
+"app.whatsNew.fixed1" = "他の操作がすでに使っているショートカットを割り当てられるようになりました。記録中は既存のショートカットが発動してウインドウを動かすことがなくなり、意図したとおりにキーの組み合わせが取り込まれ保存されます。";
 "app.uninstall.item.app" = "アプリとログイン項目";
 "app.uninstall.item.settings" = "すべての設定";
 "app.uninstall.item.state" = "保存されたアプリケーションの状態";
@@ -45,6 +45,9 @@
 "app.shortcuts.recorder.record" = "クリックして記録";
 "app.shortcuts.recorder.recording" = "記録中…（Esc で取消）";
 "app.shortcuts.conflict" = "ショートカットを使用できません — システムまたは他のアプリが使用中";
+"app.shortcuts.duplicate" = "他の操作と同じショートカットです — どちらかを変更してください";
+"app.shortcuts.search" = "ショートカットを検索";
+"app.menu.accessibilityNeeded" = "アクセシビリティアクセスを有効にする…";
 "app.about.basedOn" = "ベース";
 "app.about.original" = "オリジナルの Spectacle";
 "app.general.gaps" = "ウインドウの間隔";

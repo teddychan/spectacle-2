@@ -10,8 +10,8 @@
 "app.about.source" = "Source";
 "app.about.builtWith" = "Built with";
 "app.about.license" = "License";
-"app.whatsNew.summary" = "A small update that lines the menu-bar menu up with the other Dragon apps.";
-"app.whatsNew.fixed1" = "The menu-bar menu now matches ClipMenu, Ice and KeyKey — About, Check for Updates…, Settings…, plus a new Uninstall item — instead of its own order.";
+"app.whatsNew.summary" = "Fixes recording a shortcut that's already used by another action.";
+"app.whatsNew.fixed1" = "You can now assign a shortcut that another action already uses. While recording, the existing shortcut no longer fires and moves your window — the key combo is captured and saved as you intended.";
 "app.uninstall.item.app" = "The app and its login item";
 "app.uninstall.item.settings" = "All settings";
 "app.uninstall.item.state" = "Saved application state";
@@ -45,6 +45,9 @@
 "app.shortcuts.recorder.record" = "Click to record";
 "app.shortcuts.recorder.recording" = "Recording… (Esc to cancel)";
 "app.shortcuts.conflict" = "Shortcut unavailable — in use by the system or another app";
+"app.shortcuts.duplicate" = "Same shortcut as another action — rebind one of them";
+"app.shortcuts.search" = "Search shortcuts";
+"app.menu.accessibilityNeeded" = "Enable Accessibility Access…";
 "app.about.basedOn" = "Based on";
 "app.about.original" = "Original Spectacle";
 "app.general.gaps" = "Window Gaps";

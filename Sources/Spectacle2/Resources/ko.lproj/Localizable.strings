@@ -10,8 +10,8 @@
 "app.about.source" = "소스 코드";
 "app.about.builtWith" = "제작 기반";
 "app.about.license" = "라이선스";
-"app.whatsNew.summary" = "메뉴 막대 메뉴를 다른 Dragon 앱과 맞추는 작은 업데이트입니다.";
-"app.whatsNew.fixed1" = "메뉴 막대 메뉴가 고유한 순서 대신 ClipMenu, Ice, KeyKey와 동일해졌습니다(정보, 업데이트 확인…, 설정…, 그리고 새로운 제거 항목).";
+"app.whatsNew.summary" = "다른 동작이 이미 사용 중인 단축키를 기록하는 문제를 수정했습니다.";
+"app.whatsNew.fixed1" = "이제 다른 동작이 이미 사용 중인 단축키를 지정할 수 있습니다. 기록하는 동안 기존 단축키가 더 이상 실행되어 창을 이동시키지 않으며, 의도한 대로 키 조합이 그대로 기록되어 저장됩니다.";
 "app.uninstall.item.app" = "앱과 로그인 항목";
 "app.uninstall.item.settings" = "모든 설정";
 "app.uninstall.item.state" = "저장된 응용 프로그램 상태";
@@ -45,6 +45,9 @@
 "app.shortcuts.recorder.record" = "클릭하여 기록";
 "app.shortcuts.recorder.recording" = "기록 중… (Esc로 취소)";
 "app.shortcuts.conflict" = "단축키를 사용할 수 없음 — 시스템 또는 다른 앱이 사용 중";
+"app.shortcuts.duplicate" = "다른 동작과 같은 단축키 — 하나를 다시 지정하세요";
+"app.shortcuts.search" = "단축키 검색";
+"app.menu.accessibilityNeeded" = "손쉬운 사용 접근 권한 켜기…";
 "app.about.basedOn" = "원작";
 "app.about.original" = "원본 Spectacle";
 "app.general.gaps" = "창 간격";
