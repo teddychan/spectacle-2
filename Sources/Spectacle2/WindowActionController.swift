@@ -49,4 +49,22 @@ final class WindowActionController {
             gap: gapSize, skipGapTopEdge: skipTop, history: &history)
         if case .move(let newRect) = outcome { ax.setFrame(newRect, of: window) }
     }
+
+    /// The window under a Cocoa point and its current Cocoa frame — for drag-snap acquisition.
+    func windowUnderCursor(atCocoaPoint p: CGPoint) -> (window: AXUIElement, id: WindowID, frame: CGRect)? {
+        guard AXIsProcessTrusted(), let w = ax.windowUnderCursor(atCocoaPoint: p),
+              let f = ax.frame(of: w) else { return nil }
+        return (w, WindowID(element: w), f)
+    }
+
+    /// Current Cocoa frame of a known window.
+    func frame(of window: AXUIElement) -> CGRect? { ax.frame(of: window) }
+
+    /// Apply a frame from outside the hot-key path (drag-snap). `record: true` pushes the pre-move
+    /// frame so ⌘Z undoes the snap; `record: false` (unsnap-restore) does not touch history.
+    func apply(_ newRect: CGRect, to window: AXUIElement, id: WindowID, currentFrame: CGRect, record: Bool) {
+        guard AXIsProcessTrusted() else { return }
+        if record { history.record(currentFrame, for: id) }
+        ax.setFrame(newRect, of: window)
+    }
 }
