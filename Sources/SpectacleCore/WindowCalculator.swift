@@ -5,10 +5,20 @@ public struct CalculationInput: Equatable, Sendable {
     public var windowRect: CGRect
     public var sourceVisibleFrame: CGRect
     public var destinationVisibleFrame: CGRect
-    public init(windowRect: CGRect, sourceVisibleFrame: CGRect, destinationVisibleFrame: CGRect) {
+    /// Total gap (points) applied around and between tiled windows. 0 = no gaps (default).
+    public var gap: CGFloat
+    /// When true, no gap is applied at the top edge of the screen.
+    public var skipGapTopEdge: Bool
+    public init(windowRect: CGRect,
+                sourceVisibleFrame: CGRect,
+                destinationVisibleFrame: CGRect,
+                gap: CGFloat = 0,
+                skipGapTopEdge: Bool = false) {
         self.windowRect = windowRect
         self.sourceVisibleFrame = sourceVisibleFrame
         self.destinationVisibleFrame = destinationVisibleFrame
+        self.gap = gap
+        self.skipGapTopEdge = skipGapTopEdge
     }
 }
 
@@ -17,24 +27,30 @@ public struct CalculationInput: Equatable, Sendable {
 public enum WindowCalculator {
     public static func calculate(_ action: WindowAction, _ input: CalculationInput) -> CGRect? {
         let win = input.windowRect
-        let frame = input.destinationVisibleFrame
+        let vf = input.destinationVisibleFrame
+        let half = input.gap / 2
+        let skip = input.skipGapTopEdge
+        // Working frame: the visible frame shrunk by half the gap (top optional).
+        let frame = WindowGap.inset(vf, half: half, skipTop: skip)
+        // Gap-applicable results are shrunk by the other half; size-preserving actions are not.
+        func g(_ r: CGRect) -> CGRect { WindowGap.inset(r, half: half, skipTop: skip) }
         switch action {
-        case .leftHalf:   return leftHalf(win, frame)
-        case .rightHalf:  return rightHalf(win, frame)
-        case .topHalf:    return topHalf(win, frame)
-        case .bottomHalf: return bottomHalf(win, frame)
-        case .upperLeft:  return upperLeft(win, frame)
-        case .upperRight: return upperRight(win, frame)
-        case .lowerLeft:  return lowerLeft(win, frame)
-        case .lowerRight: return lowerRight(win, frame)
-        case .center:     return center(win, frame)
-        case .fullscreen: return frame
-        case .makeLarger: return WindowSizeAdjuster.resize(win, frame, offset: 30)
-        case .makeSmaller: return WindowSizeAdjuster.resize(win, frame, offset: -30)
-        case .nextThird:     return third(win, frame, step: +1)
-        case .previousThird: return third(win, frame, step: -1)
+        case .leftHalf:   return g(leftHalf(win, frame))
+        case .rightHalf:  return g(rightHalf(win, frame))
+        case .topHalf:    return g(topHalf(win, frame))
+        case .bottomHalf: return g(bottomHalf(win, frame))
+        case .upperLeft:  return g(upperLeft(win, frame))
+        case .upperRight: return g(upperRight(win, frame))
+        case .lowerLeft:  return g(lowerLeft(win, frame))
+        case .lowerRight: return g(lowerRight(win, frame))
+        case .center:     return center(win, vf)            // size-preserving → ungapped
+        case .fullscreen: return g(frame)                   // == vf inset by full gap
+        case .makeLarger:  return WindowSizeAdjuster.resize(win, vf, offset: 30)
+        case .makeSmaller: return WindowSizeAdjuster.resize(win, vf, offset: -30)
+        case .nextThird:     return g(third(win, frame, step: +1))
+        case .previousThird: return g(third(win, frame, step: -1))
         case .nextDisplay, .previousDisplay:
-            return SpectacleGeometry.rectFitsWithin(win: win, screen: frame) ? center(win, frame) : frame
+            return SpectacleGeometry.rectFitsWithin(win: win, screen: vf) ? center(win, vf) : g(frame)
         case .undo, .redo: return nil
         }
     }

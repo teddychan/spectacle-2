@@ -50,3 +50,10 @@
 "app.menu.accessibilityNeeded" = "Activar el acceso de Accesibilidad…";
 "app.about.basedOn" = "Basado en";
 "app.about.original" = "Spectacle original";
+"app.general.gaps" = "Espaciado de ventanas";
+"app.general.gapSize" = "Tamaño del espacio";
+"app.general.gapSizeHint" = "Espacio en puntos alrededor y entre las ventanas en mosaico. Ponlo a 0 para desactivarlo.";
+"app.general.skipTopGap" = "Omitir el espacio en el borde superior";
+"app.general.snapping" = "Ajuste";
+"app.general.dragSnap" = "Ajustar ventanas al arrastrarlas a los bordes de la pantalla";
+"app.general.dragSnapHint" = "Arrastra una ventana a un borde o esquina de la pantalla para ajustarla en su sitio.";

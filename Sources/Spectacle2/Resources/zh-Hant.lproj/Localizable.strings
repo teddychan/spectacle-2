@@ -50,3 +50,10 @@
 "app.menu.accessibilityNeeded" = "啟用輔助使用權限…";
 "app.about.basedOn" = "基於";
 "app.about.original" = "原版 Spectacle";
+"app.general.gaps" = "視窗間距";
+"app.general.gapSize" = "間距大小";
+"app.general.gapSizeHint" = "平鋪視窗周圍及彼此之間的間距（點）。設為 0 可關閉。";
+"app.general.skipTopGap" = "頂部邊緣不留間距";
+"app.general.snapping" = "吸附";
+"app.general.dragSnap" = "拖到螢幕邊緣時吸附視窗";
+"app.general.dragSnapHint" = "將視窗拖到螢幕邊緣或角落即可將其吸附到位。";

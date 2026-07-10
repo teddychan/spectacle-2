@@ -50,3 +50,10 @@
 "app.menu.accessibilityNeeded" = "Activer l'accès à l'Accessibilité…";
 "app.about.basedOn" = "Basé sur";
 "app.about.original" = "Spectacle d’origine";
+"app.general.gaps" = "Espacement des fenêtres";
+"app.general.gapSize" = "Taille de l’espace";
+"app.general.gapSizeHint" = "Espace en points autour et entre les fenêtres en mosaïque. Réglez sur 0 pour désactiver.";
+"app.general.skipTopGap" = "Ignorer l’espace sur le bord supérieur";
+"app.general.snapping" = "Ancrage";
+"app.general.dragSnap" = "Ancrer les fenêtres glissées vers les bords de l’écran";
+"app.general.dragSnapHint" = "Faites glisser une fenêtre vers un bord ou un coin de l’écran pour l’ancrer en place.";

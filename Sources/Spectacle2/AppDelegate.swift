@@ -3,6 +3,7 @@ import ApplicationServices
 import SwiftUI
 import DragonKit
 import DragonKitUpdates
+import SpectacleCore
 
 @MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate {
@@ -17,6 +18,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var statusItem: NSStatusItem?
     private let shortcutStore = ShortcutStore(suiteName: SettingsModel.suiteName)
     private let windowActions = WindowActionController()
+    private var dragSnap: DragSnapController?
 
     // Host-owned selection: the AppDelegate can set the pane before showing the window (so
     // the menu-bar "About" item lands on the About pane), which is why this uses
@@ -117,6 +119,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             name: .spectacleShortcutRecordingChanged,
             object: nil
         )
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(dragSnapEnabledChanged(_:)),
+            name: .spectacleDragSnapEnabledChanged, object: nil)
         // Menu titles switch language live because the delegate rebuilds the menu on every open.
 
         // Never trap the user: if the icon is hidden at launch, open Settings so they can
@@ -125,8 +130,23 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             settingsController.show()
         }
 
-        // Start the window-action engine with the persisted (or default) shortcut map.
-        windowActions.start(with: shortcutStore.load())
+        windowActions.gapProvider = { [model] in
+            (CGFloat(model.gapSize), model.skipGapTopEdge)
+        }
+
+        // Register the 18 global hot keys after the first runloop tick so 18 synchronous Carbon
+        // RegisterEventHotKey calls don't block applicationDidFinishLaunching returning. A hot key
+        // pressed in the first few ms simply won't fire yet — acceptable.
+        let map = shortcutStore.load()
+        DispatchQueue.main.async { [windowActions, model] in
+            windowActions.start(with: map)
+            let snap = DragSnapController(
+                controller: windowActions,
+                gapProvider: { [model] in WindowGap(size: CGFloat(model.gapSize), skipTopEdge: model.skipGapTopEdge) }
+            )
+            if model.dragSnapEnabled { snap.start() }
+            self.dragSnap = snap
+        }
     }
 
     /// The menu-bar status-item image: a simple line-art of the Spectacle glasses, drawn as a
@@ -204,6 +224,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     @objc private func showInMenuBarChanged(_ note: Notification) {
         statusItem?.isVisible = (note.object as? Bool) ?? true
+    }
+
+    @objc private func dragSnapEnabledChanged(_ note: Notification) {
+        let enabled = (note.object as? Bool) ?? true
+        if enabled { dragSnap?.start() } else { dragSnap?.stop() }
     }
 
     @objc private func shortcutRecordingChanged(_ note: Notification) {

@@ -47,6 +47,32 @@ final class AccessibilityElement {
         }
     }
 
+    /// The window element under a Cocoa (bottom-left, global) point, or nil. Uses the system-wide
+    /// element and walks up to the enclosing window. Converts to AX's top-left global space first.
+    func windowUnderCursor(atCocoaPoint p: CGPoint) -> AXUIElement? {
+        guard !NSScreen.screens.isEmpty else { return nil }
+        let axY = primaryHeight() - p.y                       // Cocoa bottom-left → AX top-left
+        var hit: AXUIElement?
+        let sys = AXUIElementCreateSystemWide()
+        guard AXUIElementCopyElementAtPosition(sys, Float(p.x), Float(axY), &hit) == .success,
+              var el = hit else { return nil }
+        // Walk parents until we reach a window-role element (max a few hops).
+        for _ in 0..<12 {
+            if role(of: el) == (kAXWindowRole as String) { return el }
+            var parent: CFTypeRef?
+            guard AXUIElementCopyAttributeValue(el, kAXParentAttribute as CFString, &parent) == .success,
+                  let p = parent else { return nil }
+            el = (p as! AXUIElement)
+        }
+        return nil
+    }
+
+    private func role(of el: AXUIElement) -> String? {
+        var value: CFTypeRef?
+        guard AXUIElementCopyAttributeValue(el, kAXRoleAttribute as CFString, &value) == .success else { return nil }
+        return value as? String
+    }
+
     // MARK: - AX value plumbing
 
     /// The AX global coordinate space is anchored at the top-left of the *primary* screen — the

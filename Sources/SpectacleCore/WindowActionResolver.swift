@@ -28,6 +28,8 @@ public enum WindowActionResolver {
         currentFrame: CGRect,
         sourceVisibleFrame: CGRect,
         destinationVisibleFrame: CGRect,
+        gap: CGFloat = 0,
+        skipGapTopEdge: Bool = false,
         history: inout WindowHistory
     ) -> WindowActionOutcome {
         switch action {
@@ -39,10 +41,12 @@ public enum WindowActionResolver {
             let input = CalculationInput(
                 windowRect: currentFrame,
                 sourceVisibleFrame: sourceVisibleFrame,
-                destinationVisibleFrame: destinationVisibleFrame
+                destinationVisibleFrame: destinationVisibleFrame,
+                gap: gap,
+                skipGapTopEdge: skipGapTopEdge
             )
             guard let newRect = WindowCalculator.calculate(action, input) else { return .noop }
-            history.record(currentFrame, for: windowID)   // pre-move frame; geometry moves only
+            history.record(currentFrame, for: windowID)
             return .move(newRect)
         }
     }
