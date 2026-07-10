@@ -119,6 +119,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             settingsController.show()
         }
 
+        windowActions.gapProvider = { [model] in
+            (CGFloat(model.gapSize), model.skipGapTopEdge)
+        }
+
         // Start the window-action engine with the persisted (or default) shortcut map.
         windowActions.start(with: shortcutStore.load())
     }
