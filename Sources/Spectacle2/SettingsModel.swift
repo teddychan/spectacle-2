@@ -57,8 +57,10 @@ final class SettingsModel {
         let store = DragonSettingsStore(suiteName: Self.suiteName, defaultValue: AppSettings())
         self.store = store
         self.settings = store.load()
-        // Reconcile the OS login-item state with the persisted preference on launch.
-        LoginItem.setEnabled(settings.launchAtLogin)
+        // Reconcile the OS login-item state off the launch critical path (SMAppService is a
+        // synchronous ServiceManagement call). The persisted preference is unchanged.
+        let enabled = settings.launchAtLogin
+        DispatchQueue.main.async { LoginItem.setEnabled(enabled) }
     }
 
     var launchAtLogin: Bool {
