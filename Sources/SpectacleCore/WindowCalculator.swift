@@ -5,10 +5,20 @@ public struct CalculationInput: Equatable, Sendable {
     public var windowRect: CGRect
     public var sourceVisibleFrame: CGRect
     public var destinationVisibleFrame: CGRect
-    public init(windowRect: CGRect, sourceVisibleFrame: CGRect, destinationVisibleFrame: CGRect) {
+    /// Total gap (points) applied around and between tiled windows. 0 = no gaps (default).
+    public var gap: CGFloat
+    /// When true, no gap is applied at the top edge of the screen.
+    public var skipGapTopEdge: Bool
+    public init(windowRect: CGRect,
+                sourceVisibleFrame: CGRect,
+                destinationVisibleFrame: CGRect,
+                gap: CGFloat = 0,
+                skipGapTopEdge: Bool = false) {
         self.windowRect = windowRect
         self.sourceVisibleFrame = sourceVisibleFrame
         self.destinationVisibleFrame = destinationVisibleFrame
+        self.gap = gap
+        self.skipGapTopEdge = skipGapTopEdge
     }
 }
 
