@@ -10,8 +10,10 @@
 "app.about.source" = "原始碼";
 "app.about.builtWith" = "建置技術";
 "app.about.license" = "授權";
-"app.whatsNew.summary" = "修正錄製已被其他動作使用的快速鍵時的問題。";
-"app.whatsNew.fixed1" = "您現在可以指定已被其他動作使用的快速鍵。錄製期間，既有的快速鍵不再觸發、也不會移動您的視窗——按鍵組合會依您的意圖擷取並儲存。";
+"app.whatsNew.summary" = "將視窗拖到螢幕邊緣即可就定位——還可調整視窗之間的間距。";
+"app.whatsNew.added1" = "拖到邊緣自動貼齊：將視窗拖到螢幕邊緣或角落，即可貼齊為一半、角落或全螢幕，下緣還支援三分之一與三分之二。";
+"app.whatsNew.added2" = "視窗間距：可調整貼齊後的視窗與螢幕邊緣之間的間距，並可選擇略過上緣的間距。";
+"app.whatsNew.fixed1" = "現在只要授予「輔助使用」權限，拖到邊緣自動貼齊便立即生效，無須重新啟動 App。";
 "app.uninstall.item.app" = "App 及其登入項目";
 "app.uninstall.item.settings" = "所有設定";
 "app.uninstall.item.state" = "已儲存的應用程式狀態";

@@ -122,6 +122,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         NotificationCenter.default.addObserver(
             self, selector: #selector(dragSnapEnabledChanged(_:)),
             name: .spectacleDragSnapEnabledChanged, object: nil)
+        // Self-heal drag-snap when the app becomes active. On a fresh install the user often grants
+        // Accessibility *after* launch; DragSnapController.start() no-ops while untrusted, so re-run
+        // it on activation (idempotent) to install the monitors once permission lands — no restart.
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(appDidBecomeActive),
+            name: NSApplication.didBecomeActiveNotification, object: nil)
         // Menu titles switch language live because the delegate rebuilds the menu on every open.
 
         // Never trap the user: if the icon is hidden at launch, open Settings so they can
@@ -231,6 +237,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         if enabled { dragSnap?.start() } else { dragSnap?.stop() }
     }
 
+    /// Re-arm drag-snap whenever the app becomes active. `start()` is idempotent and no-ops until
+    /// Accessibility is trusted, so this quietly installs the monitors the first time the user
+    /// returns after granting permission — no restart or toggle needed.
+    @objc private func appDidBecomeActive() {
+        if model.dragSnapEnabled { dragSnap?.start() }
+    }
+
     @objc private func shortcutRecordingChanged(_ note: Notification) {
         windowActions.setRecording((note.object as? Bool) ?? false)
     }
@@ -250,6 +263,10 @@ extension AppDelegate: NSMenuDelegate {
     /// the canonical `DragonAppMenu`, topped with an Accessibility-access warning whenever the
     /// permission is missing — so a user whose hot keys do nothing has a visible way to fix it.
     func menuNeedsUpdate(_ menu: NSMenu) {
+        // Opening the menu is the most frequent interaction with a menu-bar-only app, so use it as
+        // a second self-heal trigger: re-arm drag-snap here too (idempotent) in case the user
+        // granted Accessibility directly in System Settings without returning to a window.
+        if model.dragSnapEnabled { dragSnap?.start() }
         menu.removeAllItems()
         if !AXIsProcessTrusted() {
             let warn = NSMenuItem(title: L("app.menu.accessibilityNeeded"),
