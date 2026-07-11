@@ -10,8 +10,10 @@
 "app.about.source" = "源代码";
 "app.about.builtWith" = "构建技术";
 "app.about.license" = "许可证";
-"app.whatsNew.summary" = "修复了录制已被其他操作占用的快捷键的问题。";
-"app.whatsNew.fixed1" = "现在你可以指定已被其他操作占用的快捷键。录制时，原有快捷键不再触发或移动窗口——按键组合会按你的意图被捕获并保存。";
+"app.whatsNew.summary" = "将窗口拖到屏幕边缘即可就位——还能调整窗口之间的间距。";
+"app.whatsNew.added1" = "拖到边缘自动吸附：将窗口拖到屏幕边缘或角落，即可吸附为一半、角落或全屏，底边还支持三分之一与三分之二。";
+"app.whatsNew.added2" = "窗口间距：可调整吸附后的窗口与屏幕边缘之间的间距，并可选择跳过顶边的间距。";
+"app.whatsNew.fixed1" = "现在只要授予“辅助功能”权限，拖到边缘自动吸附便立即生效，无需重新启动应用。";
 "app.uninstall.item.app" = "App 及其登录项";
 "app.uninstall.item.settings" = "所有设置";
 "app.uninstall.item.state" = "已保存的应用程序状态";

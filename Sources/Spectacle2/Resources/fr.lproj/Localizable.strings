@@ -10,8 +10,10 @@
 "app.about.source" = "Code source";
 "app.about.builtWith" = "Conçu avec";
 "app.about.license" = "Licence";
-"app.whatsNew.summary" = "Corrige l'enregistrement d'un raccourci déjà utilisé par une autre action.";
-"app.whatsNew.fixed1" = "Vous pouvez désormais attribuer un raccourci déjà utilisé par une autre action. Pendant l'enregistrement, le raccourci existant ne se déclenche plus et ne déplace plus votre fenêtre — la combinaison de touches est capturée et enregistrée comme vous le souhaitiez.";
+"app.whatsNew.summary" = "Faites glisser une fenêtre vers un bord de l'écran pour la positionner — avec en plus des espacements réglables entre les fenêtres.";
+"app.whatsNew.added1" = "Ancrage par glisser vers les bords : faites glisser une fenêtre vers un bord ou un coin de l'écran pour l'ancrer en moitié, en coin ou en plein écran — y compris les tiers et deux tiers sur le bord inférieur.";
+"app.whatsNew.added2" = "Espacements entre fenêtres : ajoutez un espacement réglable entre les fenêtres ancrées et les bords de l'écran, avec une option pour l'ignorer le long du bord supérieur.";
+"app.whatsNew.fixed1" = "L'ancrage par glisser vers les bords fonctionne désormais dès que vous accordez l'accès à l'Accessibilité — sans redémarrer l'app.";
 "app.uninstall.item.app" = "L'app et son élément d'ouverture";
 "app.uninstall.item.settings" = "Tous les réglages";
 "app.uninstall.item.state" = "État enregistré de l'application";

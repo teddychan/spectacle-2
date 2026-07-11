@@ -10,8 +10,10 @@
 "app.about.source" = "Source";
 "app.about.builtWith" = "Built with";
 "app.about.license" = "License";
-"app.whatsNew.summary" = "Fixes recording a shortcut that's already used by another action.";
-"app.whatsNew.fixed1" = "You can now assign a shortcut that another action already uses. While recording, the existing shortcut no longer fires and moves your window — the key combo is captured and saved as you intended.";
+"app.whatsNew.summary" = "Drag any window to a screen edge to snap it into place — plus adjustable gaps between windows.";
+"app.whatsNew.added1" = "Drag-to-edge snapping: drag a window to a screen edge or corner to snap it to a half, corner, or full screen — including bottom-edge thirds and two-thirds.";
+"app.whatsNew.added2" = "Window gaps: add adjustable spacing between snapped windows and the screen edges, with an option to skip the gap along the top edge.";
+"app.whatsNew.fixed1" = "Drag-to-edge snapping now starts working the moment you grant Accessibility access — no need to restart the app.";
 "app.uninstall.item.app" = "The app and its login item";
 "app.uninstall.item.settings" = "All settings";
 "app.uninstall.item.state" = "Saved application state";
