@@ -1,108 +1,199 @@
-# Spectacle
+<div align="center">
+  <img src="Icon/AppIcon-1024.png" width="160" height="160" alt="Spectacle 2 app icon">
+  <h1>Spectacle 2</h1>
+  <p><strong>Move and resize windows with keyboard shortcuts</strong></p>
+</div>
 
-[![Build Status](https://travis-ci.org/eczarny/spectacle.svg?branch=master)](https://travis-ci.org/eczarny/spectacle)
+Spectacle 2 organizes windows without a mouse. Press a shortcut and the frontmost window moves to a half, a corner, a third, another display, or fills the screen — and ⌥⌘Z puts it back. It is a Swift rewrite of Eric Czarny's Spectacle, rebuilt for macOS 26.
 
-Easily organize windows without using a mouse.
+## Screenshots
 
-## Important Note
+![Shortcuts settings pane](docs/images/shortcuts-pane.png)
 
-**This project is not being actively maintained.** Unfortunately, after almost a decade of on-and-off development I can no longer dedicate the time needed to be a responsible maintainer of this project. Spectacle will remain available for download but please use at your own risk. The source code will continue to be free and open to anyone, so feel free to make Spectacle your own.
+![General settings pane](docs/images/general-pane.png)
 
-Thanks to all the folks that have made Spectacle the first app they install a new Mac!
+[![Download](https://img.shields.io/badge/download-latest-brightgreen?style=flat-square)](https://github.com/teddychan/spectacle-2/releases/latest)
+![Platform](https://img.shields.io/badge/platform-macOS-blue?style=flat-square)
+![Requirements](https://img.shields.io/badge/requirements-macOS%2026%2B-fa4e49?style=flat-square)
+[![Website](https://img.shields.io/badge/Website-dragonapp.com-015FBA?style=flat-square)](https://www.dragonapp.com/spectacle-2/)
+[![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE.md)
 
-_Spectacle users have recommended [Rectangle](https://github.com/rxhanson/Rectangle) as an open source alternative._
+## Contents
 
-## System requirements
+- [Screenshots](#screenshots)
+- [Requirements](#requirements)
+- [Install](#install)
+- [Features](#features)
+- [Keyboard shortcuts](#keyboard-shortcuts)
+- [Troubleshooting](#troubleshooting)
+- [Building from source](#building-from-source)
+- [Contributing](#contributing)
+- [Credits](#credits)
+- [License](#license)
 
-Spectacle [0.8.6][1] is the last version to support Mac OS X 10.7; future releases will only support 10.9 or greater. Folks wishing to stay on 10.7 should download [0.8.6][1]. Those looking for a version of Spectacle that supports 10.6 can still download [0.7][2].
+## Requirements
 
-## Keyboard Shortcuts
+- macOS 26 (Tahoe) or later
+- Apple Silicon — the released build ships as an `arm64` binary
+- Accessibility permission, which macOS asks for on first launch
 
-Spectacle makes use of several [keyboard shortcuts][3] that trigger specific _window actions_. A window action is nothing more than a command that tells Spectacle how to change the size and/or position of a particular window.
+## Install
 
-A keyboard shortcut consists of one or more modifier keys paired with a character key. The common modifier keys Spectacle takes advantage of are:
+### Homebrew
 
-| Symbol    | Key         |
-|:---------:|:-----------:|
-|  &#8984;  | Command Key |
-|  &#8963;  | Control Key |
-|  &#8997;  | Option Key  |
-|  &#8679;  | Shift Key   |
+```sh
+brew install --cask teddychan/tap/spectacle-2
+```
 
-The default keyboard shortcuts can be changed at any time. Use new key combinations to trigger window actions, or clear particular keyboard shortcuts to disable window actions entirely.
+### Manual
+
+1. Download `Spectacle2-vX.Y.Z.zip` from the [latest release](https://github.com/teddychan/spectacle-2/releases/latest).
+2. Unzip it and move **Spectacle 2.app** to `/Applications`.
+3. Launch it, then grant access under **System Settings ▸ Privacy & Security ▸ Accessibility**.
+
+Spectacle 2 has no Dock icon. It lives in the menu bar, and its Settings window opens from there.
+
+### Uninstall
+
+Quit Spectacle 2 from the menu bar first, then remove it. The Settings window also has an **Uninstall** pane that removes the app, its login item, and its settings for you.
+
+```sh
+brew uninstall --cask spectacle-2
+```
+
+Or delete the app and its leftovers by hand:
+
+```
+~/Library/Preferences/com.dragonapp.spectacle-2.plist
+~/Library/Preferences/com.dragonapp.spectacle-2.settings.plist
+~/Library/Caches/com.dragonapp.spectacle-2
+~/Library/HTTPStorages/com.dragonapp.spectacle-2
+~/Library/Saved Application State/com.dragonapp.spectacle-2.savedState
+~/Library/Application Support/Spectacle 2
+```
+
+## Features
+
+- **18 window actions** — halves, corners, thirds, fullscreen, center, resize, display moves, and undo/redo, each on its own global shortcut
+- **Repeat-press cycling** — press a half or corner shortcut again to cycle that window through ½, ⅔, and ⅓ of the region
+- **Thirds navigation** — ⌃⌥→ and ⌃⌥← step a window through three vertical columns and three horizontal rows
+- **Drag-to-edge snapping** — drag a window to a screen edge or corner to snap it, with a translucent footprint preview of where it will land
+- **Configurable window gaps** — set a gap in points applied around and between tiled windows, with an option to skip the top edge
+- **Undo and redo** — ⌥⌘Z restores the previous frame and ⌥⇧⌘Z reapplies the action; drag-snaps record into the same history
+- **Multiple displays** — ⌃⌥⌘→ and ⌃⌥⌘← send the frontmost window to the next or previous display
+- **Editable shortcuts** — record any combination in the Shortcuts pane, search the list, or restore the defaults
+- **Menu-bar item** — a monochrome template icon that you can hide from the General pane
+- **Launch at login** — register Spectacle 2 as a login item so it starts with your session
+- **Software updates** — check from the menu bar or the Updates pane, or turn on automatic checks; releases arrive over a signed Sparkle feed
+- **Seven languages** — English, Spanish, French, Japanese, Korean, Simplified Chinese, and Traditional Chinese, switchable in Settings without a restart
+
+> [!NOTE]
+> Spectacle 2 is an independent open-source fork of [Spectacle](https://github.com/eczarny/spectacle) by Eric Czarny, rebuilt in Swift and maintained by [Teddy Chan](https://github.com/teddychan).
+
+## Keyboard shortcuts
+
+Every shortcut triggers a _window action_ — a command that tells Spectacle 2 how to change the size or position of the frontmost window. A shortcut is one or more modifier keys paired with a character key:
+
+| Symbol | Key         |
+|:------:|:-----------:|
+|   ⌘    | Command Key |
+|   ⌃    | Control Key |
+|   ⌥    | Option Key  |
+|   ⇧    | Shift Key   |
+
+These are the defaults. Change any of them in the Shortcuts pane, or clear one to disable that action entirely.
+
+| Action | Shortcut |
+|---|---|
+| Center | ⌥⌘C |
+| Fullscreen | ⌥⌘F |
+| Left half / right half | ⌥⌘← / ⌥⌘→ |
+| Top half / bottom half | ⌥⌘↑ / ⌥⌘↓ |
+| Upper left / upper right | ⌃⌘← / ⌃⌘→ |
+| Lower left / lower right | ⌃⇧⌘← / ⌃⇧⌘→ |
+| Previous third / next third | ⌃⌥← / ⌃⌥→ |
+| Previous display / next display | ⌃⌥⌘← / ⌃⌥⌘→ |
+| Make smaller / make larger | ⌃⌥⇧← / ⌃⌥⇧→ |
+| Undo / redo | ⌥⌘Z / ⌥⇧⌘Z |
 
 ### Basic window actions
 
-To move a window to the center of the screen use the &#8997;&#8984;C keyboard shortcut. Centered windows will __not__ have their size altered. Maximize a window using the &#8997;&#8984;F shortcut.
+Centering a window does **not** change its size; every other region action does.
 
-Windows can be moved to a number of predefined regions of the screen:
+Press a region shortcut repeatedly to cycle it. Activate _left half_ ⌥⌘← more than once and the window moves between ⅓, ⅔, and back to ½ of the left side of the screen. The same applies to the right, top, and bottom halves and to all four corners.
 
-- _Move to the left half_ &#8212; &#8997;&#8984;&#8592;
-- _Move to the right half_ &#8212; &#8997;&#8984;&#8594;
-- _Move to the top half_ &#8212; &#8997;&#8984;&#8593;
-- _Move to the bottom half_ &#8212; &#8997;&#8984;&#8595;
-<br /><br />
-- _Move to the upper left_ &#8212; &#8963;&#8984;&#8592;
-- _Move to the lower left_ &#8212; &#8963;&#8679;&#8984;&#8592;
-- _Move to the upper right_ &#8212; &#8963;&#8984;&#8594;
-- _Move to the lower right_ &#8212; &#8963;&#8679;&#8984;&#8594;
+_Previous third_ and _next third_ walk a window around the screen's six thirds — the three vertical columns first, then the three horizontal rows.
 
-Windows may also be resized between thirds using any of the shortcuts above. For example, to have a window resized between 1/3 and 2/3 of the left region of the screen simply activate the *left half* &#8997;&#8984;&#8592; keyboard shortcut more than once. Each time the shortcut is activated Spectacle will move the window between 1/3, 2/3, and back to 1/2 of the left side of the screen. This feature also applies to the upper left, lower left, upper right, and lower right shortcuts.
-
-Spectacle can also move windows between horizontal and vertical thirds of the screen. The &#8963;&#8997;&#8594; keyboard shortcut will move a window to the next third of the screen, starting with the horizontal third region on the left of the screen. &#8963;&#8997;&#8592; will move a window to the previous third of the screen.
-
-Resizing a window is just as easy. To make a window a bit larger use the &#8963;&#8997;&#8679;&#8594; keyboard shortcut; &#8963;&#8997;&#8679;&#8592; can be used to make a window smaller. Spectacle will always attempt to maintain contact between the edges of a window and the edges of the screen when resizing.
+Resizing works the same way: ⌃⌥⇧→ makes a window larger and ⌃⌥⇧← makes it smaller. Spectacle 2 always tries to keep the edges of a window in contact with the edges of the screen while resizing.
 
 ### Multiple displays
 
-The &#8963;&#8997;&#8984;&#8594; keyboard shortcut will move a window to the next available display. &#8963;&#8997;&#8984;&#8592; can be used to move a window to the previous display.
+⌃⌥⌘→ moves a window to the next available display, ⌃⌥⌘← to the previous one. A window that already fits is centered on the new display; one that does not is resized to fill it.
 
 ### Window action history
 
-Spectacle remembers where every window was prior to executing a window action. To undo a window action use the &#8997;&#8984;Z keyboard shortcut. Use the &#8997;&#8679;&#8984;Z shortcut to redo the window action once again.
+Spectacle 2 remembers where a window was before each action. ⌥⌘Z undoes the last action and ⌥⇧⌘Z redoes it. Windows snapped by dragging are recorded in the same history, so undo works for those too.
 
-## Common Issues
+## Troubleshooting
 
-### Spectacle is requesting access to use accessibility features
+### Spectacle 2 is requesting access to use accessibility features
 
-Apple's [OS X Accessibility Protocol][4] makes Spectacle possible. This protocol allows assistive applications to _drive the user interface of another application running in OS X_. In order to do its job Spectacle must be granted access to use these accessibility features. Instructions to do so will be displayed if Spectacle determines it does not have sufficient privileges.
+macOS's accessibility APIs are what make Spectacle 2 possible: they let an assistive app drive another application's user interface. Spectacle 2 cannot move a single window without that access, so grant it under **System Settings ▸ Privacy & Security ▸ Accessibility**.
 
-### Spectacle does not resize a particular window as expected
+While the permission is missing, the menu-bar menu shows a warning item that opens the Permissions pane. Once you grant access, Spectacle 2 arms itself the next time it becomes active or the next time you open the menu — no restart needed.
 
-OS X allows applications to place constraints on the size of its windows. This allows application developers to design their user interfaces without needing to worry about supporting every possible window dimension. In these cases Spectacle will not be able to resize those windows to fit into the exact dimensions intended by the shortcut used.
+### Spectacle 2 does not resize a particular window as expected
 
-As an example suppose a display has a 2880x1800 resolution and a window is being resized to fit the left half of the display. If the window has specified a minimum allowable width of 1600 pixels Spectacle will not be able to resize the window to fit the expected 1440 pixels. The constraints placed on windows will always be respected despite leading to potentially unexpected results; in this example Spectacle will resize the window's width to 1600 pixels.
+macOS lets applications place constraints on the size of their windows, so developers can design interfaces without supporting every possible dimension. Where those constraints apply, Spectacle 2 cannot resize a window to the exact dimensions a shortcut asks for.
 
-### Spectacle behaves strangely with Terminal windows
+Suppose a display is 2880x1800 and a window is being moved to the left half. If that window declares a minimum width of 1600 points, it cannot be narrowed to the expected 1440. Window constraints are always respected, even when the result is not what the shortcut implies — here the window ends up 1600 points wide.
 
-Terminal (and other terminal emulation applications like iTerm 2) place constraints on how windows are resized so entire rows and columns are always visible. This behavior works great since it guarantees no rows or columns are truncated. Unfortunately it does mean that Spectacle needs to do some extra work to make these windows fit.
+### Spectacle 2 behaves strangely with Terminal windows
 
-To work around the limitations imposed on Terminal windows Spectacle will first try to resize a window to match the desired dimensions. If a window cannot be resized to fit Spectacle will immediately try to make the window a little smaller. This process is repeated until the window can be made to fit with its constraints still in place. The result is a window that is centered within the desired dimensions at the cost of a slightly jittery experience.
+Terminal (and emulators like iTerm2) constrain resizing so that whole rows and columns stay visible. That guarantees nothing is truncated, but it means Spectacle 2 has to work harder to fit those windows.
 
-### Spectacle does not work with all applications
+Spectacle 2 first tries the desired dimensions; if the window will not fit, it tries again slightly smaller, repeating until the window fits with its constraints intact. The result is a window centered within the target region, at the cost of a slightly jittery resize.
 
-Most applications built with the Cocoa frameworks can be readily manipulated via the _OS X Accessibility Protocol_; allowing Spectacle to interact with nearly every window it encounters. Unfortunately this is not always the case. Spectacle will be unable to manipulate the windows of applications that build their user interfaces in unexpected ways.
+### Spectacle 2 does not work with all applications
 
-## Building and running
+Most applications built with the Cocoa frameworks can be manipulated through the accessibility APIs, which covers nearly every window you will meet. Applications that build their interfaces in unusual ways are the exception, and Spectacle 2 cannot move or resize their windows.
 
-Spectacle uses [Carthage][5]. Before building Spectacle in Xcode run:
+## Building from source
 
-    $ carthage bootstrap --platform Mac
+Spectacle 2 is a Swift package — no Xcode project, no external package manager beyond SwiftPM.
 
-Once Carthage builds Spectacle's dependencies open the Xcode project:
+```sh
+git clone https://github.com/teddychan/spectacle-2.git
+cd spectacle-2
+swift build
+```
 
-    $ open Spectacle.xcodeproj
+To run it locally, use the helper script:
 
-After Xcode finishes loading the workspace press &#8984;R to run Spectacle.
+```sh
+./scripts/run.sh
+```
 
-# License
+It builds a debug binary, assembles a `.app` around it, re-identifies it as **Spectacle 2 Debug** (`com.dragonapp.spectacle-2.debug`) so its Accessibility grant and settings never collide with an installed release copy, signs it, and launches it.
 
-Copyright (c) 2017 Eric Czarny.
+Run the unit tests with:
 
-Spectacle should be accompanied by a LICENSE file containing the license relevant to this distribution.
+```sh
+swift test
+```
 
-[1]: https://s3.amazonaws.com/spectacle/downloads/Spectacle+0.8.6.zip
-[2]: https://s3.amazonaws.com/spectacle/downloads/Spectacle+0.7.zip
-[3]: http://support.apple.com/kb/ht1343
-[4]: https://developer.apple.com/library/mac/documentation/Accessibility/Conceptual/AccessibilityMacOSX/OSXAXmodel.html
-[5]: https://github.com/Carthage/Carthage
+The suite covers the window geometry in `SpectacleCore` — the half, corner, third, gap, and drag-snap math.
+
+## Contributing
+
+Issues and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Credits
+
+Spectacle was created by [Eric Czarny](https://github.com/eczarny) and shaped by its [original contributors](https://github.com/eczarny/spectacle/graphs/contributors) over almost a decade. The window-position math in Spectacle 2 is a port of theirs, and the shortcuts are the ones they chose.
+
+Spectacle 2 is maintained by [Teddy Chan](https://github.com/teddychan).
+
+## License
+
+Spectacle 2 is distributed under the MIT License. See [LICENSE.md](LICENSE.md), which retains the original copyright (c) 2017 Eric Czarny.
