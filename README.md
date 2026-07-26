@@ -27,6 +27,7 @@ Spectacle 2 organizes windows without a mouse. Press a shortcut and the frontmos
 - [Keyboard shortcuts](#keyboard-shortcuts)
 - [Troubleshooting](#troubleshooting)
 - [Building from source](#building-from-source)
+- [Tests](#tests)
 - [Contributing](#contributing)
 - [Credits](#credits)
 - [License](#license)
@@ -176,13 +177,23 @@ To run it locally, use the helper script:
 
 It builds a debug binary, assembles a `.app` around it, re-identifies it as **Spectacle 2 Debug** (`com.dragonapp.spectacle-2.debug`) so its Accessibility grant and settings never collide with an installed release copy, signs it, and launches it.
 
-Run the unit tests with:
+## Tests
 
-```sh
+The suite lives in `Tests/SpectacleCoreTests` and exercises the pure geometry in `SpectacleCore`: halves, corners, thirds, center and fullscreen, repeat-press cycling, window gaps, drag-snap zones, size adjustment, screen cycling across displays, undo/redo history, and the default shortcut table.
+
+```bash
 swift test
 ```
 
-The suite covers the window geometry in `SpectacleCore` — the half, corner, third, gap, and drag-snap math.
+| Metric | Value |
+|---|---|
+| Test cases | 74 passing |
+| Line coverage | 98.8% of `Sources/SpectacleCore` |
+| Measured on | v2.1.0 (`d434930`), Swift 6.3.3 |
+
+Coverage is measured over `SpectacleCore` only. The `Spectacle2` app target — the
+menu-bar item, settings panes, hot-key registration, and the snap overlay — has no
+automated tests, so that figure describes the geometry engine rather than the whole app.
 
 ## Contributing
 
