@@ -1,0 +1,29 @@
+name: Tests
+
+# Runs the unit-test suite on every PR to main (and pushes to main). Build/release stays in
+# release.yml — this job never signs, notarizes, or releases anything.
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    # macOS 26 image: same runner the release build targets (macOS 26 SDK, Swift 6.2).
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Swift version
+        run: swift --version
+
+      # SwiftPM package at the repo root. The test target depends on SpectacleCore only, but
+      # `swift test` still resolves and builds the whole graph — dragon-kit and Sparkle are both
+      # public, so a plain network resolve is all this needs (no secrets, no vendoring step).
+      - name: Core tests (SpectacleCoreTests)
+        run: swift test

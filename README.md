@@ -179,7 +179,9 @@ It builds a debug binary, assembles a `.app` around it, re-identifies it as **Sp
 
 ## Tests
 
-The suite lives in `Tests/SpectacleCoreTests` and exercises the pure geometry in `SpectacleCore`: halves, corners, thirds, center and fullscreen, repeat-press cycling, window gaps, drag-snap zones, size adjustment, screen cycling across displays, undo/redo history, and the default shortcut table.
+The suite lives in `Tests/SpectacleCoreTests` and exercises the pure geometry in `SpectacleCore`: halves, corners, thirds, center and fullscreen, repeat-press cycling, window gaps, drag-snap zones, size adjustment, screen cycling across displays, undo/redo history, and the default shortcut table. CI runs the whole suite on every pull request.
+
+[![Tests](https://github.com/teddychan/spectacle-2/actions/workflows/tests.yml/badge.svg)](https://github.com/teddychan/spectacle-2/actions/workflows/tests.yml)
 
 ```bash
 swift test
