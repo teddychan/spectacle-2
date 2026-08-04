@@ -1,0 +1,9 @@
+{
+  "app": "Spectacle 2",
+  "sources": ["Sources"],
+  "strings": ["Sources/**/*.lproj/Localizable.strings"],
+  "pin": { "file": "Package.swift", "pattern": "dragon-kit\", from: \"([0-9.]+)\"" },
+  "paneOrder": { "file": "Sources/Spectacle2/AppDelegate.swift" },
+  "traits": ["sparkle"],
+  "exceptions": []
+}
