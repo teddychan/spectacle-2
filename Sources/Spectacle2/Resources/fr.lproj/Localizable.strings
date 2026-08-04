@@ -10,10 +10,10 @@
 "app.about.source" = "Code source";
 "app.about.builtWith" = "Conçu avec";
 "app.about.license" = "Licence";
-"app.whatsNew.summary" = "Faites glisser une fenêtre vers un bord de l'écran pour la positionner — avec en plus des espacements réglables entre les fenêtres.";
-"app.whatsNew.added1" = "Ancrage par glisser vers les bords : faites glisser une fenêtre vers un bord ou un coin de l'écran pour l'ancrer en moitié, en coin ou en plein écran — y compris les tiers et deux tiers sur le bord inférieur.";
-"app.whatsNew.added2" = "Espacements entre fenêtres : ajoutez un espacement réglable entre les fenêtres ancrées et les bords de l'écran, avec une option pour l'ignorer le long du bord supérieur.";
-"app.whatsNew.fixed1" = "L'ancrage par glisser vers les bords fonctionne désormais dès que vous accordez l'accès à l'Accessibilité — sans redémarrer l'app.";
+"app.whatsNew.summary" = "Chaque élément du menu de la barre des menus est désormais précédé d'une icône, et Désinstaller a rejoint les Réglages.";
+"app.whatsNew.added1" = "Icônes dans le menu de la barre des menus : À propos, Rechercher les mises à jour, Réglages et Quitter sont désormais précédés d'un symbole.";
+"app.whatsNew.removed1" = "Désinstaller n'apparaît plus dans le menu de la barre des menus, à côté de Quitter.";
+"app.whatsNew.changed1" = "Il se trouve désormais dans le dernier volet des Réglages, avec une confirmation avant toute suppression.";
 "app.uninstall.item.app" = "L'app et son élément d'ouverture";
 "app.uninstall.item.settings" = "Tous les réglages";
 "app.uninstall.item.state" = "État enregistré de l'application";
