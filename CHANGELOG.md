@@ -3,10 +3,29 @@
 All notable changes to Spectacle 2 are documented here. This project adheres to
 [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [2.2.0] - 2026-08-04
+
+Menu-bar dropdown changes inherited from **DragonKit 2.0**: every item now leads with an SF
+Symbol, and **Uninstall** is gone from the menu — it lives in Settings.
+
+### Added
+- **Menu-bar icons** — every item in the dropdown now leads with an SF Symbol: About
+  (`info.circle`), Check for Updates (`arrow.down.circle`), Settings (`gearshape`) and Quit
+  (`power`). Supplied by the shared `DragonAppMenu`, so every Dragon app matches.
+
+### Removed
+- **Uninstall is no longer in the menu-bar dropdown**, where it sat one slip away from Quit. As a
+  rare, destructive action it now lives only in Settings, as the last pane — which already
+  confirms before removing anything and is otherwise unchanged.
+
+### Changed
+- DragonKit dependency `1.4.0` → `2.0.0`; the resolved 2.0.1 also makes **Cancel** the default
+  button in the Uninstall pane, so Return lands on the safe choice.
+
+## [2.1.0] - 2026-07-11
 
 Rectangle-parity **drag-to-edge snapping**, configurable **window gaps**, and **startup
-deferral**. No release/tag is cut by this entry.
+deferral**.
 
 ### Added
 - **Window gaps** — a single configurable gap (points, default `0` = unchanged) applied as an

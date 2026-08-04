@@ -10,10 +10,10 @@
 "app.about.source" = "Código fuente";
 "app.about.builtWith" = "Creado con";
 "app.about.license" = "Licencia";
-"app.whatsNew.summary" = "Arrastra una ventana a un borde de la pantalla para colocarla — y ahora con espaciados ajustables entre ventanas.";
-"app.whatsNew.added1" = "Ajuste al arrastrar a los bordes: arrastra una ventana a un borde o esquina de la pantalla para ajustarla a la mitad, a una esquina o a pantalla completa, incluidos los tercios y dos tercios en el borde inferior.";
-"app.whatsNew.added2" = "Espaciado entre ventanas: añade un espaciado ajustable entre las ventanas ajustadas y los bordes de la pantalla, con la opción de omitirlo en el borde superior.";
-"app.whatsNew.fixed1" = "El ajuste al arrastrar a los bordes ahora empieza a funcionar en cuanto concedes el acceso de Accesibilidad, sin necesidad de reiniciar la app.";
+"app.whatsNew.summary" = "Cada elemento del menú de la barra de menús lleva ahora un icono, y Desinstalar se ha movido a los Ajustes.";
+"app.whatsNew.added1" = "Iconos en el menú de la barra de menús: Acerca de, Buscar actualizaciones, Ajustes y Salir llevan ahora un símbolo.";
+"app.whatsNew.removed1" = "Desinstalar ya no aparece en el menú de la barra de menús, junto a Salir.";
+"app.whatsNew.changed1" = "Ahora está en el último panel de Ajustes, donde pide confirmación antes de eliminar nada.";
 "app.uninstall.item.app" = "La app y su elemento de inicio";
 "app.uninstall.item.settings" = "Todos los ajustes";
 "app.uninstall.item.state" = "Estado guardado de la aplicación";
