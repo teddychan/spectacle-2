@@ -192,14 +192,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     /// Build the canonical Dragon menu-bar menu via `DragonAppMenu` — the single source of
-    /// truth for order and naming, shared across every Dragon app. Rebuilt on language change.
+    /// truth for order, naming, and leading SF Symbol, shared across every Dragon app. Rebuilt
+    /// on language change. Uninstall is deliberately not here: it's a rare destructive action
+    /// and lives in Settings as `UninstallSettingsPane` (see `settingsPanes`).
     private func buildMenu() -> NSMenu {
         DragonAppMenu.menu(DragonAppMenu.Config(
             appName: appName,
             onAbout: { [weak self] in self?.openAbout() },
             onSettings: { [weak self] in self?.openSettings() },
-            onCheckForUpdates: { [weak self] in self?.checkForUpdates() },
-            onUninstall: { [weak self] in self?.openUninstall() }
+            onCheckForUpdates: { [weak self] in self?.checkForUpdates() }
         ))
     }
 
@@ -220,11 +221,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     @objc private func openAbout() {
         selection.paneID = "about"
-        settingsController.show()
-    }
-
-    private func openUninstall() {
-        selection.paneID = "uninstall"
         settingsController.show()
     }
 
