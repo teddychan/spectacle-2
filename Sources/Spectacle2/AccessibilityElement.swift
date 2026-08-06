@@ -11,13 +11,21 @@ struct WindowID: Hashable {
 
 /// Reads/writes the frontmost app's focused-window frame. Owns the single AX↔Cocoa Y-flip.
 final class AccessibilityElement {
+    // AX messaging is synchronous cross-process IPC on the main thread: a hung or beachballing
+    // target app can otherwise stall ours for as long as the system default timeout allows.
+    // Bound it — generous enough for a slow app to service a real resize, tight enough to keep
+    // us responsive. Exceeding it makes the action a silent no-op rather than a freeze.
+    private static let messagingTimeoutSeconds: Float = 1.0
+
     func focusedWindow() -> AXUIElement? {
         guard let pid = NSWorkspace.shared.frontmostApplication?.processIdentifier else { return nil }
         let app = AXUIElementCreateApplication(pid)
+        AXUIElementSetMessagingTimeout(app, Self.messagingTimeoutSeconds)
         var value: CFTypeRef?
         guard AXUIElementCopyAttributeValue(app, kAXFocusedWindowAttribute as CFString, &value) == .success,
-              let v = value else { return nil }
-        return (v as! AXUIElement)
+              let window = element(value) else { return nil }
+        AXUIElementSetMessagingTimeout(window, Self.messagingTimeoutSeconds)
+        return window
     }
 
     func frame(of window: AXUIElement) -> CGRect? {
@@ -54,15 +62,19 @@ final class AccessibilityElement {
         let axY = primaryHeight() - p.y                       // Cocoa bottom-left → AX top-left
         var hit: AXUIElement?
         let sys = AXUIElementCreateSystemWide()
+        AXUIElementSetMessagingTimeout(sys, Self.messagingTimeoutSeconds)
         guard AXUIElementCopyElementAtPosition(sys, Float(p.x), Float(axY), &hit) == .success,
               var el = hit else { return nil }
         // Walk parents until we reach a window-role element (max a few hops).
         for _ in 0..<12 {
-            if role(of: el) == (kAXWindowRole as String) { return el }
+            if role(of: el) == (kAXWindowRole as String) {
+                AXUIElementSetMessagingTimeout(el, Self.messagingTimeoutSeconds)
+                return el
+            }
             var parent: CFTypeRef?
             guard AXUIElementCopyAttributeValue(el, kAXParentAttribute as CFString, &parent) == .success,
-                  let p = parent else { return nil }
-            el = (p as! AXUIElement)
+                  let next = element(parent) else { return nil }
+            el = next
         }
         return nil
     }
@@ -88,17 +100,32 @@ final class AccessibilityElement {
         return AXUIElementIsAttributeSettable(el, attr as CFString, &settable) == .success && settable.boolValue
     }
 
+    /// AX attribute values arrive as `CFTypeRef` from another process, so a buggy or hostile app
+    /// can hand back a type we never asked for. Swift rejects `as?` on a CoreFoundation type as
+    /// always-succeeding, so check the CFTypeID and only then cast: the force cast rides on a
+    /// verified invariant, and a mismatch degrades to nil (a no-op action) instead of a crash.
+    private func element(_ value: CFTypeRef?) -> AXUIElement? {
+        guard let value, CFGetTypeID(value) == AXUIElementGetTypeID() else { return nil }
+        return (value as! AXUIElement)
+    }
+    private func axValue(_ value: CFTypeRef?) -> AXValue? {
+        guard let value, CFGetTypeID(value) == AXValueGetTypeID() else { return nil }
+        return (value as! AXValue)
+    }
+
     private func point(_ el: AXUIElement, _ attr: String) -> CGPoint? {
         var value: CFTypeRef?
-        guard AXUIElementCopyAttributeValue(el, attr as CFString, &value) == .success, let v = value else { return nil }
+        guard AXUIElementCopyAttributeValue(el, attr as CFString, &value) == .success,
+              let v = axValue(value) else { return nil }
         var p = CGPoint.zero
-        return AXValueGetValue((v as! AXValue), .cgPoint, &p) ? p : nil
+        return AXValueGetValue(v, .cgPoint, &p) ? p : nil
     }
     private func size(_ el: AXUIElement, _ attr: String) -> CGSize? {
         var value: CFTypeRef?
-        guard AXUIElementCopyAttributeValue(el, attr as CFString, &value) == .success, let v = value else { return nil }
+        guard AXUIElementCopyAttributeValue(el, attr as CFString, &value) == .success,
+              let v = axValue(value) else { return nil }
         var s = CGSize.zero
-        return AXValueGetValue((v as! AXValue), .cgSize, &s) ? s : nil
+        return AXValueGetValue(v, .cgSize, &s) ? s : nil
     }
     private func setPoint(_ el: AXUIElement, _ attr: String, _ p: inout CGPoint) {
         if let v = AXValueCreate(.cgPoint, &p) { AXUIElementSetAttributeValue(el, attr as CFString, v) }

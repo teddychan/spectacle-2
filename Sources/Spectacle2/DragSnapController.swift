@@ -21,6 +21,13 @@ final class DragSnapController {
     private var currentTarget: SnapTarget?
     private var lastBottomColumn: SnapGeometry.ThirdColumn?
     private var restoreRects: [WindowID: CGRect] = [:]   // pre-snap sizes, persisted across drags for unsnap-restore
+    // Insertion order for `restoreRects`, oldest first. A snapped window whose entry is never
+    // consumed (e.g. it's closed instead of dragged off its snap) would otherwise sit here
+    // forever, retaining a stale AXUIElement. We evict by age rather than by probing whether the
+    // window is still alive, because a liveness probe is itself AX IPC on every mouse-up — the
+    // exact per-event cost this drag path exists to avoid.
+    private var restoreOrder: [WindowID] = []
+    private let restoreRectsCap = 32
 
     init(controller: WindowActionController, gapProvider: @escaping @MainActor () -> WindowGap) {
         self.controller = controller
@@ -64,10 +71,15 @@ final class DragSnapController {
     }
 
     private func continueDrag() {
-        guard let window, let windowID, let initial = initialFrame,
-              let live = controller.frame(of: window) else { return }
+        guard let window, let windowID, let initial = initialFrame else { return }
 
         if !moving {
+            // The AX frame read is deliberately confined to this arming phase: `frame(of:)` is
+            // synchronous cross-process Accessibility IPC on the main thread, and `live` is only
+            // needed here (for the move-vs-resize check and the unsnap-restore origin/size math).
+            // Once armed we never read it again, so doing this on every .leftMouseDragged event
+            // would pay that IPC cost per pixel of drag for no benefit.
+            guard let live = controller.frame(of: window) else { return }
             // Arm only on a real move (origin changed, size unchanged = a move, not a resize).
             guard live.origin != initial.origin,
                   abs(live.width - initial.width) < 1, abs(live.height - initial.height) < 1 else { return }
@@ -102,7 +114,7 @@ final class DragSnapController {
         }
         let vf = visibleFrame(forScreenFrame: screen)
         let rect = SnapGeometry.rect(target, visibleFrame: vf, gap: gapProvider())
-        if restoreRects[windowID] == nil { restoreRects[windowID] = live }   // remember pre-snap size
+        rememberRestoreRect(live, for: windowID)   // remember pre-snap size
         controller.apply(rect, to: window, id: windowID, currentFrame: live, record: true)
     }
 
@@ -145,6 +157,20 @@ final class DragSnapController {
         r.origin.y = live.maxY - r.height
         controller.apply(r, to: window, id: id, currentFrame: live, record: false)
         restoreRects[id] = nil
+        restoreOrder.removeAll { $0 == id }
+    }
+
+    // Inserts a pre-snap rect (only if one isn't already recorded for `id`), tracking insertion
+    // order so we can evict the oldest entry once the map exceeds `restoreRectsCap`. Eviction is
+    // by age, not by an AX liveness check, on purpose — see the comment on `restoreOrder`.
+    private func rememberRestoreRect(_ rect: CGRect, for id: WindowID) {
+        guard restoreRects[id] == nil else { return }
+        restoreRects[id] = rect
+        restoreOrder.append(id)
+        if restoreOrder.count > restoreRectsCap {
+            let oldest = restoreOrder.removeFirst()
+            restoreRects[oldest] = nil
+        }
     }
 
     // MARK: - Screen helpers

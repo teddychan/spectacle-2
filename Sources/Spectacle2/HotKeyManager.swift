@@ -19,6 +19,15 @@ final class HotKeyManager: @unchecked Sendable {
         installHandler()
     }
 
+    /// The installed event handler holds an unretained pointer to `self` (see `installHandler`),
+    /// so it must not outlive this instance: without this, a deallocated manager would leave a
+    /// dangling-pointer handler installed system-wide, use-after-free on the next hot-key press,
+    /// and its hot keys stuck claimed forever.
+    deinit {
+        unregisterAll()
+        if let handler { RemoveEventHandler(handler) }
+    }
+
     /// Registers a hot key per bound action. Returns the actions whose registration failed
     /// (e.g. the key combo is already claimed by the system or another app), so the UI can
     /// flag them as conflicts.

@@ -21,8 +21,8 @@ final class WindowActionController {
     @discardableResult
     func start(with map: [WindowAction: Shortcut]) -> Set<WindowAction> {
         currentMap = map
-        let hk = HotKeyManager { action in
-            MainActor.assumeIsolated { [weak self] in self?.perform(action) }
+        let hk = HotKeyManager { [weak self] action in
+            MainActor.assumeIsolated { self?.perform(action) }
         }
         let failed = hk.register(map)
         hotKeys = hk
