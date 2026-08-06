@@ -31,13 +31,6 @@ struct AppSettings: Codable, Sendable, Equatable {
 }
 
 extension Notification.Name {
-    /// Posted (with a `Bool` object) when "Show in menu bar" changes, so the AppDelegate can
-    /// show/hide the status item.
-    static let spectacleShowInMenuBarChanged = Notification.Name("spectacleShowInMenuBarChanged")
-    /// Posted when the drag-snap enabled flag changes, so the AppDelegate can start/stop the
-    /// DragSnapController.
-    static let spectacleDragSnapEnabledChanged = Notification.Name("spectacleDragSnapEnabledChanged")
-
     /// Posted (with a `Bool` object) while a shortcut recorder is capturing. The AppDelegate
     /// suspends the global hot keys during recording so pressing an already-bound combo lands in
     /// the recorder instead of firing that action, then restores them when recording ends.
@@ -57,6 +50,13 @@ final class SettingsModel {
     private var settings: AppSettings {
         didSet { store.save(settings) }
     }
+
+    /// Side effects owned by the composition root. `AppDelegate` creates this model and also owns
+    /// the status item and the drag-snap controller, so these two settings reach them by direct
+    /// call rather than through an ambient notification: the payload stays typed, and an
+    /// unassigned hook is visible here instead of silently doing nothing.
+    var onShowInMenuBarChange: ((Bool) -> Void)?
+    var onDragSnapEnabledChange: ((Bool) -> Void)?
 
     init() {
         let store = DragonSettingsStore(suiteName: Self.suiteName, defaultValue: AppSettings())
@@ -80,7 +80,7 @@ final class SettingsModel {
         get { settings.showInMenuBar }
         set {
             settings.showInMenuBar = newValue
-            NotificationCenter.default.post(name: .spectacleShowInMenuBarChanged, object: newValue)
+            onShowInMenuBarChange?(newValue)
         }
     }
 
@@ -98,7 +98,7 @@ final class SettingsModel {
         get { settings.dragSnapEnabled }
         set {
             settings.dragSnapEnabled = newValue
-            NotificationCenter.default.post(name: .spectacleDragSnapEnabledChanged, object: newValue)
+            onDragSnapEnabledChange?(newValue)
         }
     }
 }

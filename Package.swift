@@ -32,5 +32,6 @@ let package = Package(
             ]
         ),
         .testTarget(name: "SpectacleCoreTests", dependencies: ["SpectacleCore"]),
+        .testTarget(name: "Spectacle2Tests", dependencies: ["Spectacle2"]),
     ]
 )

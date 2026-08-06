@@ -82,4 +82,40 @@ public enum SnapGeometry {
         if x >= s.maxX - third { return .last }
         return .center
     }
+
+    /// Maps a `SnapZone` (plus cursor/screen context) to the `SnapTarget` it should land on.
+    /// `previousBottomColumn` carries the last `.bottom`-zone column across calls so two-thirds
+    /// promotion (entering the center third from a side third) can be detected; the returned
+    /// `bottomColumn` is only ever refreshed for a `.bottom` zone — for every other zone it is
+    /// `previousBottomColumn` unchanged, so callers can unconditionally store the result back.
+    public static func target(
+        for zone: SnapZone,
+        cursor: CGPoint,
+        screen: CGRect,
+        previousBottomColumn: ThirdColumn?
+    ) -> (target: SnapTarget, bottomColumn: ThirdColumn?) {
+        switch zone {
+        case .top: return (.maximize, previousBottomColumn)
+        case .topLeft: return (.topLeft, previousBottomColumn)
+        case .topRight: return (.topRight, previousBottomColumn)
+        case .bottomLeft: return (.bottomLeft, previousBottomColumn)
+        case .bottomRight: return (.bottomRight, previousBottomColumn)
+        case .left:
+            return (sideEdgeHalf(cursorY: cursor.y, in: screen) ?? .leftHalf, previousBottomColumn)
+        case .right:
+            return (sideEdgeHalf(cursorY: cursor.y, in: screen) ?? .rightHalf, previousBottomColumn)
+        case .bottom:
+            let col = bottomEdgeThird(cursorX: cursor.x, in: screen)
+            // Two-thirds promotion: entering the center third from a side third widens to two-thirds.
+            if col == .center, let prev = previousBottomColumn {
+                if prev == .first { return (.firstTwoThirds, col) }
+                if prev == .last { return (.lastTwoThirds, col) }
+            }
+            switch col {
+            case .first: return (.firstThird, col)
+            case .center: return (.centerThird, col)
+            case .last: return (.lastThird, col)
+            }
+        }
+    }
 }

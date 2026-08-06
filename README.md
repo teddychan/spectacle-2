@@ -143,6 +143,8 @@ macOS's accessibility APIs are what make Spectacle 2 possible: they let an assis
 
 While the permission is missing, the menu-bar menu shows a warning item that opens the Permissions pane. Once you grant access, Spectacle 2 arms itself the next time it becomes active or the next time you open the menu — no restart needed.
 
+This is also why Spectacle 2 ships **without** the App Sandbox: a sandboxed process cannot reach another application's windows through the accessibility APIs, so the feature and the sandbox are mutually exclusive. The released build is instead signed with a Developer ID, built with the hardened runtime, and notarized by Apple — the distribution model that permits this. It is not submitted to the Mac App Store, which requires the sandbox.
+
 ### Spectacle 2 does not resize a particular window as expected
 
 macOS lets applications place constraints on the size of their windows, so developers can design interfaces without supporting every possible dimension. Where those constraints apply, Spectacle 2 cannot resize a window to the exact dimensions a shortcut asks for.

@@ -106,22 +106,23 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         item.isVisible = model.showInMenuBar
         self.statusItem = item
 
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(showInMenuBarChanged(_:)),
-            name: .spectacleShowInMenuBarChanged,
-            object: nil
-        )
-        // Suspend global hot keys while a shortcut recorder is capturing (see setRecording).
+        // Settings side effects this delegate owns outright: it created `model`, and it owns both
+        // the status item and the drag-snap controller, so they arrive as typed direct calls.
+        model.onShowInMenuBarChange = { [weak self] visible in
+            self?.statusItem?.isVisible = visible
+        }
+        model.onDragSnapEnabledChange = { [weak self] enabled in
+            if enabled { self?.dragSnap?.start() } else { self?.dragSnap?.stop() }
+        }
+        // Suspend global hot keys while a shortcut recorder is capturing (see setRecording). This
+        // one stays a notification: it is posted by an NSView buried inside the settings pane
+        // tree, which has no ownership path back to here.
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(shortcutRecordingChanged(_:)),
             name: .spectacleShortcutRecordingChanged,
             object: nil
         )
-        NotificationCenter.default.addObserver(
-            self, selector: #selector(dragSnapEnabledChanged(_:)),
-            name: .spectacleDragSnapEnabledChanged, object: nil)
         // Self-heal drag-snap when the app becomes active. On a fresh install the user often grants
         // Accessibility *after* launch; DragSnapController.start() no-ops while untrusted, so re-run
         // it on activation (idempotent) to install the monitors once permission lands — no restart.
@@ -222,15 +223,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     @objc private func openAbout() {
         selection.paneID = "about"
         settingsController.show()
-    }
-
-    @objc private func showInMenuBarChanged(_ note: Notification) {
-        statusItem?.isVisible = (note.object as? Bool) ?? true
-    }
-
-    @objc private func dragSnapEnabledChanged(_ note: Notification) {
-        let enabled = (note.object as? Bool) ?? true
-        if enabled { dragSnap?.start() } else { dragSnap?.stop() }
     }
 
     /// Re-arm drag-snap whenever the app becomes active. `start()` is idempotent and no-ops until
