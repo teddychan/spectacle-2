@@ -10,10 +10,10 @@
 "app.about.source" = "ソースコード";
 "app.about.builtWith" = "使用技術";
 "app.about.license" = "ライセンス";
-"app.whatsNew.summary" = "メニューバーのメニューの各項目にアイコンが付き、アンインストールは設定に移動しました。";
-"app.whatsNew.added1" = "メニューバーのメニューにアイコン：アプリについて、アップデートを確認、設定、終了の各項目にシンボルが付きました。";
-"app.whatsNew.removed1" = "「終了」の隣にあったアンインストールをメニューバーのメニューから削除。";
-"app.whatsNew.changed1" = "設定の最後のペインに移動し、削除前に確認を求めます。";
+"app.whatsNew.summary" = "メンテナンスリリース：画面端へのスナップがより滑らかになり、応答しなくなったアプリがSpectacle 2を停止させることがなくなりました。";
+"app.whatsNew.improved1" = "画面端へのスナップで、マウスを動かすたびにウインドウを問い合わせることがなくなり、ドラッグが滑らかになりました。";
+"app.whatsNew.fixed1" = "応答しなくなったアプリのウインドウを移動しても、Spectacle 2が停止しなくなりました。";
+"app.whatsNew.changed1" = "元に戻す操作は、ウインドウごとに直近50件の位置を保持するようになりました（以前は無制限に増え続けていました）。";
 "app.uninstall.item.app" = "アプリとログイン項目";
 "app.uninstall.item.settings" = "すべての設定";
 "app.uninstall.item.state" = "保存されたアプリケーションの状態";
