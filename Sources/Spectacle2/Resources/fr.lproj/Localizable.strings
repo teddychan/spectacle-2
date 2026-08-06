@@ -10,10 +10,10 @@
 "app.about.source" = "Code source";
 "app.about.builtWith" = "Conçu avec";
 "app.about.license" = "Licence";
-"app.whatsNew.summary" = "Chaque élément du menu de la barre des menus est désormais précédé d'une icône, et Désinstaller a rejoint les Réglages.";
-"app.whatsNew.added1" = "Icônes dans le menu de la barre des menus : À propos, Rechercher les mises à jour, Réglages et Quitter sont désormais précédés d'un symbole.";
-"app.whatsNew.removed1" = "Désinstaller n'apparaît plus dans le menu de la barre des menus, à côté de Quitter.";
-"app.whatsNew.changed1" = "Il se trouve désormais dans le dernier volet des Réglages, avec une confirmation avant toute suppression.";
+"app.whatsNew.summary" = "Version de maintenance : l'ancrage aux bords est plus fluide et une app qui ne répond plus ne peut plus figer Spectacle 2.";
+"app.whatsNew.improved1" = "L'ancrage d'une fenêtre à un bord de l'écran n'interroge plus cette fenêtre à chaque mouvement de la souris, le glissement reste donc fluide.";
+"app.whatsNew.fixed1" = "Une app qui ne répond plus ne peut plus bloquer Spectacle 2 pendant le déplacement de l'une de ses fenêtres.";
+"app.whatsNew.changed1" = "Annuler conserve désormais les 50 dernières positions de chaque fenêtre au lieu de croître tant que l'app fonctionne.";
 "app.uninstall.item.app" = "L'app et son élément d'ouverture";
 "app.uninstall.item.settings" = "Tous les réglages";
 "app.uninstall.item.state" = "État enregistré de l'application";

@@ -10,10 +10,10 @@
 "app.about.source" = "源代码";
 "app.about.builtWith" = "构建技术";
 "app.about.license" = "许可证";
-"app.whatsNew.summary" = "菜单栏菜单的每个项目都加上了图标，卸载已移至设置。";
-"app.whatsNew.added1" = "菜单栏菜单图标：“关于”“检查更新”“设置”和“退出”都加上了符号。";
-"app.whatsNew.removed1" = "菜单栏菜单中“退出”旁边的卸载项已移除。";
-"app.whatsNew.changed1" = "现在位于设置的最后一个面板，删除前会先确认。";
+"app.whatsNew.summary" = "维护更新：屏幕边缘吸附更流畅，无响应的应用不会再让 Spectacle 2 卡住。";
+"app.whatsNew.improved1" = "窗口吸附到屏幕边缘时，不再在每次鼠标移动时查询该窗口，拖动更流畅。";
+"app.whatsNew.fixed1" = "移动无响应应用的窗口时，Spectacle 2 不会再被卡住。";
+"app.whatsNew.changed1" = "撤销现在为每个窗口保留最近 50 个位置，不再随应用运行持续增长。";
 "app.uninstall.item.app" = "App 及其登录项";
 "app.uninstall.item.settings" = "所有设置";
 "app.uninstall.item.state" = "已保存的应用程序状态";

@@ -3,6 +3,43 @@
 All notable changes to Spectacle 2 are documented here. This project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## [2.2.1] - 2026-08-06
+
+A maintenance release. No new features — this is robustness and performance work on the
+accessibility layer that every window action goes through, plus the first automated test coverage
+for the app target.
+
+### Fixed
+- **An unresponsive app can no longer stall Spectacle 2.** Accessibility calls are synchronous
+  cross-process IPC on the main thread, and they previously ran with the system default timeout, so
+  a beachballing target application could hold up Spectacle 2's own menu bar and Settings window.
+  All accessibility messaging is now bounded by an explicit 1-second timeout: past that, the action
+  is a no-op instead of a freeze.
+- **A misbehaving application can no longer crash Spectacle 2.** Values returned by the
+  accessibility API were force-cast to the expected type. They now have their `CFTypeID` verified
+  first, and an unexpected type makes the action a no-op.
+- Removed a latent use-after-free in the global hot-key registration: the Carbon event handler held
+  an unretained pointer to its manager and was never uninstalled. Not reachable in 2.2.0, since
+  registration happens exactly once, but the guard is now in place.
+
+### Changed
+- **Drag-to-edge snapping no longer queries the dragged window on every mouse movement.** The frame
+  read is only needed to tell a move from a resize when the drag arms, so once a drag is armed the
+  snap path makes no accessibility calls at all.
+- **Undo history is now capped at 50 positions per window** (previously one entry per move, kept
+  for as long as the app ran). Anything older than the last 50 moves of a given window is no longer
+  reachable with ⌥⌘Z — a deliberate trade for bounded memory in an app that stays resident.
+- Drag-snap's pre-snap size memory is capped at 32 windows, evicting the oldest, so windows that
+  were snapped and then closed no longer accumulate.
+
+### Internal
+- First tests for the `Spectacle2` app target: the persisted-settings migration decoder and the
+  shortcut-store defaults merge, each against its own throwaway `UserDefaults` suite.
+- The drag-snap zone-to-target decision moved into `SpectacleCore` as a pure function so it can be
+  tested without a display. Test suite is 74 → 90.
+- Documented in the README why Spectacle 2 ships without the App Sandbox: a sandboxed process
+  cannot reach another application's windows through the accessibility APIs.
+
 ## [2.2.0] - 2026-08-04
 
 Menu-bar dropdown changes inherited from **DragonKit 2.0**: every item now leads with an SF
