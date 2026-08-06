@@ -1,9 +1,13 @@
 import CoreGraphics
 
 /// Per-window undo/redo of prior frames. `WindowID` is any Hashable the app supplies.
-/// `@unchecked`: a value type holding only `AnyHashable`-keyed `CGRect` stacks — actually
-/// Sendable, but the compiler can't prove it because `AnyHashable` isn't conditionally Sendable.
-public struct WindowHistory: @unchecked Sendable {
+///
+/// Deliberately not `Sendable`. The keys are `AnyHashable`-wrapped window identities, which in the
+/// app carry an `AXUIElement`, so the previous `@unchecked Sendable` and its claim that this holds
+/// "only `CGRect` stacks" described the wrong invariant. Nothing needs the conformance: the real
+/// invariant is main-actor confinement — every mutation goes through the `@MainActor`
+/// `WindowActionController`, and `WindowActionResolver` only borrows it `inout`.
+public struct WindowHistory {
     private var undoStacks: [AnyHashable: [CGRect]] = [:]
     private var redoStacks: [AnyHashable: [CGRect]] = [:]
 

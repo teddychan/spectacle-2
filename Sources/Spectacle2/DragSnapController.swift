@@ -91,7 +91,9 @@ final class DragSnapController {
         guard let screen = screenFrame(containing: cursor), let zone = SnapGeometry.zone(for: cursor, in: screen) else {
             currentTarget = nil; lastBottomColumn = nil; overlay.hide(); return
         }
-        let target = mapZoneToTarget(zone, cursor: cursor, screen: screen)
+        let mapped = SnapGeometry.target(for: zone, cursor: cursor, screen: screen, previousBottomColumn: lastBottomColumn)
+        let target = mapped.target
+        lastBottomColumn = mapped.bottomColumn
         currentTarget = target
         let vf = visibleFrame(forScreenFrame: screen)
         overlay.show(at: SnapGeometry.rect(target, visibleFrame: vf, gap: gapProvider()))
@@ -108,7 +110,10 @@ final class DragSnapController {
         if let t = currentTarget {
             target = t
         } else if let zone = SnapGeometry.zone(for: NSEvent.mouseLocation, in: screen) {
-            target = mapZoneToTarget(zone, cursor: NSEvent.mouseLocation, screen: screen)
+            let mapped = SnapGeometry.target(
+                for: zone, cursor: NSEvent.mouseLocation, screen: screen, previousBottomColumn: lastBottomColumn)
+            target = mapped.target
+            lastBottomColumn = mapped.bottomColumn
         } else {
             return
         }
@@ -116,35 +121,6 @@ final class DragSnapController {
         let rect = SnapGeometry.rect(target, visibleFrame: vf, gap: gapProvider())
         rememberRestoreRect(live, for: windowID)   // remember pre-snap size
         controller.apply(rect, to: window, id: windowID, currentFrame: live, record: true)
-    }
-
-    // MARK: - Zone → target (incl. bottom-edge thirds + two-thirds promotion)
-
-    private func mapZoneToTarget(_ zone: SnapGeometry.SnapZone, cursor: CGPoint, screen: CGRect) -> SnapTarget {
-        switch zone {
-        case .top: return .maximize
-        case .topLeft: return .topLeft
-        case .topRight: return .topRight
-        case .bottomLeft: return .bottomLeft
-        case .bottomRight: return .bottomRight
-        case .left:
-            return SnapGeometry.sideEdgeHalf(cursorY: cursor.y, in: screen) ?? .leftHalf
-        case .right:
-            return SnapGeometry.sideEdgeHalf(cursorY: cursor.y, in: screen) ?? .rightHalf
-        case .bottom:
-            let col = SnapGeometry.bottomEdgeThird(cursorX: cursor.x, in: screen)
-            defer { lastBottomColumn = col }
-            // Two-thirds promotion: entering the center third from a side third widens to two-thirds.
-            if col == .center, let prev = lastBottomColumn {
-                if prev == .first { return .firstTwoThirds }
-                if prev == .last { return .lastTwoThirds }
-            }
-            switch col {
-            case .first: return .firstThird
-            case .center: return .centerThird
-            case .last: return .lastThird
-            }
-        }
     }
 
     // MARK: - Unsnap-restore

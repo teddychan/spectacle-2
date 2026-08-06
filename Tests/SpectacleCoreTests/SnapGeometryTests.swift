@@ -77,3 +77,59 @@ private let screen = CGRect(x: 0, y: 0, width: 1440, height: 900)   // Cocoa: mi
     #expect(SnapGeometry.bottomEdgeThird(cursorX: 720, in: screen) == .center)
     #expect(SnapGeometry.bottomEdgeThird(cursorX: 1400, in: screen) == .last)
 }
+
+// bottom-zone cursor points, one per column (see zoneBottomEdge / bottomEdgeThirdByCursorX above).
+private let bottomFirstX = CGPoint(x: 100, y: 2)
+private let bottomCenterX = CGPoint(x: 720, y: 2)
+private let bottomLastX = CGPoint(x: 1400, y: 2)
+
+@Test func targetPromotesFirstThirdToTwoThirds() {
+    // Entering the center third right after the first third widens the tile to two-thirds.
+    let result = SnapGeometry.target(for: .bottom, cursor: bottomCenterX, screen: screen, previousBottomColumn: .first)
+    #expect(result.target == .firstTwoThirds)
+}
+
+@Test func targetPromotesLastThirdToTwoThirds() {
+    let result = SnapGeometry.target(for: .bottom, cursor: bottomCenterX, screen: screen, previousBottomColumn: .last)
+    #expect(result.target == .lastTwoThirds)
+}
+
+@Test func targetColdCenterDoesNotPromote() {
+    // No previous bottom column (fresh drag) → plain center third, no promotion.
+    let result = SnapGeometry.target(for: .bottom, cursor: bottomCenterX, screen: screen, previousBottomColumn: nil)
+    #expect(result.target == .centerThird)
+}
+
+@Test func targetPlainThirds() {
+    #expect(SnapGeometry.target(for: .bottom, cursor: bottomFirstX, screen: screen, previousBottomColumn: nil).target == .firstThird)
+    #expect(SnapGeometry.target(for: .bottom, cursor: bottomLastX, screen: screen, previousBottomColumn: nil).target == .lastThird)
+}
+
+@Test func targetBottomZoneAlwaysRefreshesColumn() {
+    // The returned column is the freshly computed one for `.bottom`, regardless of promotion.
+    let result = SnapGeometry.target(for: .bottom, cursor: bottomFirstX, screen: screen, previousBottomColumn: .last)
+    #expect(result.bottomColumn == .first)
+}
+
+@Test func targetNonBottomZoneLeavesColumnUntouched() {
+    // The subtle invariant: only `.bottom` may update the column. Every other zone must return
+    // `previousBottomColumn` unchanged, since the caller unconditionally stores the result back.
+    let cursor = CGPoint(x: 700, y: 898)   // top edge
+    let result = SnapGeometry.target(for: .top, cursor: cursor, screen: screen, previousBottomColumn: .first)
+    #expect(result.bottomColumn == .first)
+    let result2 = SnapGeometry.target(for: .top, cursor: cursor, screen: screen, previousBottomColumn: nil)
+    #expect(result2.bottomColumn == nil)
+}
+
+@Test func targetTopIsMaximizeAndCornerMapsThrough() {
+    let cursor = CGPoint(x: 700, y: 898)
+    #expect(SnapGeometry.target(for: .top, cursor: cursor, screen: screen, previousBottomColumn: nil).target == .maximize)
+    #expect(SnapGeometry.target(for: .topLeft, cursor: cursor, screen: screen, previousBottomColumn: nil).target == .topLeft)
+}
+
+@Test func targetLeftZonePromotesToTopHalfNearTop() {
+    let nearTop = CGPoint(x: 2, y: 850)
+    #expect(SnapGeometry.target(for: .left, cursor: nearTop, screen: screen, previousBottomColumn: nil).target == .topHalf)
+    let midScreen = CGPoint(x: 2, y: 450)
+    #expect(SnapGeometry.target(for: .left, cursor: midScreen, screen: screen, previousBottomColumn: nil).target == .leftHalf)
+}
