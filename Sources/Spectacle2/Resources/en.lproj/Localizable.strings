@@ -10,8 +10,8 @@
 "app.about.source" = "Source";
 "app.about.builtWith" = "Built with";
 "app.about.license" = "License";
-"app.whatsNew.summary" = "A small refinement to the Settings window's menu bar. There are no other changes in this release.";
-"app.whatsNew.improved1" = "The Settings window's application menu now offers the standard Hide Spectacle 2, Hide Others and Show All commands, alongside Quit.";
+"app.whatsNew.summary" = "A single fix: About now shows the version in the same format as every other Dragon app.";
+"app.whatsNew.fixed1" = "The version line in About was missing the “v” prefix and the UTC build time. It now shows the full standard format.";
 "app.uninstall.item.app" = "The app and its login item";
 "app.uninstall.item.settings" = "All settings";
 "app.uninstall.item.state" = "Saved application state";

@@ -10,8 +10,8 @@
 "app.about.source" = "Código fuente";
 "app.about.builtWith" = "Creado con";
 "app.about.license" = "Licencia";
-"app.whatsNew.summary" = "Un pequeño refinamiento de la barra de menús de la ventana de Ajustes. No hay más cambios en esta versión.";
-"app.whatsNew.improved1" = "El menú de la aplicación en la ventana de Ajustes ahora ofrece los comandos estándar Ocultar Spectacle 2, Ocultar otros y Mostrar todo, junto a Salir.";
+"app.whatsNew.summary" = "Una única corrección: Acerca de ahora muestra la versión con el mismo formato que las demás apps de Dragon.";
+"app.whatsNew.fixed1" = "A la línea de versión en Acerca de le faltaban el prefijo «v» y la hora de compilación en UTC. Ahora muestra el formato estándar completo.";
 "app.uninstall.item.app" = "La app y su elemento de inicio";
 "app.uninstall.item.settings" = "Todos los ajustes";
 "app.uninstall.item.state" = "Estado guardado de la aplicación";

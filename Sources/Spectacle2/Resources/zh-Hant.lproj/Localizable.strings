@@ -10,8 +10,8 @@
 "app.about.source" = "原始碼";
 "app.about.builtWith" = "建置技術";
 "app.about.license" = "授權";
-"app.whatsNew.summary" = "設定視窗的選單列有一處小改進。本次更新沒有其他變更。";
-"app.whatsNew.improved1" = "設定視窗的應用程式選單現在提供標準的「隱藏 Spectacle 2」「隱藏其他」與「全部顯示」指令，與「結束」並列。";
+"app.whatsNew.summary" = "本次僅有一項修正：「關於」現在以與其他 Dragon App 相同的格式顯示版本號。";
+"app.whatsNew.fixed1" = "「關於」中的版本行缺少「v」前綴與 UTC 建置時間，現已完整顯示標準格式。";
 "app.uninstall.item.app" = "App 及其登入項目";
 "app.uninstall.item.settings" = "所有設定";
 "app.uninstall.item.state" = "已儲存的應用程式狀態";
