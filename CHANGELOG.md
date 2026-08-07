@@ -3,6 +3,23 @@
 All notable changes to Spectacle 2 are documented here. This project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## [2.4.1] - 2026-08-07
+
+### Fixed
+- **The About panel showed the version in the wrong format.** It read `2.4.0 (754)`, missing both
+  the `v` prefix and the ` · <UTC build time>` suffix that every other Dragon app shows. It now
+  reads `v2.4.1 (<build>) · <UTC build time>`.
+
+  `AboutConfig` built the string by hand instead of calling `DragonAbout.versionString()`, which
+  `docs/ADOPT-DRAGONKIT-PROMPT.md` and `docs/STARTING-A-NEW-APP.md` in the kit both require. The
+  reason is a nineteen-minute race: `DragonAbout` was merged to the kit at 22:21 on 2026-07-06 and
+  first shipped in kit v1.3.0, while this app was scaffolded at 22:40 the same evening pinned to
+  `from: "1.2.1"` — so at that moment there was no helper to call and hand-rolling was correct.
+  The stopgap then survived five kit bumps (1.2.1 -> 2.0.0 -> 2.1.0 -> 2.3.0 -> 2.4.0) untouched,
+  because nothing enforces it: `dragon-conformance.py` rules R1-R11 contain no check for the About
+  version format, so every release passed conformance with the wrong string. clipmenu-2, ice-2 and
+  yahoo-keykey-2 all call the helper; this app was the only one that did not.
+
 ## [2.4.0] - 2026-08-07
 
 Takes **DragonKit 2.4.0**. This is a currency bump, not a fix: conformance rule R10 requires the

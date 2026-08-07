@@ -10,8 +10,8 @@
 "app.about.source" = "Code source";
 "app.about.builtWith" = "Conçu avec";
 "app.about.license" = "Licence";
-"app.whatsNew.summary" = "Un léger perfectionnement de la barre des menus de la fenêtre des Réglages. Cette version ne comporte aucun autre changement.";
-"app.whatsNew.improved1" = "Le menu de l'application dans la fenêtre des Réglages propose désormais les commandes standard Masquer Spectacle 2, Masquer les autres et Tout afficher, aux côtés de Quitter.";
+"app.whatsNew.summary" = "Une seule correction : À propos affiche désormais la version au même format que toutes les autres apps Dragon.";
+"app.whatsNew.fixed1" = "Il manquait à la ligne de version d'À propos le préfixe « v » et l'heure de compilation UTC. Elle affiche désormais le format standard complet.";
 "app.uninstall.item.app" = "L'app et son élément d'ouverture";
 "app.uninstall.item.settings" = "Tous les réglages";
 "app.uninstall.item.state" = "État enregistré de l'application";

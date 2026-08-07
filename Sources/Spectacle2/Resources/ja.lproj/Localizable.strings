@@ -10,8 +10,8 @@
 "app.about.source" = "ソースコード";
 "app.about.builtWith" = "使用技術";
 "app.about.license" = "ライセンス";
-"app.whatsNew.summary" = "設定ウインドウのメニューバーがわずかに改善されました。このリリースでの変更はこれだけです。";
-"app.whatsNew.improved1" = "設定ウインドウのアプリケーションメニューに、標準の「Spectacle 2を隠す」「ほかを隠す」「すべてを表示」が「終了」と並んで表示されるようになりました。";
+"app.whatsNew.summary" = "修正が1件です。「このアプリについて」のバージョン表記が、ほかのDragonアプリと同じ形式になりました。";
+"app.whatsNew.fixed1" = "「このアプリについて」のバージョン行に「v」の接頭辞とUTCのビルド時刻が表示されていませんでした。標準の完全な形式で表示されるようになりました。";
 "app.uninstall.item.app" = "アプリとログイン項目";
 "app.uninstall.item.settings" = "すべての設定";
 "app.uninstall.item.state" = "保存されたアプリケーションの状態";

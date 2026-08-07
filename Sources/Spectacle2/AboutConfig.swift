@@ -2,13 +2,18 @@ import Foundation
 import DragonKit
 
 enum AboutConfig {
-    /// The single source of truth for the app version: the bundle's Info.plist. Never
-    /// hardcode it — bump `CFBundleShortVersionString` / `CFBundleVersion` and About,
-    /// backups, and update checks all read the same value.
+    /// The single source of truth for the app version: the bundle's Info.plist, formatted by
+    /// DragonKit as `v2.4.1 (760) · 2026-Aug-07 13:34:56 UTC`. Never hardcode it — bump
+    /// `CFBundleShortVersionString` / `CFBundleVersion` and About, backups, and update checks
+    /// all read the same value.
+    ///
+    /// This delegates rather than re-deriving the format. It used to build the string by hand,
+    /// which silently dropped the `v` prefix and the UTC build time every other Dragon app
+    /// shows: `DragonAbout` landed in kit v1.3.0 nineteen minutes after this app was scaffolded
+    /// against `from: "1.2.1"`, so at the time there was nothing to call, and the stopgap was
+    /// never revisited across five kit bumps.
     static var versionString: String {
-        let short = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "0.1.0"
-        let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "1"
-        return "\(short) (\(build))"
+        DragonAbout.versionString()
     }
 
     @MainActor
