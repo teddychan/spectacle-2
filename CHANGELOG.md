@@ -3,6 +3,26 @@
 All notable changes to Spectacle 2 are documented here. This project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## [2.4.0] - 2026-08-07
+
+Takes **DragonKit 2.4.0**. This is a currency bump, not a fix: conformance rule R10 requires the
+declared pin to be at least the newest kit tag, and 2.4.0 was tagged the same day 2.3.0 shipped
+here. Nothing in it repairs a defect this app had.
+
+### Added
+- **Hide, Hide Others and Show All in the Settings window's menu bar.** 2.3.0 gave that window a
+  menu bar whose application menu held only Quit; the kit now fills in the three conventional
+  commands above it. The Edit and Window menus are unchanged, and the menu-bar dropdown — which
+  this app builds from `DragonAppMenu` — is untouched by the kit release.
+
+### Changed
+- DragonKit 2.3.0 -> 2.4.0 in `Package.swift`, still pinned with `exact:`.
+
+The kit's headline change in 2.4.0 is a new `includeQuit:` parameter, which lets a system-managed
+input method keep Quit ⌘Q out of its Settings menu bar. It does not apply here: Spectacle 2 is quit
+by the user, so it takes the default and keeps Quit in both the Settings menu bar and the dropdown.
+Recorded so this entry can't be read as adopting a behaviour the app doesn't use.
+
 ## [2.3.0] - 2026-08-07
 
 Takes **DragonKit 2.3.0**, held back in 2.2.2 until it could be adopted deliberately. Every change

@@ -10,11 +10,8 @@
 "app.about.source" = "Source";
 "app.about.builtWith" = "Built with";
 "app.about.license" = "License";
-"app.whatsNew.summary" = "Settings gains the standard keyboard shortcuts, a bad restore can no longer wipe your settings, and a failed uninstall now tells you instead of claiming success.";
-"app.whatsNew.improved1" = "The Settings window now has the standard menu bar: ⌘W and ⌘Q work, and Cut, Copy, Paste and Select All work in every text field.";
-"app.whatsNew.fixed1" = "Restoring a file that isn't a Spectacle 2 backup is now refused, instead of replacing your settings with nothing.";
-"app.whatsNew.fixed2" = "An uninstall that fails to move the app to the Trash now reports the error, instead of quitting as though it had worked.";
-"app.whatsNew.removed1" = "The “back up automatically on quit” switch is gone. Nothing ever read it — it was on by default and did nothing.";
+"app.whatsNew.summary" = "A small refinement to the Settings window's menu bar. There are no other changes in this release.";
+"app.whatsNew.improved1" = "The Settings window's application menu now offers the standard Hide Spectacle 2, Hide Others and Show All commands, alongside Quit.";
 "app.uninstall.item.app" = "The app and its login item";
 "app.uninstall.item.settings" = "All settings";
 "app.uninstall.item.state" = "Saved application state";

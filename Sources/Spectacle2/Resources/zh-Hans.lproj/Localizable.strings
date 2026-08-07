@@ -10,11 +10,8 @@
 "app.about.source" = "源代码";
 "app.about.builtWith" = "构建技术";
 "app.about.license" = "许可证";
-"app.whatsNew.summary" = "设置窗口支持标准键盘快捷键，用错误的文件恢复不会再清空设置，卸载失败也会如实报告而不再谎报成功。";
-"app.whatsNew.improved1" = "设置窗口现在有标准菜单栏：⌘W 和 ⌘Q 可用，所有文本框都支持剪切、拷贝、粘贴和全选。";
-"app.whatsNew.fixed1" = "从并非 Spectacle 2 备份的文件恢复现在会被拒绝，以前会把设置替换为空。";
-"app.whatsNew.fixed2" = "未能将应用移到废纸篓的卸载现在会报告错误，而不是当作成功退出。";
-"app.whatsNew.removed1" = "已移除“退出时自动备份”开关。它从未被读取过，默认开启却什么也不做。";
+"app.whatsNew.summary" = "设置窗口的菜单栏有一处小改进。本次更新没有其他变化。";
+"app.whatsNew.improved1" = "设置窗口的应用程序菜单现在提供标准的“隐藏 Spectacle 2”“隐藏其他”和“全部显示”命令，与“退出”并列。";
 "app.uninstall.item.app" = "App 及其登录项";
 "app.uninstall.item.settings" = "所有设置";
 "app.uninstall.item.state" = "已保存的应用程序状态";

@@ -10,11 +10,8 @@
 "app.about.source" = "Code source";
 "app.about.builtWith" = "Conçu avec";
 "app.about.license" = "Licence";
-"app.whatsNew.summary" = "Les Réglages disposent des raccourcis clavier standard, une restauration incorrecte ne peut plus effacer vos réglages, et une désinstallation échouée le signale au lieu de prétendre avoir réussi.";
-"app.whatsNew.improved1" = "La fenêtre des Réglages dispose désormais de la barre des menus standard : ⌘W et ⌘Q fonctionnent, tout comme Couper, Copier, Coller et Tout sélectionner dans chaque champ de texte.";
-"app.whatsNew.fixed1" = "La restauration d'un fichier qui n'est pas une sauvegarde de Spectacle 2 est désormais refusée, au lieu de remplacer vos réglages par rien.";
-"app.whatsNew.fixed2" = "Une désinstallation qui ne parvient pas à placer l'app dans la corbeille signale désormais l'erreur, au lieu de quitter comme si tout s'était bien passé.";
-"app.whatsNew.removed1" = "L'option « sauvegarder automatiquement en quittant » a été retirée. Rien ne la lisait : activée par défaut, elle ne faisait rien.";
+"app.whatsNew.summary" = "Un léger perfectionnement de la barre des menus de la fenêtre des Réglages. Cette version ne comporte aucun autre changement.";
+"app.whatsNew.improved1" = "Le menu de l'application dans la fenêtre des Réglages propose désormais les commandes standard Masquer Spectacle 2, Masquer les autres et Tout afficher, aux côtés de Quitter.";
 "app.uninstall.item.app" = "L'app et son élément d'ouverture";
 "app.uninstall.item.settings" = "Tous les réglages";
 "app.uninstall.item.state" = "État enregistré de l'application";
