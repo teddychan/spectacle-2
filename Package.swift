@@ -10,12 +10,9 @@ let package = Package(
         //
         // Pinned EXACTLY, not `from:`. Package.resolved is gitignored, so every CI build resolves
         // from scratch — under `from:` the newest kit would be pulled into whatever release happens
-        // to be tagged next, without anyone having run the app against it. DragonKit 2.2.0 is
-        // released and deliberately not taken here: it removes the "back up automatically on quit"
-        // toggle and changes permission-refresh and uninstall-completion behaviour, so it gets its
-        // own release after hands-on testing rather than riding along with a patch. This makes the
-        // kit's R10 conformance rule fail by design until that bump happens.
-        .package(url: "https://github.com/teddychan/dragon-kit", exact: "2.1.0"),
+        // to be tagged next, without anyone having run the app against it. Bumping this line is
+        // therefore a deliberate act, and the version here is exactly what ships.
+        .package(url: "https://github.com/teddychan/dragon-kit", exact: "2.3.0"),
     ],
     targets: [
         .target(name: "SpectacleCore"),
