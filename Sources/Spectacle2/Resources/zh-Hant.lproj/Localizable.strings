@@ -10,11 +10,8 @@
 "app.about.source" = "原始碼";
 "app.about.builtWith" = "建置技術";
 "app.about.license" = "授權";
-"app.whatsNew.summary" = "設定視窗支援標準鍵盤快速鍵，用錯誤的檔案還原不會再清空設定，解除安裝失敗也會據實回報而不再謊報成功。";
-"app.whatsNew.improved1" = "設定視窗現在有標準選單列：⌘W 與 ⌘Q 可用，所有文字欄位都支援剪下、拷貝、貼上與全選。";
-"app.whatsNew.fixed1" = "從並非 Spectacle 2 備份的檔案還原現在會被拒絕，以前會把設定替換為空。";
-"app.whatsNew.fixed2" = "未能將應用程式移到垃圾桶的解除安裝現在會回報錯誤，而不是當作成功結束。";
-"app.whatsNew.removed1" = "已移除「結束時自動備份」開關。它從未被讀取，預設開啟卻什麼也不做。";
+"app.whatsNew.summary" = "設定視窗的選單列有一處小改進。本次更新沒有其他變更。";
+"app.whatsNew.improved1" = "設定視窗的應用程式選單現在提供標準的「隱藏 Spectacle 2」「隱藏其他」與「全部顯示」指令，與「結束」並列。";
 "app.uninstall.item.app" = "App 及其登入項目";
 "app.uninstall.item.settings" = "所有設定";
 "app.uninstall.item.state" = "已儲存的應用程式狀態";

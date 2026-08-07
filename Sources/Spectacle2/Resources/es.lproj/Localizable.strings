@@ -10,11 +10,8 @@
 "app.about.source" = "Código fuente";
 "app.about.builtWith" = "Creado con";
 "app.about.license" = "Licencia";
-"app.whatsNew.summary" = "Los Ajustes incorporan los atajos de teclado estándar, una restauración incorrecta ya no puede borrar tus ajustes y una desinstalación fallida ahora te avisa en lugar de darla por buena.";
-"app.whatsNew.improved1" = "La ventana de Ajustes ya tiene la barra de menús estándar: ⌘W y ⌘Q funcionan, y Cortar, Copiar, Pegar y Seleccionar todo funcionan en cualquier campo de texto.";
-"app.whatsNew.fixed1" = "Restaurar un archivo que no es una copia de seguridad de Spectacle 2 ahora se rechaza, en lugar de sustituir tus ajustes por nada.";
-"app.whatsNew.fixed2" = "Una desinstalación que no consigue mover la app a la Papelera ahora informa del error, en lugar de salir como si hubiera funcionado.";
-"app.whatsNew.removed1" = "Se ha eliminado el interruptor «hacer copia de seguridad automáticamente al salir». Nunca se leía: estaba activado por omisión y no hacía nada.";
+"app.whatsNew.summary" = "Un pequeño refinamiento de la barra de menús de la ventana de Ajustes. No hay más cambios en esta versión.";
+"app.whatsNew.improved1" = "El menú de la aplicación en la ventana de Ajustes ahora ofrece los comandos estándar Ocultar Spectacle 2, Ocultar otros y Mostrar todo, junto a Salir.";
 "app.uninstall.item.app" = "La app y su elemento de inicio";
 "app.uninstall.item.settings" = "Todos los ajustes";
 "app.uninstall.item.state" = "Estado guardado de la aplicación";

@@ -10,19 +10,14 @@ enum WhatsNewConfig {
             version: Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "0.1.0",
             date: "2026-08-07",
             summary: L("app.whatsNew.summary"),
-            // Everything here comes from the DragonKit 2.3.0 bump rather than this app's own
+            // Everything here comes from the DragonKit 2.4.0 bump rather than this app's own
             // code, but it is all user-visible, so it belongs in the pane the same as any other
-            // change — where it came from is the changelog's business, not the user's.
+            // change — where it came from is the changelog's business, not the user's. 2.4.0 is a
+            // currency bump, so this is deliberately one line: the kit's other change that release
+            // (`includeQuit:`) is input-method-only and changes nothing a Spectacle user can see.
             sections: [
                 ChangeSection(kind: .improved, entries: [
                     L("app.whatsNew.improved1"),
-                ]),
-                ChangeSection(kind: .fixed, entries: [
-                    L("app.whatsNew.fixed1"),
-                    L("app.whatsNew.fixed2"),
-                ]),
-                ChangeSection(kind: .removed, entries: [
-                    L("app.whatsNew.removed1"),
                 ]),
             ]
         )
