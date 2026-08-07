@@ -3,6 +3,56 @@
 All notable changes to Spectacle 2 are documented here. This project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## [2.3.0] - 2026-08-07
+
+Takes **DragonKit 2.3.0**, held back in 2.2.2 until it could be adopted deliberately. Every change
+below comes from the kit rather than this app's own code, and all of it is user-visible — which is
+why this is a minor bump rather than a patch.
+
+### Added
+- **The Settings window has a menu bar again.** An accessory app that promotes itself to `.regular`
+  with no main menu shows an empty menu bar, which meant the Settings window had no ⌘W, no ⌘Q, and
+  no Cut/Copy/Paste/Select All in any text field — including the search field in the Shortcuts
+  pane. The kit now installs a minimal menu bar while the window is open. This was raised as a
+  finding against 2.2.0 and deliberately fixed upstream rather than patched here, so that every
+  Dragon app gets it.
+
+### Fixed
+- **Restoring a file that isn't a Spectacle 2 backup could erase your settings.** Backup
+  deserialization accepted any property list, so an unrelated file passed validation and the
+  restore then replaced the settings suite with nothing — while the pane relaunched the app as
+  though it had succeeded. Both required keys are now checked, and a backup taken from a different
+  app's suite is refused.
+- **A failed uninstall reported success.** Moving the app to the Trash could fail *after* the
+  settings teardown had already run; the error was discarded and the app quit claiming it was
+  done, leaving it installed with its settings gone.
+- **"Back Up Now" no longer writes duplicate snapshots.** If nothing changed since the newest
+  backup, the pane says so instead of silently adding an identical file — ten redundant snapshots
+  could previously push the last genuinely different one out of the retention window.
+- Backup file I/O moved off the main actor, so a backup folder on a slow network share no longer
+  freezes the Settings window, and the Permissions pane stopped rebuilding its entire view and
+  polling TCC once a second forever.
+
+### Removed
+- **The "back up automatically on quit" toggle.** Nothing in the kit or in any app ever read the
+  preference it wrote. It shipped on by default and did nothing, while telling users their
+  settings were being backed up at quit. Existing installs keep a harmless orphaned key.
+
+### Changed
+- Permission status no longer refreshes while the app is in the background; it refreshes the
+  moment the app becomes active.
+- The kit's own permission titles and descriptions were hardcoded English that no app could
+  translate. They are localized in all seven languages now, and the per-row delete button in
+  Backup & Restore has a VoiceOver label naming the file instead of being one unlabelled trash
+  icon among identical ones.
+
+### Note on the settings-reset bug
+DragonKit 2.2.0's headline fix — synthesized `Decodable` not falling back to a property's default
+for a missing key, resetting every preference on upgrade — **did not affect Spectacle 2**. This
+app's `AppSettings` has always used a hand-written tolerant decoder that supplies a default for
+each absent field, and 2.2.1 added tests covering it. The kit's forward-migration is taken here
+regardless, and it now preserves a stored blob it genuinely cannot read rather than dropping it.
+
 ## [2.2.2] - 2026-08-07
 
 **Nothing in this release changes how Spectacle 2 behaves.** It ships internal build-tooling

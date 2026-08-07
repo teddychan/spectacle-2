@@ -10,12 +10,19 @@ enum WhatsNewConfig {
             version: Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "0.1.0",
             date: "2026-08-07",
             summary: L("app.whatsNew.summary"),
-            // One section, deliberately. 2.2.2 changes nothing a user can observe, so there is
-            // nothing honest to list under Added, Improved or Fixed — padding this pane to look
-            // like a bigger release is exactly what it exists not to do.
+            // Everything here comes from the DragonKit 2.3.0 bump rather than this app's own
+            // code, but it is all user-visible, so it belongs in the pane the same as any other
+            // change — where it came from is the changelog's business, not the user's.
             sections: [
-                ChangeSection(kind: .changed, entries: [
-                    L("app.whatsNew.changed1"),
+                ChangeSection(kind: .improved, entries: [
+                    L("app.whatsNew.improved1"),
+                ]),
+                ChangeSection(kind: .fixed, entries: [
+                    L("app.whatsNew.fixed1"),
+                    L("app.whatsNew.fixed2"),
+                ]),
+                ChangeSection(kind: .removed, entries: [
+                    L("app.whatsNew.removed1"),
                 ]),
             ]
         )
