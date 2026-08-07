@@ -14,7 +14,7 @@ enum AboutConfig {
     @MainActor
     static var content: AboutContent {
         AboutContent(
-            appName: "Spectacle 2",
+            appName: AppIdentity.displayName,
             versionString: versionString,
             copyright: "© 2026 Teddy Chan",
             links: [
