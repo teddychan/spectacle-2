@@ -6,7 +6,11 @@ cd "$(dirname "$0")/.."
 # OWN identity ("Spectacle 2 Debug" / a .debug bundle id) so its TCC (Accessibility) grant and
 # settings never collide with an installed release copy (brew install --cask ...).
 APP_NAME="Spectacle 2 Debug"
-BIN_NAME="Spectacle2"
+BIN_NAME="Spectacle2"                 # SwiftPM product name (what `swift build` produces)
+# The executable *inside* the bundle is renamed to match the app, so Activity Monitor, `ps`, and
+# the pkill below can tell this build apart from the installed release copy — both used to be
+# called "Spectacle2", which meant this script's pkill also killed the user's release app.
+EXEC_NAME="Spectacle 2 Debug"
 DEBUG_ID="com.dragonapp.spectacle-2.debug"
 # A stable self-signed identity of this exact name (Keychain Access → Certificate Assistant →
 # Create a Certificate → type "Code Signing") makes the Accessibility grant persist across
@@ -19,7 +23,7 @@ BIN_DIR="$(swift build -c debug --show-bin-path)"
 APP="$BIN_DIR/$APP_NAME.app"
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources" "$APP/Contents/Frameworks"
-cp "$BIN_DIR/$BIN_NAME" "$APP/Contents/MacOS/$BIN_NAME"
+cp "$BIN_DIR/$BIN_NAME" "$APP/Contents/MacOS/$EXEC_NAME"
 cp Info.plist "$APP/Contents/Info.plist"
 
 # Re-id the main bundle to the .debug identity so it runs safely beside an installed release.
@@ -28,13 +32,23 @@ PB=/usr/libexec/PlistBuddy
 "$PB" -c "Set :CFBundleName $APP_NAME" "$APP/Contents/Info.plist"
 "$PB" -c "Set :CFBundleDisplayName $APP_NAME" "$APP/Contents/Info.plist" 2>/dev/null \
   || "$PB" -c "Add :CFBundleDisplayName string $APP_NAME" "$APP/Contents/Info.plist"
-"$PB" -c "Set :CFBundleExecutable $BIN_NAME" "$APP/Contents/Info.plist" 2>/dev/null \
-  || "$PB" -c "Add :CFBundleExecutable string $BIN_NAME" "$APP/Contents/Info.plist"
+"$PB" -c "Set :CFBundleExecutable $EXEC_NAME" "$APP/Contents/Info.plist" 2>/dev/null \
+  || "$PB" -c "Add :CFBundleExecutable string $EXEC_NAME" "$APP/Contents/Info.plist"
 
 # Build number = git commit count (monotonic) so About shows a real per-build number.
 BUILD="$(git rev-list --count HEAD 2>/dev/null || echo 1)"
 "$PB" -c "Set :CFBundleVersion $BUILD" "$APP/Contents/Info.plist" 2>/dev/null \
   || "$PB" -c "Add :CFBundleVersion string $BUILD" "$APP/Contents/Info.plist"
+
+# Mark the version itself "(Debug)". The .debug bundle id and the "Spectacle 2 Debug" name already
+# separate this build, but the version string is what gets read off a screenshot or a bug report —
+# leaving it identical to the release is how a debug build gets mistaken for one.
+SHORT="$("$PB" -c "Print :CFBundleShortVersionString" "$APP/Contents/Info.plist")"
+case "$SHORT" in
+  *"(Debug)") ;;
+  *) SHORT="$SHORT (Debug)"
+     "$PB" -c "Set :CFBundleShortVersionString $SHORT" "$APP/Contents/Info.plist" ;;
+esac
 
 # Copy every SwiftPM resource bundle next to the binary: DragonKit_DragonKit.bundle (the kit's
 # strings) AND Spectacle2_Spectacle2.bundle (the app's own strings, resolved at runtime via
@@ -50,7 +64,7 @@ cp AppIcon.icns "$APP/Contents/Resources/AppIcon.icns"
 SPARKLE_FW="$(find "$(pwd)/.build" -type d -name 'Sparkle.framework' -path '*macos*' 2>/dev/null | head -1)"
 if [ -n "${SPARKLE_FW:-}" ]; then
   cp -R "$SPARKLE_FW" "$APP/Contents/Frameworks/"
-  install_name_tool -add_rpath "@executable_path/../Frameworks" "$APP/Contents/MacOS/$BIN_NAME" 2>/dev/null || true
+  install_name_tool -add_rpath "@executable_path/../Frameworks" "$APP/Contents/MacOS/$EXEC_NAME" 2>/dev/null || true
 fi
 
 # Prefer the stable self-signed identity so Accessibility grants survive rebuilds; otherwise
@@ -65,8 +79,23 @@ else
   echo "      '$SIGN_IDENTITY' in Keychain Access (Certificate Assistant → Create a Certificate)."
 fi
 
-# Quit any previously-launched debug instance so a stale menu-bar icon doesn't linger.
-pkill -f "/Contents/MacOS/$BIN_NAME" 2>/dev/null || true
+# Quit any previously-launched debug instance so a stale menu-bar icon doesn't linger. Matched on
+# this bundle's own path so it can never match the installed release app.
+pkill -f "$APP_NAME.app/Contents/MacOS" 2>/dev/null || true
 sleep 1
-open "$APP"
-echo "Launched $APP"
+# -n forces a new instance of the bundle at exactly this path, rather than letting LaunchServices
+# resolve the .debug id to some other copy it has seen.
+open -n "$APP"
+
+# Never report success without showing the identity actually shipped in the bundle.
+echo
+echo "Launched \"$APP_NAME\""
+"$PB" -c 'Print :CFBundleIdentifier' -c 'Print :CFBundleName' -c 'Print :CFBundleDisplayName' \
+      -c 'Print :CFBundleShortVersionString' -c 'Print :CFBundleVersion' \
+      -c 'Print :CFBundleExecutable' "$APP/Contents/Info.plist" \
+  | paste -d' ' <(printf '  %s\n' 'id:' 'name:' 'displayName:' 'version:' 'build:' 'executable:') -
+codesign --verify --deep --strict "$APP" 2>/dev/null \
+  && echo "  signature:   OK" || echo "  signature:   FAILED"
+echo "  path:        $APP"
+echo
+echo "Accessibility must be granted to \"$APP_NAME\" separately from the installed release copy."

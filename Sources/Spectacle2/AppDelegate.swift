@@ -7,7 +7,7 @@ import SpectacleCore
 
 @MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate {
-    private let appName = "Spectacle 2"
+    private let appName = AppIdentity.displayName
     private var bundleID: String { Bundle.main.bundleIdentifier ?? "com.dragonapp.spectacle-2" }
     private var appVersion: String {
         Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "0.1.0"
