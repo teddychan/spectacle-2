@@ -10,10 +10,8 @@
 "app.about.source" = "Código fuente";
 "app.about.builtWith" = "Creado con";
 "app.about.license" = "Licencia";
-"app.whatsNew.summary" = "Versión de mantenimiento: el ajuste en los bordes es más fluido y una app que deja de responder ya no puede bloquear Spectacle 2.";
-"app.whatsNew.improved1" = "Al ajustar una ventana a un borde de la pantalla ya no se consulta esa ventana en cada movimiento del ratón, así el arrastre se mantiene fluido.";
-"app.whatsNew.fixed1" = "Una app que deja de responder ya no puede bloquear Spectacle 2 mientras se mueve una de sus ventanas.";
-"app.whatsNew.changed1" = "Deshacer ahora guarda las últimas 50 posiciones de cada ventana en lugar de crecer mientras la app siga abierta.";
+"app.whatsNew.summary" = "Versión de mantenimiento. No cambia nada en el funcionamiento de Spectacle 2: esta versión solo incluye correcciones internas de las herramientas de compilación.";
+"app.whatsNew.changed1" = "Interno: la compilación de desarrollo de Spectacle 2 ahora se identifica de forma independiente de la copia instalada.";
 "app.uninstall.item.app" = "La app y su elemento de inicio";
 "app.uninstall.item.settings" = "Todos los ajustes";
 "app.uninstall.item.state" = "Estado guardado de la aplicación";

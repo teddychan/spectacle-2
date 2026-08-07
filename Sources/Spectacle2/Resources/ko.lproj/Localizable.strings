@@ -10,10 +10,8 @@
 "app.about.source" = "소스 코드";
 "app.about.builtWith" = "제작 기반";
 "app.about.license" = "라이선스";
-"app.whatsNew.summary" = "유지 관리 릴리스: 화면 가장자리 스냅이 더 부드러워지고, 응답하지 않는 앱이 Spectacle 2를 멈추게 하지 않습니다.";
-"app.whatsNew.improved1" = "화면 가장자리로 스냅할 때 마우스를 움직일 때마다 해당 창을 조회하지 않으므로 끌기가 부드럽게 유지됩니다.";
-"app.whatsNew.fixed1" = "응답하지 않는 앱의 창을 옮기는 동안 Spectacle 2가 멈추지 않습니다.";
-"app.whatsNew.changed1" = "취소는 이제 창마다 최근 50개의 위치만 유지하며, 앱이 실행되는 동안 계속 늘어나지 않습니다.";
+"app.whatsNew.summary" = "유지 관리 릴리스입니다. Spectacle 2의 동작에는 변화가 없으며, 내부 빌드 도구 수정만 포함합니다.";
+"app.whatsNew.changed1" = "내부 변경: Spectacle 2의 개발용 빌드가 설치된 사본과 구분되어 식별됩니다.";
 "app.uninstall.item.app" = "앱과 로그인 항목";
 "app.uninstall.item.settings" = "모든 설정";
 "app.uninstall.item.state" = "저장된 응용 프로그램 상태";

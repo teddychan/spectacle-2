@@ -10,10 +10,8 @@
 "app.about.source" = "Code source";
 "app.about.builtWith" = "Conçu avec";
 "app.about.license" = "Licence";
-"app.whatsNew.summary" = "Version de maintenance : l'ancrage aux bords est plus fluide et une app qui ne répond plus ne peut plus figer Spectacle 2.";
-"app.whatsNew.improved1" = "L'ancrage d'une fenêtre à un bord de l'écran n'interroge plus cette fenêtre à chaque mouvement de la souris, le glissement reste donc fluide.";
-"app.whatsNew.fixed1" = "Une app qui ne répond plus ne peut plus bloquer Spectacle 2 pendant le déplacement de l'une de ses fenêtres.";
-"app.whatsNew.changed1" = "Annuler conserve désormais les 50 dernières positions de chaque fenêtre au lieu de croître tant que l'app fonctionne.";
+"app.whatsNew.summary" = "Version de maintenance. Rien ne change dans le fonctionnement de Spectacle 2 : celle-ci ne contient que des correctifs internes des outils de compilation.";
+"app.whatsNew.changed1" = "Interne : la version de développement de Spectacle 2 s'identifie désormais séparément de la copie installée.";
 "app.uninstall.item.app" = "L'app et son élément d'ouverture";
 "app.uninstall.item.settings" = "Tous les réglages";
 "app.uninstall.item.state" = "État enregistré de l'application";
