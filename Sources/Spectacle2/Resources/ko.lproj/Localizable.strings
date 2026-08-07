@@ -10,8 +10,11 @@
 "app.about.source" = "소스 코드";
 "app.about.builtWith" = "제작 기반";
 "app.about.license" = "라이선스";
-"app.whatsNew.summary" = "유지 관리 릴리스입니다. Spectacle 2의 동작에는 변화가 없으며, 내부 빌드 도구 수정만 포함합니다.";
-"app.whatsNew.changed1" = "내부 변경: Spectacle 2의 개발용 빌드가 설치된 사본과 구분되어 식별됩니다.";
+"app.whatsNew.summary" = "설정 창에서 표준 키보드 단축키를 사용할 수 있고, 잘못된 파일로 복원해도 설정이 사라지지 않으며, 제거 실패를 성공으로 보고하지 않습니다.";
+"app.whatsNew.improved1" = "설정 창에 표준 메뉴 막대가 생겼습니다. ⌘W와 ⌘Q가 동작하고, 모든 텍스트 필드에서 오려두기, 복사하기, 붙여넣기, 전체 선택이 동작합니다.";
+"app.whatsNew.fixed1" = "Spectacle 2 백업이 아닌 파일의 복원은 이제 거부됩니다. 이전에는 설정이 빈 상태로 대체되었습니다.";
+"app.whatsNew.fixed2" = "앱을 휴지통으로 옮기지 못한 제거가 이제 오류를 알립니다. 이전에는 성공한 것처럼 종료했습니다.";
+"app.whatsNew.removed1" = "'종료 시 자동 백업' 스위치를 제거했습니다. 어디에서도 읽지 않는 설정으로, 기본으로 켜진 채 아무 일도 하지 않았습니다.";
 "app.uninstall.item.app" = "앱과 로그인 항목";
 "app.uninstall.item.settings" = "모든 설정";
 "app.uninstall.item.state" = "저장된 응용 프로그램 상태";
