@@ -3,6 +3,34 @@
 All notable changes to Spectacle 2 are documented here. This project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## [2.2.2] - 2026-08-07
+
+**Nothing in this release changes how Spectacle 2 behaves.** It ships internal build-tooling
+fixes and an explicit dependency pin. If you are on 2.2.1 there is no functional reason to
+update.
+
+### Changed
+- The local development build now takes its display name from its own bundle rather than a
+  hardcoded string, so a debug build no longer presents itself as the release build in the About
+  panel, the Settings window title, or — the one that mattered — the Uninstall pane, whose
+  optional-data path was resolving to the *release* build's `~/Library/Application Support`
+  folder. In a release build this resolves to exactly the string it replaced, so the shipped app
+  is unchanged.
+- `scripts/run.sh` no longer quits an installed release copy every time it runs. Its process match
+  was broad enough to hit `/Applications/Spectacle 2.app` as well as the debug build, because both
+  bundles shipped an executable named `Spectacle2`. The debug bundle's executable is now named
+  after the debug app, and the match is anchored to that bundle's own path.
+- The debug build stamps its version as `X.Y.Z (Debug)`, so a screenshot or a bug report can't be
+  mistaken for the release build.
+
+### Internal
+- DragonKit is now pinned to exactly `2.1.0` rather than floating with `from:`. `Package.resolved`
+  is gitignored, so CI resolves dependencies from scratch on every build — a floating pin meant
+  the next tag would silently ship whatever kit version happened to be newest at the time. Kit
+  `2.2.0` is released and deliberately not taken in this release; it removes a Backup toggle and
+  changes permission-refresh and uninstall behaviour, so it will get its own release once it has
+  been tested hands-on. The kit's R10 conformance rule fails by design until then.
+
 ## [2.2.1] - 2026-08-06
 
 A maintenance release. No new features — this is robustness and performance work on the

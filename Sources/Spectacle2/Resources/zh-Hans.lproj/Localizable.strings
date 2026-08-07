@@ -10,10 +10,8 @@
 "app.about.source" = "源代码";
 "app.about.builtWith" = "构建技术";
 "app.about.license" = "许可证";
-"app.whatsNew.summary" = "维护更新：屏幕边缘吸附更流畅，无响应的应用不会再让 Spectacle 2 卡住。";
-"app.whatsNew.improved1" = "窗口吸附到屏幕边缘时，不再在每次鼠标移动时查询该窗口，拖动更流畅。";
-"app.whatsNew.fixed1" = "移动无响应应用的窗口时，Spectacle 2 不会再被卡住。";
-"app.whatsNew.changed1" = "撤销现在为每个窗口保留最近 50 个位置，不再随应用运行持续增长。";
+"app.whatsNew.summary" = "维护更新。Spectacle 2 的使用方式没有任何变化，本次仅包含内部构建工具的修复。";
+"app.whatsNew.changed1" = "内部变更：Spectacle 2 的开发版本现在会与已安装的副本区分标识。";
 "app.uninstall.item.app" = "App 及其登录项";
 "app.uninstall.item.settings" = "所有设置";
 "app.uninstall.item.state" = "已保存的应用程序状态";
