@@ -6,7 +6,6 @@
 "app.general.showInMenuBar" = "在菜单栏中显示";
 "app.general.showInMenuBarHint" = "隐藏菜单栏图标。如果启动时已隐藏，将自动打开设置以便重新开启。";
 "app.general.languageSection" = "语言";
-"app.about.updateFramework" = "更新框架";
 "app.whatsNew.summary" = "“关于”现在显示与其他 Dragon App 相同的条目，链接也终于指向正确的位置。";
 "app.whatsNew.changed1" = "“关于”中的各行已与其他 Dragon App 一致：标题、图标与顺序完全相同。";
 "app.whatsNew.fixed1" = "“网站”打开的是 Dragon App 首页，而不是 Spectacle 2 自己的页面。";

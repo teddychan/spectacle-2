@@ -6,7 +6,6 @@
 "app.general.showInMenuBar" = "メニューバーに表示";
 "app.general.showInMenuBarHint" = "メニューバーのアイコンを非表示にします。起動時に非表示の場合は、再度オンにできるよう設定が自動的に開きます。";
 "app.general.languageSection" = "言語";
-"app.about.updateFramework" = "アップデートフレームワーク";
 "app.whatsNew.summary" = "「このアプリについて」の項目が、ほかのDragonアプリと同じ並びになりました。リンク先も正しくなっています。";
 "app.whatsNew.changed1" = "「このアプリについて」の各行が、ほかのDragonアプリと同じ表記・アイコン・並び順になりました。";
 "app.whatsNew.fixed1" = "「ウェブサイト」が、Spectacle 2 専用のページではなくDragon Appのトップページを開いていました。";
