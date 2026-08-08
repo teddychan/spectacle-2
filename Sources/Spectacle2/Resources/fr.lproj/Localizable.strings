@@ -6,7 +6,6 @@
 "app.general.showInMenuBar" = "Afficher dans la barre des menus";
 "app.general.showInMenuBarHint" = "Masque l'icône de la barre des menus. Si elle est masquée au lancement, les Réglages s'ouvrent automatiquement pour la réactiver.";
 "app.general.languageSection" = "Langue";
-"app.about.updateFramework" = "Framework de mise à jour";
 "app.whatsNew.summary" = "À propos affiche désormais les mêmes lignes que toutes les autres apps Dragon, et ses liens mènent enfin au bon endroit.";
 "app.whatsNew.changed1" = "Les lignes d’À propos correspondent à celles de toutes les autres apps Dragon : mêmes intitulés, mêmes icônes, même ordre.";
 "app.whatsNew.fixed1" = "« Site web » ouvrait la page d’accueil de Dragon App au lieu de la page propre à Spectacle 2.";

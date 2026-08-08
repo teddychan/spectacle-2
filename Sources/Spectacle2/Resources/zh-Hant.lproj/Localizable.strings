@@ -6,7 +6,6 @@
 "app.general.showInMenuBar" = "在選單列中顯示";
 "app.general.showInMenuBarHint" = "隱藏選單列圖像。若啟動時已隱藏，將自動打開設定以便重新開啟。";
 "app.general.languageSection" = "語言";
-"app.about.updateFramework" = "更新框架";
 "app.whatsNew.summary" = "「關於」現在顯示與其他 Dragon App 相同的項目，連結也終於指向正確的位置。";
 "app.whatsNew.changed1" = "「關於」中的各行已與其他 Dragon App 一致：標題、圖像與順序完全相同。";
 "app.whatsNew.fixed1" = "「網站」開啟的是 Dragon App 首頁，而不是 Spectacle 2 自己的頁面。";

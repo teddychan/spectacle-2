@@ -6,7 +6,6 @@
 "app.general.showInMenuBar" = "Show in menu bar";
 "app.general.showInMenuBarHint" = "Hide the menu-bar icon. If it's hidden at launch, Settings opens automatically so you can turn it back on.";
 "app.general.languageSection" = "Language";
-"app.about.updateFramework" = "Update framework";
 "app.whatsNew.summary" = "About now shows the same rows as every other Dragon app, and its links finally go where they should.";
 "app.whatsNew.changed1" = "The rows in About match every other Dragon app — same titles, same icons, same order.";
 "app.whatsNew.fixed1" = "“Website” opened the Dragon App home page instead of Spectacle 2's own page.";
