@@ -3,6 +3,23 @@
 All notable changes to Spectacle 2 are documented here. This project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## [2.4.2] - Unreleased
+
+### Changed
+- **`AboutConfig` now matches the other Dragon apps exactly.** It called
+  `DragonAbout.versionString()` through a private `versionString` wrapper that added nothing;
+  clipmenu-2 and ice-2 pass the call straight into `AboutContent`, and only yahoo-keykey-2 wraps
+  it (to append a Debug marker). The wrapper and its stale doc comment are gone. No behaviour
+  change — the rendered string is identical.
+
+### Fixed
+- **Corrected the root cause recorded for 2.4.1 below.** The original entry claimed a
+  "nineteen-minute race" in which `DragonAbout` did not yet exist when this app was scaffolded.
+  That was wrong, and backwards: the helper was tagged in kit **v1.3.0 at 22:22:05** on
+  2026-07-06 and this app was scaffolded at **22:40:41**, eighteen minutes *later*. Because
+  `from: "1.2.1"` is a range (`>= 1.2.1, < 2.0.0`), it resolved to v1.3.0, so the helper was
+  reachable from the very first build. See the corrected 2.4.1 entry.
+
 ## [2.4.1] - 2026-08-07
 
 ### Fixed
@@ -11,14 +28,19 @@ All notable changes to Spectacle 2 are documented here. This project adheres to
   reads `v2.4.1 (<build>) · <UTC build time>`.
 
   `AboutConfig` built the string by hand instead of calling `DragonAbout.versionString()`, which
-  `docs/ADOPT-DRAGONKIT-PROMPT.md` and `docs/STARTING-A-NEW-APP.md` in the kit both require. The
-  reason is a nineteen-minute race: `DragonAbout` was merged to the kit at 22:21 on 2026-07-06 and
-  first shipped in kit v1.3.0, while this app was scaffolded at 22:40 the same evening pinned to
-  `from: "1.2.1"` — so at that moment there was no helper to call and hand-rolling was correct.
-  The stopgap then survived five kit bumps (1.2.1 -> 2.0.0 -> 2.1.0 -> 2.3.0 -> 2.4.0) untouched,
-  because nothing enforces it: `dragon-conformance.py` rules R1-R11 contain no check for the About
-  version format, so every release passed conformance with the wrong string. clipmenu-2, ice-2 and
-  yahoo-keykey-2 all call the helper; this app was the only one that did not.
+  `docs/ADOPT-DRAGONKIT-PROMPT.md` and `docs/STARTING-A-NEW-APP.md` in the kit both require.
+
+  The helper was available the whole time. Kit commit `fbc9ff8` added `DragonAbout` **and**
+  documented it at 22:21:58 on 2026-07-06, tagged **v1.3.0** at 22:22:05. All three sibling apps
+  adopted it within six minutes — ice-2 at 22:27:57, yahoo-keykey-2 at 22:28:02, clipmenu-2 at
+  22:28:08. Spectacle 2 was then scaffolded at **22:40:41**, twelve minutes after that sweep
+  finished, from a pre-sweep `AboutConfig` shape. So it was never missed by the sweep; it was
+  created just after it, already out of date, and `from: "1.2.1"` resolved to v1.3.0 — meaning
+  the helper was callable from this app's first build.
+
+  It then survived five kit bumps (1.2.1 -> 2.0.0 -> 2.1.0 -> 2.3.0 -> 2.4.0) untouched, because
+  nothing enforces it: `dragon-conformance.py` rules R1-R11 contain no check for the About version
+  format, so every release passed conformance with the wrong string.
 
 ## [2.4.0] - 2026-08-07
 
