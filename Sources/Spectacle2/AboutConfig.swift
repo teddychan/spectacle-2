@@ -1,26 +1,16 @@
 import Foundation
 import DragonKit
 
+/// Spectacle 2's content for DragonKit's shared About pane. Layout is owned by DragonKit
+/// (`AboutPane`); only the text and links here are the app's. The version is single-sourced
+/// from Info.plist via `DragonAbout.versionString()` — never hardcode or reformat it, so every
+/// Dragon app renders the same shape: `v<short> (<build>) · <UTC build time>`.
 enum AboutConfig {
-    /// The single source of truth for the app version: the bundle's Info.plist, formatted by
-    /// DragonKit as `v2.4.1 (760) · 2026-Aug-07 13:34:56 UTC`. Never hardcode it — bump
-    /// `CFBundleShortVersionString` / `CFBundleVersion` and About, backups, and update checks
-    /// all read the same value.
-    ///
-    /// This delegates rather than re-deriving the format. It used to build the string by hand,
-    /// which silently dropped the `v` prefix and the UTC build time every other Dragon app
-    /// shows: `DragonAbout` landed in kit v1.3.0 nineteen minutes after this app was scaffolded
-    /// against `from: "1.2.1"`, so at the time there was nothing to call, and the stopgap was
-    /// never revisited across five kit bumps.
-    static var versionString: String {
-        DragonAbout.versionString()
-    }
-
     @MainActor
     static var content: AboutContent {
         AboutContent(
             appName: AppIdentity.displayName,
-            versionString: versionString,
+            versionString: DragonAbout.versionString(),
             copyright: "© 2026 Teddy Chan",
             links: [
                 AboutLink(
