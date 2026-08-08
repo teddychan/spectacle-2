@@ -40,6 +40,16 @@ BUILD="$(git rev-list --count HEAD 2>/dev/null || echo 1)"
 "$PB" -c "Set :CFBundleVersion $BUILD" "$APP/Contents/Info.plist" 2>/dev/null \
   || "$PB" -c "Add :CFBundleVersion string $BUILD" "$APP/Contents/Info.plist"
 
+# The commit's own timestamp, stamped beside the build number so both halves of About's version
+# line describe the SAME commit: `v2.4.2 (762) · 2026-Aug-08 05:17:28 UTC`. DragonAbout reads
+# this key and shows no timestamp at all when it is missing — there is deliberately no fallback
+# to the executable's mtime, which is what the line used to mean and what drifted.
+COMMIT_DATE="$(git log -1 --format=%cI 2>/dev/null || true)"
+if [ -n "$COMMIT_DATE" ]; then
+  "$PB" -c "Set :DragonCommitDate $COMMIT_DATE" "$APP/Contents/Info.plist" 2>/dev/null \
+    || "$PB" -c "Add :DragonCommitDate string $COMMIT_DATE" "$APP/Contents/Info.plist"
+fi
+
 # Mark the version itself "(Debug)". The .debug bundle id and the "Spectacle 2 Debug" name already
 # separate this build, but the version string is what gets read off a screenshot or a bug report —
 # leaving it identical to the release is how a debug build gets mistaken for one.

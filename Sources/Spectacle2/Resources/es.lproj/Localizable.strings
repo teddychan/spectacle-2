@@ -6,12 +6,11 @@
 "app.general.showInMenuBar" = "Mostrar en la barra de menús";
 "app.general.showInMenuBarHint" = "Oculta el icono de la barra de menús. Si está oculto al iniciar, los Ajustes se abren automáticamente para que puedas volver a activarlo.";
 "app.general.languageSection" = "Idioma";
-"app.about.website" = "Sitio web";
-"app.about.source" = "Código fuente";
-"app.about.builtWith" = "Creado con";
-"app.about.license" = "Licencia";
-"app.whatsNew.summary" = "Una única corrección: Acerca de ahora muestra la versión con el mismo formato que las demás apps de Dragon.";
-"app.whatsNew.fixed1" = "A la línea de versión en Acerca de le faltaban el prefijo «v» y la hora de compilación en UTC. Ahora muestra el formato estándar completo.";
+"app.about.updateFramework" = "Framework de actualización";
+"app.whatsNew.summary" = "Acerca de ahora muestra las mismas filas que las demás apps de Dragon, y sus enlaces por fin llevan adonde deben.";
+"app.whatsNew.changed1" = "Las filas de Acerca de coinciden con las de las demás apps de Dragon: mismos títulos, mismos iconos, mismo orden.";
+"app.whatsNew.fixed1" = "«Sitio web» abría la página principal de Dragon App en lugar de la página propia de Spectacle 2.";
+"app.whatsNew.fixed2" = "«Código fuente» abría el repositorio de código en vez del gestor de incidencias. Ahora es «Soporte en GitHub».";
 "app.uninstall.item.app" = "La app y su elemento de inicio";
 "app.uninstall.item.settings" = "Todos los ajustes";
 "app.uninstall.item.state" = "Estado guardado de la aplicación";
@@ -48,8 +47,6 @@
 "app.shortcuts.duplicate" = "Mismo atajo que otra acción: vuelve a asignar uno de ellos";
 "app.shortcuts.search" = "Buscar atajos";
 "app.menu.accessibilityNeeded" = "Activar el acceso de Accesibilidad…";
-"app.about.basedOn" = "Basado en";
-"app.about.original" = "Spectacle original";
 "app.general.gaps" = "Espaciado de ventanas";
 "app.general.gapSize" = "Tamaño del espacio";
 "app.general.gapSizeHint" = "Espacio en puntos alrededor y entre las ventanas en mosaico. Ponlo a 0 para desactivarlo.";
