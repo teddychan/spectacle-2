@@ -6,12 +6,11 @@
 "app.general.showInMenuBar" = "Afficher dans la barre des menus";
 "app.general.showInMenuBarHint" = "Masque l'icône de la barre des menus. Si elle est masquée au lancement, les Réglages s'ouvrent automatiquement pour la réactiver.";
 "app.general.languageSection" = "Langue";
-"app.about.website" = "Site web";
-"app.about.source" = "Code source";
-"app.about.builtWith" = "Conçu avec";
-"app.about.license" = "Licence";
-"app.whatsNew.summary" = "Une seule correction : À propos affiche désormais la version au même format que toutes les autres apps Dragon.";
-"app.whatsNew.fixed1" = "Il manquait à la ligne de version d'À propos le préfixe « v » et l'heure de compilation UTC. Elle affiche désormais le format standard complet.";
+"app.about.updateFramework" = "Framework de mise à jour";
+"app.whatsNew.summary" = "À propos affiche désormais les mêmes lignes que toutes les autres apps Dragon, et ses liens mènent enfin au bon endroit.";
+"app.whatsNew.changed1" = "Les lignes d’À propos correspondent à celles de toutes les autres apps Dragon : mêmes intitulés, mêmes icônes, même ordre.";
+"app.whatsNew.fixed1" = "« Site web » ouvrait la page d’accueil de Dragon App au lieu de la page propre à Spectacle 2.";
+"app.whatsNew.fixed2" = "« Code source » ouvrait le dépôt de code plutôt que le suivi des problèmes. C’est désormais « Assistance sur GitHub ».";
 "app.uninstall.item.app" = "L'app et son élément d'ouverture";
 "app.uninstall.item.settings" = "Tous les réglages";
 "app.uninstall.item.state" = "État enregistré de l'application";
@@ -48,8 +47,6 @@
 "app.shortcuts.duplicate" = "Même raccourci qu'une autre action — réattribuez-en un";
 "app.shortcuts.search" = "Rechercher des raccourcis";
 "app.menu.accessibilityNeeded" = "Activer l'accès à l'Accessibilité…";
-"app.about.basedOn" = "Basé sur";
-"app.about.original" = "Spectacle d’origine";
 "app.general.gaps" = "Espacement des fenêtres";
 "app.general.gapSize" = "Taille de l’espace";
 "app.general.gapSizeHint" = "Espace en points autour et entre les fenêtres en mosaïque. Réglez sur 0 pour désactiver.";

@@ -6,12 +6,11 @@
 "app.general.showInMenuBar" = "在選單列中顯示";
 "app.general.showInMenuBarHint" = "隱藏選單列圖像。若啟動時已隱藏，將自動打開設定以便重新開啟。";
 "app.general.languageSection" = "語言";
-"app.about.website" = "網站";
-"app.about.source" = "原始碼";
-"app.about.builtWith" = "建置技術";
-"app.about.license" = "授權";
-"app.whatsNew.summary" = "本次僅有一項修正：「關於」現在以與其他 Dragon App 相同的格式顯示版本號。";
-"app.whatsNew.fixed1" = "「關於」中的版本行缺少「v」前綴與 UTC 建置時間，現已完整顯示標準格式。";
+"app.about.updateFramework" = "更新框架";
+"app.whatsNew.summary" = "「關於」現在顯示與其他 Dragon App 相同的項目，連結也終於指向正確的位置。";
+"app.whatsNew.changed1" = "「關於」中的各行已與其他 Dragon App 一致：標題、圖像與順序完全相同。";
+"app.whatsNew.fixed1" = "「網站」開啟的是 Dragon App 首頁，而不是 Spectacle 2 自己的頁面。";
+"app.whatsNew.fixed2" = "「原始碼」開啟的是程式碼儲存庫，而不是問題追蹤頁。現已改為「在 GitHub 取得支援」。";
 "app.uninstall.item.app" = "App 及其登入項目";
 "app.uninstall.item.settings" = "所有設定";
 "app.uninstall.item.state" = "已儲存的應用程式狀態";
@@ -48,8 +47,6 @@
 "app.shortcuts.duplicate" = "與其他動作使用相同的快速鍵 — 請重新設定其中一個";
 "app.shortcuts.search" = "搜尋快速鍵";
 "app.menu.accessibilityNeeded" = "啟用輔助使用權限…";
-"app.about.basedOn" = "基於";
-"app.about.original" = "原版 Spectacle";
 "app.general.gaps" = "視窗間距";
 "app.general.gapSize" = "間距大小";
 "app.general.gapSizeHint" = "平鋪視窗周圍及彼此之間的間距（點）。設為 0 可關閉。";

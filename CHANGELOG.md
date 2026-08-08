@@ -3,9 +3,28 @@
 All notable changes to Spectacle 2 are documented here. This project adheres to
 [Semantic Versioning](https://semver.org/).
 
-## [2.4.2] - Unreleased
+## [2.5.0] - 2026-08-08
+
+### Added
+- **`scripts/run.sh` stamps `DragonCommitDate` into the built bundle's `Info.plist`.** About's
+  version line takes its timestamp from that key (`git log -1 --format=%cI`) instead of the
+  executable's modification date, so both halves of `v2.4.2 (758) · 2026-Aug-08 04:04:06 UTC`
+  now describe the same commit — rebuilding an old commit no longer moves the date while the
+  build number holds. The release CI already stamps it via dragon-release-ci v5; without this
+  a local build would silently show no timestamp at all, since `DragonAbout` deliberately has
+  no fallback.
 
 ### Changed
+- **DragonKit 2.4.0 → 3.0.1, and About moved to the kit's fixed-slot API.** `AboutContent` no
+  longer accepts free-form `links` / `credits` arrays — five apps used them to ship five
+  visibly different About panes — so this app now supplies only URLs and proper nouns while the
+  kit owns every row title, SF Symbol and ordering. Three consequences here: the copyright is
+  assembled by `DragonAbout.copyright(years:holder:)` rather than typed; the "Built with" row is
+  emitted by the kit with its own version (`DragonKit v3.0.1`), so an app can neither omit it
+  nor misreport which kit it compiled against; and Sparkle is now credited as an `Attribution`
+  row. The six `app.about.*` keys the old hand-built rows needed are deleted from all seven
+  languages, replaced by the kit's own `DragonKit.about.*`.
+
 - **`AboutConfig` now matches the other Dragon apps exactly.** It called
   `DragonAbout.versionString()` through a private `versionString` wrapper that added nothing;
   clipmenu-2 and ice-2 pass the call straight into `AboutContent`, and only yahoo-keykey-2 wraps
@@ -13,6 +32,12 @@ All notable changes to Spectacle 2 are documented here. This project adheres to
   change — the rendered string is identical.
 
 ### Fixed
+- **The Website row opened the studio hub instead of this app's own page.** It pointed at
+  `dragonapp.com` while `dragonapp.com/spectacle-2/` already existed. The kit now derives the
+  row's detail text from the URL and checks the website path against the Support row's
+  repository name, so the two rows verify each other and the bare hub is unrepresentable.
+- **The Support row opened the repository root and was titled "Source".** It is now the issues
+  page, titled "Support on GitHub" — the row every other Dragon app already showed.
 - **Corrected the root cause recorded for 2.4.1 below.** The original entry claimed a
   "nineteen-minute race" in which `DragonAbout` did not yet exist when this app was scaffolded.
   That was wrong, and backwards: the helper was tagged in kit **v1.3.0 at 22:22:05** on

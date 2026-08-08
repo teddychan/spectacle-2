@@ -6,12 +6,11 @@
 "app.general.showInMenuBar" = "메뉴 막대에 표시";
 "app.general.showInMenuBarHint" = "메뉴 막대 아이콘을 숨깁니다. 실행 시 숨겨져 있으면 다시 켤 수 있도록 설정이 자동으로 열립니다.";
 "app.general.languageSection" = "언어";
-"app.about.website" = "웹사이트";
-"app.about.source" = "소스 코드";
-"app.about.builtWith" = "제작 기반";
-"app.about.license" = "라이선스";
-"app.whatsNew.summary" = "수정 사항 한 가지입니다. 이제 정보 패널이 다른 Dragon 앱과 같은 형식으로 버전을 표시합니다.";
-"app.whatsNew.fixed1" = "정보 패널의 버전 줄에 'v' 접두사와 UTC 빌드 시각이 빠져 있었습니다. 이제 표준 형식을 온전히 표시합니다.";
+"app.about.updateFramework" = "업데이트 프레임워크";
+"app.whatsNew.summary" = "이제 정보 패널이 다른 Dragon 앱과 같은 항목을 보여주며, 링크도 올바른 곳으로 연결됩니다.";
+"app.whatsNew.changed1" = "정보 패널의 항목이 다른 Dragon 앱과 같아졌습니다. 제목과 아이콘, 순서가 모두 동일합니다.";
+"app.whatsNew.fixed1" = "'웹사이트'가 Spectacle 2 전용 페이지가 아니라 Dragon App 홈페이지를 열었습니다.";
+"app.whatsNew.fixed2" = "'소스 코드'가 이슈 트래커가 아니라 코드 저장소를 열었습니다. 이제 'GitHub에서 지원'으로 바뀌었습니다.";
 "app.uninstall.item.app" = "앱과 로그인 항목";
 "app.uninstall.item.settings" = "모든 설정";
 "app.uninstall.item.state" = "저장된 응용 프로그램 상태";
@@ -48,8 +47,6 @@
 "app.shortcuts.duplicate" = "다른 동작과 같은 단축키 — 하나를 다시 지정하세요";
 "app.shortcuts.search" = "단축키 검색";
 "app.menu.accessibilityNeeded" = "손쉬운 사용 접근 권한 켜기…";
-"app.about.basedOn" = "원작";
-"app.about.original" = "원본 Spectacle";
 "app.general.gaps" = "창 간격";
 "app.general.gapSize" = "간격 크기";
 "app.general.gapSizeHint" = "타일 배치된 창 주위와 창 사이의 간격(포인트)입니다. 0으로 설정하면 비활성화됩니다.";

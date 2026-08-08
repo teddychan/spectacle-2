@@ -5,17 +5,20 @@ enum WhatsNewConfig {
     @MainActor
     static var content: WhatsNewContent {
         WhatsNewContent(
-            // Single source of truth: the bundle's marketing version (no "v", no build number),
-            // so What's New always matches the shipped release without a second edit.
-            version: Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "0.1.0",
-            date: "2026-08-07",
+            // `version` is omitted deliberately: it defaults to the bundle's
+            // `CFBundleShortVersionString` and the kit adds the `v`, so What's New tracks the
+            // shipped release without a second edit. Pass one only to pin notes to an older release.
+            date: "2026-08-08",
             summary: L("app.whatsNew.summary"),
-            // 2.4.1 is a single-fix patch: the About panel's version string was built by hand
-            // here instead of by `DragonAbout.versionString()`, so it dropped the `v` prefix and
-            // the UTC build time. One entry, because that is the whole release.
+            // 2.5.0 moves About onto DragonKit 3's fixed-slot API. Only the user-visible half
+            // belongs here — the rows changed shape, and two of them pointed somewhere wrong.
             sections: [
+                ChangeSection(kind: .changed, entries: [
+                    L("app.whatsNew.changed1"),
+                ]),
                 ChangeSection(kind: .fixed, entries: [
                     L("app.whatsNew.fixed1"),
+                    L("app.whatsNew.fixed2"),
                 ]),
             ]
         )
