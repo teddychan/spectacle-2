@@ -12,7 +12,7 @@ let package = Package(
         // from scratch — under `from:` the newest kit would be pulled into whatever release happens
         // to be tagged next, without anyone having run the app against it. Bumping this line is
         // therefore a deliberate act, and the version here is exactly what ships.
-        .package(url: "https://github.com/teddychan/dragon-kit", exact: "3.1.0"),
+        .package(url: "https://github.com/teddychan/dragon-kit", exact: "3.2.0"),
     ],
     targets: [
         .target(name: "SpectacleCore"),
