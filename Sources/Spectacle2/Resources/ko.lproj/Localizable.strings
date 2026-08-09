@@ -6,7 +6,6 @@
 "app.general.showInMenuBar" = "메뉴 막대에 표시";
 "app.general.showInMenuBarHint" = "메뉴 막대 아이콘을 숨깁니다. 실행 시 숨겨져 있으면 다시 켤 수 있도록 설정이 자동으로 열립니다.";
 "app.general.languageSection" = "언어";
-"app.about.updateFramework" = "업데이트 프레임워크";
 "app.whatsNew.summary" = "이제 정보 패널이 다른 Dragon 앱과 같은 항목을 보여주며, 링크도 올바른 곳으로 연결됩니다.";
 "app.whatsNew.changed1" = "정보 패널의 항목이 다른 Dragon 앱과 같아졌습니다. 제목과 아이콘, 순서가 모두 동일합니다.";
 "app.whatsNew.fixed1" = "'웹사이트'가 Spectacle 2 전용 페이지가 아니라 Dragon App 홈페이지를 열었습니다.";
