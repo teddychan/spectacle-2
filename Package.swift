@@ -8,11 +8,18 @@ let package = Package(
     dependencies: [
         // Direct-download app → link BOTH DragonKit and DragonKitUpdates (Sparkle).
         //
-        // Pinned EXACTLY, not `from:`. Package.resolved is gitignored, so every CI build resolves
-        // from scratch — under `from:` the newest kit would be pulled into whatever release happens
-        // to be tagged next, without anyone having run the app against it. Bumping this line is
-        // therefore a deliberate act, and the version here is exactly what ships.
-        .package(url: "https://github.com/teddychan/dragon-kit", exact: "3.2.0"),
+        // `from:`, not `exact:` — the Dragon apps state the kit pin one way, and this app was the
+        // last one still on `exact:`. clipmenu-2 writes `from: "3.2.0"` literally; ice-2's
+        // .pbxproj spells the same range as upToNextMajorVersion / minimumVersion 3.2.0.
+        //
+        // The tradeoff lands harder here than on either of those: Package.resolved is gitignored
+        // in this repo, while they commit theirs and are therefore locked to a resolved revision.
+        // Every CI build here resolves from scratch, so a 3.x kit tag published before the next
+        // release floats into that release with nobody having run the app against it. That is the
+        // accepted price of the unified pin form, not an oversight — which is why a kit bump still
+        // wants a deliberate build-and-run check, on the version that actually resolved, before a
+        // release tag goes out.
+        .package(url: "https://github.com/teddychan/dragon-kit", from: "3.2.0"),
     ],
     targets: [
         .target(name: "SpectacleCore"),

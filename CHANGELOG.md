@@ -3,6 +3,23 @@
 All notable changes to Spectacle 2 are documented here. This project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## [2.5.1] - 2026-08-10
+
+### Changed
+- **The DragonKit pin is now `from: "3.2.0"` instead of `exact: "3.2.0"`.** The Dragon apps had
+  ended up stating the same intent three different ways; clipmenu-2 already wrote `from:`
+  literally and ice-2's `.pbxproj` already spelled that range as `upToNextMajorVersion` with
+  `minimumVersion 3.2.0`, leaving this app as the only one on `exact:`. No kit version moves here:
+  3.2.0 is what 2.5.0 shipped against and 3.2.0 is now the floor.
+
+  The change is not free, and the cost is specific to this repo. `Package.resolved` is gitignored
+  here while the other two commit theirs, so they stay locked to a resolved revision and every CI
+  build here re-resolves from scratch. Any 3.x kit tag published between now and the next release
+  will therefore be built into that release without anyone having run the app against it. That is
+  the accepted price of a single pin form across the family rather than an oversight — so a kit
+  bump still wants a deliberate build-and-run check, against whichever version actually resolved,
+  before a release tag goes out.
+
 ## [2.5.0] - 2026-08-08
 
 ### Added
