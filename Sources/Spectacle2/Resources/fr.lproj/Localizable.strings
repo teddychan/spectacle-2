@@ -6,10 +6,8 @@
 "app.general.showInMenuBar" = "Afficher dans la barre des menus";
 "app.general.showInMenuBarHint" = "Masque l'icône de la barre des menus. Si elle est masquée au lancement, les Réglages s'ouvrent automatiquement pour la réactiver.";
 "app.general.languageSection" = "Langue";
-"app.whatsNew.summary" = "À propos affiche désormais les mêmes lignes que toutes les autres apps Dragon, et ses liens mènent enfin au bon endroit.";
-"app.whatsNew.changed1" = "Les lignes d’À propos correspondent à celles de toutes les autres apps Dragon : mêmes intitulés, mêmes icônes, même ordre.";
-"app.whatsNew.fixed1" = "« Site web » ouvrait la page d’accueil de Dragon App au lieu de la page propre à Spectacle 2.";
-"app.whatsNew.fixed2" = "« Code source » ouvrait le dépôt de code plutôt que le suivi des problèmes. C’est désormais « Assistance sur GitHub ».";
+"app.whatsNew.summary" = "Une version de maintenance : Spectacle 2 fonctionne exactement comme avant. Les correctifs concernent la version de développement utilisée pour les tests, qui s’exécute à côté de l’app publiée.";
+"app.whatsNew.changed1" = "Désormais compilée avec DragonKit 3.3.0, la base commune à toutes les apps Dragon. À propos en indique la version.";
 "app.uninstall.item.app" = "L'app et son élément d'ouverture";
 "app.uninstall.item.settings" = "Tous les réglages";
 "app.uninstall.item.state" = "État enregistré de l'application";

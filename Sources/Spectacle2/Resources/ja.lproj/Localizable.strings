@@ -6,10 +6,8 @@
 "app.general.showInMenuBar" = "メニューバーに表示";
 "app.general.showInMenuBarHint" = "メニューバーのアイコンを非表示にします。起動時に非表示の場合は、再度オンにできるよう設定が自動的に開きます。";
 "app.general.languageSection" = "言語";
-"app.whatsNew.summary" = "「このアプリについて」の項目が、ほかのDragonアプリと同じ並びになりました。リンク先も正しくなっています。";
-"app.whatsNew.changed1" = "「このアプリについて」の各行が、ほかのDragonアプリと同じ表記・アイコン・並び順になりました。";
-"app.whatsNew.fixed1" = "「ウェブサイト」が、Spectacle 2 専用のページではなくDragon Appのトップページを開いていました。";
-"app.whatsNew.fixed2" = "「ソースコード」が課題トラッカーではなくコードリポジトリを開いていました。現在は「GitHubでサポート」になっています。";
+"app.whatsNew.summary" = "メンテナンスのためのリリースです。Spectacle 2 の動作はこれまでとまったく変わりません。修正したのは、公開版と並べて動かすテスト用の開発ビルドの側です。";
+"app.whatsNew.changed1" = "DragonKit 3.3.0 でビルドするようになりました。すべてのDragonアプリに共通する基盤で、バージョンは「このアプリについて」に表示されます。";
 "app.uninstall.item.app" = "アプリとログイン項目";
 "app.uninstall.item.settings" = "すべての設定";
 "app.uninstall.item.state" = "保存されたアプリケーションの状態";

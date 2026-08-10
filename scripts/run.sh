@@ -77,6 +77,16 @@ fi
 "$PB" -c "Set :SUEnableAutomaticChecks false" "$APP/Contents/Info.plist" 2>/dev/null \
   || "$PB" -c "Add :SUEnableAutomaticChecks bool false" "$APP/Contents/Info.plist"
 
+# And drop the production feed outright — this, not the toggle above, is what makes the remaining
+# routes inert, and it is the one that closes the Updates *pane*. The pane stays in the sidebar
+# because its position is DragonKit canon (CONFORMANCE §R9), so removing it is not on the table;
+# instead it is disarmed at the data layer. `DragonUpdater` builds its `SPUUpdater` lazily and does
+# `try instance.start()` (DragonKitUpdates/Updates.swift:144-166), which throws with no feed, so the
+# property stays nil — `canCheckForUpdates` is `updater?.canCheckForUpdates ?? false` (:184) and the
+# pane's button is `.disabled(!updater.canCheckForUpdates)` (:248). Toggle, button and menu item all
+# go dead. yahoo-keykey-2 and ice-2 arrived at this independently; it is now the Dragon standard.
+"$PB" -c "Delete :SUFeedURL" "$APP/Contents/Info.plist" 2>/dev/null || true
+
 # Copy every SwiftPM resource bundle next to the binary: DragonKit_DragonKit.bundle (the kit's
 # strings) AND Spectacle2_Spectacle2.bundle (the app's own strings, resolved at runtime via
 # LocalizationManager.appStringsBundle = AppResources.stringsBundle).
