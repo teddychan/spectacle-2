@@ -6,10 +6,8 @@
 "app.general.showInMenuBar" = "在菜单栏中显示";
 "app.general.showInMenuBarHint" = "隐藏菜单栏图标。如果启动时已隐藏，将自动打开设置以便重新开启。";
 "app.general.languageSection" = "语言";
-"app.whatsNew.summary" = "“关于”现在显示与其他 Dragon App 相同的条目，链接也终于指向正确的位置。";
-"app.whatsNew.changed1" = "“关于”中的各行已与其他 Dragon App 一致：标题、图标与顺序完全相同。";
-"app.whatsNew.fixed1" = "“网站”打开的是 Dragon App 首页，而不是 Spectacle 2 自己的页面。";
-"app.whatsNew.fixed2" = "“源代码”打开的是代码仓库，而不是问题追踪页。现已改为“在 GitHub 获取支持”。";
+"app.whatsNew.summary" = "这是一次维护更新：Spectacle 2 的使用方式与之前完全相同。本次修复针对的是与已发布版本并行运行、用于测试的开发版本。";
+"app.whatsNew.changed1" = "现已基于 DragonKit 3.3.0 构建，这是所有 Dragon App 共用的基础组件，版本号显示在“关于”中。";
 "app.uninstall.item.app" = "App 及其登录项";
 "app.uninstall.item.settings" = "所有设置";
 "app.uninstall.item.state" = "已保存的应用程序状态";

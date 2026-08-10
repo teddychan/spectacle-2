@@ -6,10 +6,8 @@
 "app.general.showInMenuBar" = "메뉴 막대에 표시";
 "app.general.showInMenuBarHint" = "메뉴 막대 아이콘을 숨깁니다. 실행 시 숨겨져 있으면 다시 켤 수 있도록 설정이 자동으로 열립니다.";
 "app.general.languageSection" = "언어";
-"app.whatsNew.summary" = "이제 정보 패널이 다른 Dragon 앱과 같은 항목을 보여주며, 링크도 올바른 곳으로 연결됩니다.";
-"app.whatsNew.changed1" = "정보 패널의 항목이 다른 Dragon 앱과 같아졌습니다. 제목과 아이콘, 순서가 모두 동일합니다.";
-"app.whatsNew.fixed1" = "'웹사이트'가 Spectacle 2 전용 페이지가 아니라 Dragon App 홈페이지를 열었습니다.";
-"app.whatsNew.fixed2" = "'소스 코드'가 이슈 트래커가 아니라 코드 저장소를 열었습니다. 이제 'GitHub에서 지원'으로 바뀌었습니다.";
+"app.whatsNew.summary" = "유지 보수를 위한 릴리스입니다. Spectacle 2의 동작은 이전과 완전히 같습니다. 고친 것은 배포판과 나란히 실행하며 테스트하는 개발용 빌드 쪽입니다.";
+"app.whatsNew.changed1" = "이제 DragonKit 3.3.0으로 빌드됩니다. 모든 Dragon 앱이 공유하는 기반이며, 버전은 정보 패널에 표시됩니다.";
 "app.uninstall.item.app" = "앱과 로그인 항목";
 "app.uninstall.item.settings" = "모든 설정";
 "app.uninstall.item.state" = "저장된 응용 프로그램 상태";

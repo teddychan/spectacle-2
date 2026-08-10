@@ -50,15 +50,42 @@ if [ -n "$COMMIT_DATE" ]; then
     || "$PB" -c "Add :DragonCommitDate string $COMMIT_DATE" "$APP/Contents/Info.plist"
 fi
 
-# Mark the version itself "(Debug)". The .debug bundle id and the "Spectacle 2 Debug" name already
-# separate this build, but the version string is what gets read off a screenshot or a bug report —
-# leaving it identical to the release is how a debug build gets mistaken for one.
+# The version field stays the numeric candidate for the next public release. This script used to
+# append " (Debug)" to it, reasoning that the version is what gets read off a screenshot — right
+# problem, wrong field. MAC-APP-RELEASE-LIFECYCLE.md makes CFBundleShortVersionString the sole
+# source of truth for the app's semantic version and forbids a channel label inside it; release.yml
+# runs with `assert_tag_matches_plist: true`, so that field is exactly what a `vX.Y.Z` tag is
+# compared against. Assert it rather than trust it: clipmenu-2 and ice-2 had grown the same
+# mutation, so the shape is one a debug script drifts back into.
 SHORT="$("$PB" -c "Print :CFBundleShortVersionString" "$APP/Contents/Info.plist")"
-case "$SHORT" in
-  *"(Debug)") ;;
-  *) SHORT="$SHORT (Debug)"
-     "$PB" -c "Set :CFBundleShortVersionString $SHORT" "$APP/Contents/Info.plist" ;;
-esac
+if [[ ! "$SHORT" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+  echo "error: CFBundleShortVersionString must be a numeric X.Y.Z candidate, got '$SHORT'" >&2
+  exit 1
+fi
+
+# The word "Debug" lives here instead, as build-channel metadata. DragonAbout (kit 3.3.0+) reads
+# this key and renders "v$SHORT Debug ($BUILD)", so the build is still identifiable from a
+# screenshot or a bug report — what the version mutation above was reaching for — without the
+# version field ever carrying a non-numeric value.
+"$PB" -c "Set :DragonBuildChannel Debug" "$APP/Contents/Info.plist" 2>/dev/null \
+  || "$PB" -c "Add :DragonBuildChannel string Debug" "$APP/Contents/Info.plist"
+
+# Belt and braces with AppDelegate's `isDebugBuild()` guard, which withholds the menu's route into
+# Sparkle: this makes the plist say so too, so no scheduled check against the production appcast
+# can start even if that guard is ever removed. The repo Info.plist already ships false; stamped
+# unconditionally so the guarantee does not depend on it staying that way.
+"$PB" -c "Set :SUEnableAutomaticChecks false" "$APP/Contents/Info.plist" 2>/dev/null \
+  || "$PB" -c "Add :SUEnableAutomaticChecks bool false" "$APP/Contents/Info.plist"
+
+# And drop the production feed outright — this, not the toggle above, is what makes the remaining
+# routes inert, and it is the one that closes the Updates *pane*. The pane stays in the sidebar
+# because its position is DragonKit canon (CONFORMANCE §R9), so removing it is not on the table;
+# instead it is disarmed at the data layer. `DragonUpdater` builds its `SPUUpdater` lazily and does
+# `try instance.start()` (DragonKitUpdates/Updates.swift:144-166), which throws with no feed, so the
+# property stays nil — `canCheckForUpdates` is `updater?.canCheckForUpdates ?? false` (:184) and the
+# pane's button is `.disabled(!updater.canCheckForUpdates)` (:248). Toggle, button and menu item all
+# go dead. yahoo-keykey-2 and ice-2 arrived at this independently; it is now the Dragon standard.
+"$PB" -c "Delete :SUFeedURL" "$APP/Contents/Info.plist" 2>/dev/null || true
 
 # Copy every SwiftPM resource bundle next to the binary: DragonKit_DragonKit.bundle (the kit's
 # strings) AND Spectacle2_Spectacle2.bundle (the app's own strings, resolved at runtime via
@@ -102,8 +129,8 @@ echo
 echo "Launched \"$APP_NAME\""
 "$PB" -c 'Print :CFBundleIdentifier' -c 'Print :CFBundleName' -c 'Print :CFBundleDisplayName' \
       -c 'Print :CFBundleShortVersionString' -c 'Print :CFBundleVersion' \
-      -c 'Print :CFBundleExecutable' "$APP/Contents/Info.plist" \
-  | paste -d' ' <(printf '  %s\n' 'id:' 'name:' 'displayName:' 'version:' 'build:' 'executable:') -
+      -c 'Print :DragonBuildChannel' -c 'Print :CFBundleExecutable' "$APP/Contents/Info.plist" \
+  | paste -d' ' <(printf '  %s\n' 'id:' 'name:' 'displayName:' 'version:' 'build:' 'channel:' 'executable:') -
 codesign --verify --deep --strict "$APP" 2>/dev/null \
   && echo "  signature:   OK" || echo "  signature:   FAILED"
 echo "  path:        $APP"

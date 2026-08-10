@@ -3,6 +3,37 @@
 All notable changes to Spectacle 2 are documented here. This project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## [2.5.2] - 2026-08-10
+
+Maintenance only. Every fix below is in the local debug build that runs beside the installed
+release; the shipped app behaves exactly as 2.5.1 did.
+
+### Fixed
+- **`scripts/run.sh` no longer writes `(Debug)` into `CFBundleShortVersionString`.**
+  `MAC-APP-RELEASE-LIFECYCLE.md` makes that field the sole source of truth for the app's semantic
+  version, and `release.yml` runs the shared workflow with `assert_tag_matches_plist: true`, so it
+  is the exact string a `vX.Y.Z` tag is compared against — a channel label cannot live in it. The
+  script now *asserts* the version is a numeric `X.Y.Z` candidate and fails loudly otherwise;
+  clipmenu-2 and ice-2 had grown the same mutation, so it is a shape a debug script drifts back
+  into. The word `Debug` moves to a `DragonBuildChannel` key, which DragonKit 3.3.0 renders as
+  `v2.5.2 Debug (765) · …`, so a screenshot still identifies the build.
+
+- **The debug build can no longer reach the production update feed.** Clearing
+  `SUEnableAutomaticChecks` was never an off switch — `DragonUpdater` builds its `SPUUpdater`
+  lazily, so the Updates pane armed Sparkle the moment it was opened and its toggle was live. The
+  build script now deletes `SUFeedURL` from the debug bundle, which makes `try instance.start()`
+  throw and leaves the updater nil, so the pane's toggle and button and the menu item all go inert
+  at the data layer. The pane itself stays where it is — its position in the sidebar is DragonKit
+  canon. The menu's "Check for Updates…" item is additionally withheld in a debug build by passing
+  `onCheckForUpdates: nil`, the same mechanism a Mac App Store build uses, so it is absent rather
+  than present-but-dead.
+
+### Changed
+- **DragonKit 3.2.0 → 3.3.0.** Adds `DragonAbout.buildChannel(bundle:)` and `isDebugBuild(bundle:)`
+  and teaches `versionString()` to render the channel, which is what gives the `Debug` label
+  somewhere to live outside the version field. About reports the kit version, so this is the one
+  change in this release a user can see.
+
 ## [2.5.1] - 2026-08-10
 
 ### Changed
