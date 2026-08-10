@@ -8,7 +8,7 @@ import SpectacleCore
 @MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate {
     private let appName = AppIdentity.displayName
-    private var bundleID: String { Bundle.main.bundleIdentifier ?? "com.dragonapp.spectacle-2" }
+    private var bundleID: String { Bundle.main.bundleIdentifier ?? AppIdentity.releaseBundleID }
     private var appVersion: String {
         Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "0.1.0"
     }
@@ -83,7 +83,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             extraCleanupPaths: [
                 library.appending(path: "Caches/\(bundleID)"),
                 library.appending(path: "HTTPStorages/\(bundleID)"),
-            ]
+            ],
+            // The *raw* identifier, never `bundleID` above: that one falls back to the release id
+            // so a build which can't state its own still cleans a sensible domain, which is
+            // harmless there and authorises a delete of the installed release here. See
+            // `AppIdentity.homebrewCaskToken(actual:)`.
+            homebrewCask: AppIdentity.homebrewCaskToken()
         )
     }
 
