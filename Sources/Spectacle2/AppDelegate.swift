@@ -197,11 +197,20 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     /// on language change. Uninstall is deliberately not here: it's a rare destructive action
     /// and lives in Settings as `UninstallSettingsPane` (see `settingsPanes`).
     private func buildMenu() -> NSMenu {
+        // A Debug build passes `onCheckForUpdates: nil`, which drops the item from the dropdown
+        // entirely — the same mechanism a Mac App Store build uses. MAC-APP-RELEASE-LIFECYCLE.md
+        // requires the local build to never read the production appcast, and an item left in place
+        // but made inert reads as a bug: the Debug build should have no route to that feed, not a
+        // route that silently does nothing. `SUEnableAutomaticChecks = false` is not the off switch
+        // on its own — `DragonUpdater` builds its `SPUUpdater` lazily on first use, so it is the
+        // *invocation* that has to be withheld.
         DragonAppMenu.menu(DragonAppMenu.Config(
             appName: appName,
             onAbout: { [weak self] in self?.openAbout() },
             onSettings: { [weak self] in self?.openSettings() },
-            onCheckForUpdates: { [weak self] in self?.checkForUpdates() }
+            onCheckForUpdates: DragonAbout.isDebugBuild()
+                ? nil
+                : { [weak self] in self?.checkForUpdates() }
         ))
     }
 
