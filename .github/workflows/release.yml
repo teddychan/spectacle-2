@@ -16,9 +16,30 @@ permissions:
 
 jobs:
   release:
-    uses: teddychan/dragon-release-ci/.github/workflows/release-macos.yml@v5
+    uses: teddychan/dragon-release-ci/.github/workflows/release-macos.yml@v6
     secrets: inherit
     with:
+      # v6's tag gate replaces v5's `VERSION=${TAG##*v}`, which left a value containing no "v"
+      # untouched — so a workflow_dispatch arrived with a BRANCH ref and produced VERSION=main.
+      # It also accepts only exact `vX.Y.Z`, and requires whats_new_path: the two move together,
+      # because passing whats_new_path to v5 fails at startup (v5 does not define the input) and
+      # omitting it on v6 fails the gate.
+      #
+      # The config file FIRST — the version and section checks read that one — then every
+      # translation. Spectacle's entries are abstract `L()` keys ("app.whatsNew.changed1"), so the
+      # text a user actually reads lives in these .strings and the .swift can sit still through a
+      # complete rewrite of the notes. Watching only the .swift would reject that real rewrite and
+      # wave through a release whose notes never changed. Needs dragon-release-ci >= v6.2.0, which
+      # is what made the input accept a list.
+      whats_new_path: >-
+        Sources/Spectacle2/WhatsNewConfig.swift
+        Sources/Spectacle2/Resources/en.lproj/Localizable.strings
+        Sources/Spectacle2/Resources/es.lproj/Localizable.strings
+        Sources/Spectacle2/Resources/fr.lproj/Localizable.strings
+        Sources/Spectacle2/Resources/ja.lproj/Localizable.strings
+        Sources/Spectacle2/Resources/ko.lproj/Localizable.strings
+        Sources/Spectacle2/Resources/zh-Hans.lproj/Localizable.strings
+        Sources/Spectacle2/Resources/zh-Hant.lproj/Localizable.strings
       build_kind: swiftpm
       app_slug: spectacle-2
       # Self-host the appcast in THIS repo (docs/spectacle-2/appcast.xml) rather than the
