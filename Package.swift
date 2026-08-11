@@ -9,10 +9,21 @@ let package = Package(
         // Direct-download app → link BOTH DragonKit and DragonKitUpdates (Sparkle).
         //
         // `from:`, not `exact:` — the Dragon apps state the kit pin one way, and this app was the
-        // last one still on `exact:`. clipmenu-2 writes `from: "3.2.0"` literally; ice-2's
-        // .pbxproj spells the same range as upToNextMajorVersion / minimumVersion 3.2.0.
+        // last one still on `exact:`. clipmenu-2 and dragon-sample-app write `from:` literally;
+        // ice-2's .pbxproj spells the same range as `upToNextMajorVersion` with a `minimumVersion`;
+        // yahoo-keykey-2 cannot express it at all — its package takes the kit as
+        // `.package(path: "../../vendor/dragon-kit")` and the real pin is the `DRAGONKIT_TAG` clone
+        // in `tools/build-app.sh`.
         //
-        // The tradeoff lands harder here than on either of those: Package.resolved is gitignored
+        // Deliberately no version numbers for any of those, and please don't add any back. They
+        // bump on their own schedule and nothing in this file can notice when they do, so a number
+        // written here to illustrate a *form* is stale by construction. It already was: this
+        // comment claimed `3.2.0` for clipmenu-2 and ice-2 while both had moved to 3.4.0, which
+        // read as if this app were pinned differently from its siblings when it wasn't. The form
+        // is the durable fact; the version belongs only on the `.package` line below, where SwiftPM
+        // and the R10 conformance check both read it.
+        //
+        // The tradeoff lands harder here than on the others: Package.resolved is gitignored
         // in this repo, while they commit theirs and are therefore locked to a resolved revision.
         // Every CI build here resolves from scratch, so a 3.x kit tag published before the next
         // release floats into that release with nobody having run the app against it. That is the
