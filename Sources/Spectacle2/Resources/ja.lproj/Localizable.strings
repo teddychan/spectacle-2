@@ -6,9 +6,8 @@
 "app.general.showInMenuBar" = "メニューバーに表示";
 "app.general.showInMenuBarHint" = "メニューバーのアイコンを非表示にします。起動時に非表示の場合は、再度オンにできるよう設定が自動的に開きます。";
 "app.general.languageSection" = "言語";
-"app.whatsNew.summary" = "「このアプリについて」の小さな修正です。Spectacle 2 に含まれるオープンソースコンポーネントのライセンスを、アプリから確認できるようになりました。ほかの動作はこれまでとまったく変わりません。";
-"app.whatsNew.fixed1" = "「このアプリについて」に「オープンソースライセンス」の項目が追加されました。アップデートの適用に使っている Sparkle はこれまでも記載されていましたが、そのライセンスへのリンクがどこにもありませんでした。新しい項目から、ライセンスを掲載したページを開けます。";
-"app.whatsNew.changed1" = "DragonKit 4.0.0 でビルドするようになりました。すべてのDragonアプリに共通する基盤で、バージョンは「このアプリについて」に表示されます。";
+"app.whatsNew.summary" = "小さな修正です。Spectacle 2 に著作権表示が追加され、「このアプリについて」に表示されるものと同じになりました。ほかの動作はこれまでとまったく変わりません。";
+"app.whatsNew.fixed1" = "Finder の「情報を見る」に Spectacle 2 の著作権表示が表示されるようになりました。これまではアプリが著作権表示を持っておらず、その欄は空のままでした。";
 "app.uninstall.item.app" = "アプリとログイン項目";
 "app.uninstall.item.settings" = "すべての設定";
 "app.uninstall.item.state" = "保存されたアプリケーションの状態";

@@ -6,9 +6,8 @@
 "app.general.showInMenuBar" = "Show in menu bar";
 "app.general.showInMenuBarHint" = "Hide the menu-bar icon. If it's hidden at launch, Settings opens automatically so you can turn it back on.";
 "app.general.languageSection" = "Language";
-"app.whatsNew.summary" = "A small fix to the About pane: the licenses of the open-source components Spectacle 2 includes are now reachable from inside the app. Everything else behaves exactly as before.";
-"app.whatsNew.fixed1" = "About now has an Open-source licenses row. The pane credited Sparkle, the framework Spectacle 2 uses to install updates, but its license was linked nowhere — the new row opens the page that carries it.";
-"app.whatsNew.changed1" = "Now built with DragonKit 4.0.0, the shared foundation behind every Dragon app. About lists the version.";
+"app.whatsNew.summary" = "A small fix: Spectacle 2 now carries a copyright notice, the same one shown in About. Nothing else behaves differently.";
+"app.whatsNew.fixed1" = "Finder's Get Info panel now shows Spectacle 2's copyright notice. The app carried none at all, so that line was simply blank.";
 "app.uninstall.item.app" = "The app and its login item";
 "app.uninstall.item.settings" = "All settings";
 "app.uninstall.item.state" = "Saved application state";
