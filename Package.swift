@@ -25,12 +25,14 @@ let package = Package(
         //
         // The tradeoff lands harder here than on the others: Package.resolved is gitignored
         // in this repo, while they commit theirs and are therefore locked to a resolved revision.
-        // Every CI build here resolves from scratch, so a 3.x kit tag published before the next
-        // release floats into that release with nobody having run the app against it. That is the
+        // Every CI build here resolves from scratch, so any kit tag inside the pinned major that
+        // is published before the next release floats into that release with nobody having run the
+        // app against it. (Stated as a range rather than "a 3.x tag", which this comment used to
+        // say and which went stale the moment the pin moved to 4.0.0.) That is the
         // accepted price of the unified pin form, not an oversight — which is why a kit bump still
         // wants a deliberate build-and-run check, on the version that actually resolved, before a
         // release tag goes out.
-        .package(url: "https://github.com/teddychan/dragon-kit", from: "3.4.0"),
+        .package(url: "https://github.com/teddychan/dragon-kit", from: "4.0.0"),
     ],
     targets: [
         .target(name: "SpectacleCore"),

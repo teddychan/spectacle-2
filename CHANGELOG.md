@@ -3,6 +3,35 @@
 All notable changes to Spectacle 2 are documented here. This project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## [2.5.4] - 2026-08-11
+
+One user-visible fix, in About, plus the DragonKit major that makes it impossible to regress.
+
+### Fixed
+- **About links the open-source licence notices.** The pane has listed `Sparkle → MIT` under
+  Credits since 2.5.0 while `licensesURL` stayed nil, so it named a component the app bundles and
+  gave no route to that component's licence text — the half of MIT's "included in all copies" that
+  the hosted page exists to carry. The row now opens
+  `https://www.dragonapp.com/spectacle-2/licenses/`. The trailing slash is the path GitHub Pages
+  serves, so the link is the page and not a redirect to it.
+  The defect was found by comparing all five Dragon apps' About panes side by side; Spectacle 2 and
+  Dragon Sample App were the two that shipped the attribution without the link. DragonKit 4.0.0
+  makes `licensesURL` non-optional, so no app can fall into it again by leaving a parameter out.
+
+### Changed
+- **DragonKit 3.4.0 → 4.0.0**, a breaking major. Two call-site changes here, both in
+  `AboutConfig.swift`:
+  - `licensesURL:` is now required, which is the fix above.
+  - The upstream project's URL moved inside `OriginalWork`. It was a separate
+    `originalProjectURL:` parameter, and nothing tied the two together: clipmenu-2 and ice-2 each
+    passed the credit and omitted the URL, shipping a "Based on" row naming a project the pane
+    linked nowhere. This app always passed both, so the `Original project` and `Based on` rows
+    render exactly as they did in 2.5.3 — the change here is that they can no longer be supplied
+    apart.
+
+  About's "Built with · DragonKit v4.0.0" row is the only other thing this release changes on
+  screen. Nothing else in 4.0.0 reaches this app.
+
 ## [2.5.3] - 2026-08-11
 
 Maintenance only. A single commit separates this from 2.5.2 and the app behaves identically; the
