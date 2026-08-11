@@ -3,6 +3,21 @@
 All notable changes to Spectacle 2 are documented here. This project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## [2.5.3] - 2026-08-11
+
+Maintenance only. A single commit separates this from 2.5.2 and the app behaves identically; the
+one difference a user can observe is the kit version About reports.
+
+### Changed
+- **DragonKit 3.3.0 → 3.4.0.** CONFORMANCE §R10 requires the declared pin to be at least the
+  newest `vX.Y.Z` tag in dragon-kit, so publishing v3.4.0 put this app in violation the moment it
+  landed — the next PR here would have red-X'd on a rule break it did not introduce. Nothing in
+  3.4.0 is adopted: it adds `LanguagePicker(languages:onChange:)` with both parameters defaulted,
+  for an app translated into fewer languages than the kit ships, and Spectacle 2 never calls it.
+  The bump is for pin currency, not to take up an API. About's "Built with · DragonKit v3.4.0" row
+  is the one user-visible consequence, which is why it is also the single What's New entry instead
+  of notes padded out to look like a feature release.
+
 ## [2.5.2] - 2026-08-10
 
 Maintenance only. Every fix below is in the local debug build that runs beside the installed

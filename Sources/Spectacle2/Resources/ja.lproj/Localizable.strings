@@ -6,8 +6,8 @@
 "app.general.showInMenuBar" = "メニューバーに表示";
 "app.general.showInMenuBarHint" = "メニューバーのアイコンを非表示にします。起動時に非表示の場合は、再度オンにできるよう設定が自動的に開きます。";
 "app.general.languageSection" = "言語";
-"app.whatsNew.summary" = "メンテナンスのためのリリースです。Spectacle 2 の動作はこれまでとまったく変わりません。修正したのは、公開版と並べて動かすテスト用の開発ビルドの側です。";
-"app.whatsNew.changed1" = "DragonKit 3.3.0 でビルドするようになりました。すべてのDragonアプリに共通する基盤で、バージョンは「このアプリについて」に表示されます。";
+"app.whatsNew.summary" = "メンテナンスのためのリリースです。Spectacle 2 の動作はこれまでとまったく変わりません。土台となる共通の基盤を最新版に更新しただけです。";
+"app.whatsNew.changed1" = "DragonKit 3.4.0 でビルドするようになりました。すべてのDragonアプリに共通する基盤で、バージョンは「このアプリについて」に表示されます。";
 "app.uninstall.item.app" = "アプリとログイン項目";
 "app.uninstall.item.settings" = "すべての設定";
 "app.uninstall.item.state" = "保存されたアプリケーションの状態";
