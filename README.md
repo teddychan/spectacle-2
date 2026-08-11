@@ -211,4 +211,4 @@ Spectacle 2 is maintained by [Teddy Chan](https://github.com/teddychan).
 
 ## License
 
-Spectacle 2 is distributed under the MIT License. See [LICENSE](LICENSE), which retains the original copyright (c) 2017 Eric Czarny.
+Spectacle 2 is distributed under the MIT License. See [LICENSE](LICENSE), which names both Eric Czarny, for the original Spectacle, and Teddy Chan, for this reimplementation.
