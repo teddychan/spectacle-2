@@ -3,13 +3,13 @@
     <channel>
         <title>Spectacle 2</title>
         <item>
-            <title>2.5.4</title>
-            <pubDate>Tue, 11 Aug 2026 09:19:06 +0000</pubDate>
-            <sparkle:version>774</sparkle:version>
-            <sparkle:shortVersionString>2.5.4</sparkle:shortVersionString>
+            <title>2.5.5</title>
+            <pubDate>Tue, 11 Aug 2026 12:05:01 +0000</pubDate>
+            <sparkle:version>776</sparkle:version>
+            <sparkle:shortVersionString>2.5.5</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <enclosure url="https://github.com/teddychan/spectacle-2/releases/download/v2.5.4/Spectacle2-v2.5.4.zip" length="2526955" type="application/octet-stream" sparkle:edSignature="Pdx9P45aGgCp932mYicxQMH8wjCSKbWswFMTUotAhAEv5M/mEsjOx4/za5i1dO859LsI/5mrVMoTHY1cVaAkCQ=="/>
+            <enclosure url="https://github.com/teddychan/spectacle-2/releases/download/v2.5.5/Spectacle2-v2.5.5.zip" length="2525986" type="application/octet-stream" sparkle:edSignature="0+coFdYDJTfYkdhKDe2NTkieRKWygKalQvn3DPnZ7dwDl04SU75ah5AtUF/vFsQe1SnOnIoWElZJY09BoMpCBA=="/>
         </item>
     </channel>
 </rss>
