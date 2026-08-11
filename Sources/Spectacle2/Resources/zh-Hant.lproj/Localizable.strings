@@ -6,8 +6,8 @@
 "app.general.showInMenuBar" = "在選單列中顯示";
 "app.general.showInMenuBarHint" = "隱藏選單列圖像。若啟動時已隱藏，將自動打開設定以便重新開啟。";
 "app.general.languageSection" = "語言";
-"app.whatsNew.summary" = "這是一次維護更新：Spectacle 2 的使用方式與先前完全相同。本次修正針對的是與已發布版本並行執行、用於測試的開發版本。";
-"app.whatsNew.changed1" = "現已基於 DragonKit 3.3.0 建置，這是所有 Dragon App 共用的基礎元件，版本號顯示在「關於」中。";
+"app.whatsNew.summary" = "這是一次維護更新：Spectacle 2 的使用方式與先前完全相同。本次更新只是把 App 所依賴的共用基礎元件升級到目前版本。";
+"app.whatsNew.changed1" = "現已基於 DragonKit 3.4.0 建置，這是所有 Dragon App 共用的基礎元件，版本號顯示在「關於」中。";
 "app.uninstall.item.app" = "App 及其登入項目";
 "app.uninstall.item.settings" = "所有設定";
 "app.uninstall.item.state" = "已儲存的應用程式狀態";

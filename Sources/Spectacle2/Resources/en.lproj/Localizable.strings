@@ -6,8 +6,8 @@
 "app.general.showInMenuBar" = "Show in menu bar";
 "app.general.showInMenuBarHint" = "Hide the menu-bar icon. If it's hidden at launch, Settings opens automatically so you can turn it back on.";
 "app.general.languageSection" = "Language";
-"app.whatsNew.summary" = "A maintenance release: Spectacle 2 behaves exactly as before. The fixes are in the developer build used to test it, which runs alongside the released app.";
-"app.whatsNew.changed1" = "Now built with DragonKit 3.3.0, the shared foundation behind every Dragon app. About lists the version.";
+"app.whatsNew.summary" = "A maintenance release: Spectacle 2 behaves exactly as before. It only moves the app onto the current version of the shared foundation it is built on.";
+"app.whatsNew.changed1" = "Now built with DragonKit 3.4.0, the shared foundation behind every Dragon app. About lists the version.";
 "app.uninstall.item.app" = "The app and its login item";
 "app.uninstall.item.settings" = "All settings";
 "app.uninstall.item.state" = "Saved application state";
