@@ -16,7 +16,7 @@ Spectacle 2 organizes windows without a mouse. Press a shortcut and the frontmos
 ![Platform](https://img.shields.io/badge/platform-macOS-blue?style=flat-square)
 ![Requirements](https://img.shields.io/badge/requirements-macOS%2026%2B-fa4e49?style=flat-square)
 [![Website](https://img.shields.io/badge/Website-dragonapp.com-015FBA?style=flat-square)](https://www.dragonapp.com/spectacle-2/)
-[![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE.md)
+[![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
 
 ## Contents
 
@@ -211,4 +211,4 @@ Spectacle 2 is maintained by [Teddy Chan](https://github.com/teddychan).
 
 ## License
 
-Spectacle 2 is distributed under the MIT License. See [LICENSE.md](LICENSE.md), which retains the original copyright (c) 2017 Eric Czarny.
+Spectacle 2 is distributed under the MIT License. See [LICENSE](LICENSE), which retains the original copyright (c) 2017 Eric Czarny.

@@ -6,9 +6,8 @@
 "app.general.showInMenuBar" = "Afficher dans la barre des menus";
 "app.general.showInMenuBarHint" = "Masque l'icône de la barre des menus. Si elle est masquée au lancement, les Réglages s'ouvrent automatiquement pour la réactiver.";
 "app.general.languageSection" = "Langue";
-"app.whatsNew.summary" = "Une petite correction dans le volet À propos : les licences des composants open source inclus dans Spectacle 2 sont désormais accessibles depuis l’app. Tout le reste fonctionne exactement comme avant.";
-"app.whatsNew.fixed1" = "À propos comporte maintenant une ligne « Licences open source ». Le volet créditait déjà Sparkle, le framework avec lequel Spectacle 2 installe ses mises à jour, mais sa licence n’était liée nulle part ; la nouvelle ligne ouvre la page qui la présente.";
-"app.whatsNew.changed1" = "Désormais compilée avec DragonKit 4.0.0, la base commune à toutes les apps Dragon. À propos en indique la version.";
+"app.whatsNew.summary" = "Une petite correction : Spectacle 2 comporte désormais une mention de copyright, la même que celle affichée dans À propos. Tout le reste fonctionne exactement comme avant.";
+"app.whatsNew.fixed1" = "La fenêtre « Lire les informations » du Finder affiche désormais la mention de copyright de Spectacle 2. L’app n’en comportait aucune, la ligne restait donc vide.";
 "app.uninstall.item.app" = "L'app et son élément d'ouverture";
 "app.uninstall.item.settings" = "Tous les réglages";
 "app.uninstall.item.state" = "État enregistré de l'application";
