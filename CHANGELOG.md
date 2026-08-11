@@ -13,7 +13,10 @@ one difference a user can observe is the kit version About reports.
   newest `vX.Y.Z` tag in dragon-kit, so publishing v3.4.0 put this app in violation the moment it
   landed — the next PR here would have red-X'd on a rule break it did not introduce. Nothing in
   3.4.0 is adopted: it adds `LanguagePicker(languages:onChange:)` with both parameters defaulted,
-  for an app translated into fewer languages than the kit ships, and Spectacle 2 never calls it.
+  for an app translated into fewer languages than the kit ships. Spectacle 2 does call
+  `LanguagePicker()` — in `GeneralPane.swift` — but with no arguments, so `languages:` takes its
+  default of all seven kit locales, which is exactly right here because Spectacle 2 ships all
+  seven itself. The picker renders identically to 2.5.2.
   The bump is for pin currency, not to take up an API. About's "Built with · DragonKit v3.4.0" row
   is the one user-visible consequence, which is why it is also the single What's New entry instead
   of notes padded out to look like a feature release.
