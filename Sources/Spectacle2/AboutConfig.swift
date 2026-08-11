@@ -22,11 +22,25 @@ enum AboutConfig {
             // against the support row below.
             websiteURL: URL(string: "https://www.dragonapp.com/spectacle-2/")!,
             supportURL: URL(string: "https://github.com/teddychan/spectacle-2/issues")!,
+            // The hosted third-party licence notices, required as of DragonKit 4.0.0. This app
+            // was one of the two that left it nil while still listing `Sparkle → MIT` below —
+            // naming a bundled component whose licence text was then reachable from nowhere in
+            // the app, which is the half of MIT's "included in all copies" that this page carries.
+            // The trailing slash is load-bearing: it is the path GitHub Pages serves, so the row
+            // links the page itself rather than a redirect to it.
+            licensesURL: URL(string: "https://www.dragonapp.com/spectacle-2/licenses/")!,
             license: "MIT",
             // The original Spectacle, which this app reimplements — credited as both a link and
-            // a "Based on" row, the two slots the kit provides for an upstream project.
-            originalProjectURL: URL(string: "https://github.com/eczarny/spectacle")!,
-            originalWork: OriginalWork(name: "Spectacle", author: "Eric Czarny"),
+            // a "Based on" row, the two slots the kit provides for an upstream project. As of
+            // DragonKit 4.0.0 those two slots read one value, so they cannot ship apart: the URL
+            // was a separate `originalProjectURL:` parameter, and clipmenu-2 and ice-2 both
+            // passed the credit while omitting the URL, shipping a "Based on" row with no link to
+            // the project it named anywhere in the pane.
+            originalWork: OriginalWork(
+                name: "Spectacle",
+                author: "Eric Czarny",
+                url: URL(string: "https://github.com/eczarny/spectacle")!
+            ),
             attributions: [
                 // The app bundles Sparkle.framework by way of DragonKitUpdates. Name → licence,
                 // never a role label: this row read "Update framework → Sparkle (MIT)" while
