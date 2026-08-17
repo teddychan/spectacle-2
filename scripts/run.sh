@@ -16,6 +16,14 @@ DEBUG_ID="com.dragonapp.spectacle-2.debug"
 # Create a Certificate → type "Code Signing") makes the Accessibility grant persist across
 # rebuilds. Without it we fall back to ad-hoc, which re-prompts each build.
 SIGN_IDENTITY="Spectacle 2 Debug"
+# Where the bundle inputs are READ from. DragonKit CONFORMANCE §R16 puts Info.plist and
+# AppIcon.icns in App/ at the repo root — capital A, in every Dragon app whatever builds it —
+# while Package.swift stays here, so `cd`-ing to the repo root is no longer enough to find them.
+# One variable rather than the path repeated at each read: the two files moved together and the
+# next thing §R16 adds (an entitlements file) will be read from the same place. release.yml
+# passes the same directory to dragon-release-ci as swiftpm_bundle_inputs_directory, so the
+# debug bundle and the released one are assembled from exactly these files.
+INPUTS="App"
 
 swift build -c debug
 BIN_DIR="$(swift build -c debug --show-bin-path)"
@@ -24,7 +32,7 @@ APP="$BIN_DIR/$APP_NAME.app"
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources" "$APP/Contents/Frameworks"
 cp "$BIN_DIR/$BIN_NAME" "$APP/Contents/MacOS/$EXEC_NAME"
-cp Info.plist "$APP/Contents/Info.plist"
+cp "$INPUTS/Info.plist" "$APP/Contents/Info.plist"
 
 # Re-id the main bundle to the .debug identity so it runs safely beside an installed release.
 PB=/usr/libexec/PlistBuddy
@@ -93,8 +101,10 @@ fi
 cp -R "$BIN_DIR"/*.bundle "$APP/Contents/MacOS/" 2>/dev/null || true
 
 # App icon: CFBundleIconFile = "AppIcon" → macOS reads Contents/Resources/AppIcon.icns.
-# Kept at the repo root so the release CI (dragon-release-ci) bundles the same file.
-cp AppIcon.icns "$APP/Contents/Resources/AppIcon.icns"
+# The checked-in .icns is the build's input and lives in App/ with the plist (§R16); Icon/ holds
+# the SOURCE ART that generates it (AppIcon-1024.png, make-appicon.swift) and is not a bundle
+# input, so it did not move.
+cp "$INPUTS/AppIcon.icns" "$APP/Contents/Resources/AppIcon.icns"
 
 # Embed Sparkle.framework (linked by DragonKitUpdates) so the relocated .app finds it at
 # runtime — SwiftPM otherwise leaves it in the artifacts dir, which the moved app can't reach.
