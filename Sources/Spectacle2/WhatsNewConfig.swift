@@ -8,26 +8,29 @@ enum WhatsNewConfig {
             // `version` is omitted deliberately: it defaults to the bundle's
             // `CFBundleShortVersionString` and the kit adds the `v`, so What's New tracks the
             // shipped release without a second edit. Pass one only to pin notes to an older release.
-            date: "2026-08-11",
+            date: "2026-08-18",
             summary: L("app.whatsNew.summary"),
-            // 2.5.5 claims one fix: the bundle had no `NSHumanReadableCopyright`, so Finder's Get
-            // Info panel showed no copyright line for Spectacle 2 at all. It now carries
-            // `© 2026 Teddy Chan` — byte-for-byte the string About's copyright row renders.
+            // 2.5.6 is a maintenance release and says so. Everything in it came from two commits
+            // that changed no app behaviour:
             //
-            // Found by auditing the field across all five Dragon apps, where it was in four
-            // different states: a tagline in clipmenu-2, two holders in ice-2, and absent in this
-            // app, yahoo-keykey-2 and the sample app. The key is an optional Apple one that no
-            // licence names, so it is presentation, and the rule for presentation is the one About
-            // already follows: a single holder, the app's own. `LICENSE` is where the MIT grant
-            // lives, and it still carries Eric Czarny's notice unchanged.
+            //   * the DragonKit floor moved 4.0.0 → 4.1.0 (#40). The kit owns Settings, About,
+            //     What's New and the updater, so a bump is worth naming even when no pane moves —
+            //     2.5.4's `.changed` entry existed because that bump DID move About's "Built with"
+            //     row. 4.1.0 does not, so the entry says the version changed and the panes did not,
+            //     rather than dressing a floor bump up as an improvement.
+            //   * the bundle inputs moved to `App/` (#39, CONFORMANCE §R16), and `LICENSE` now
+            //     names Eric Czarny for the original Spectacle and Teddy Chan for this
+            //     reimplementation (#38). Both are source-tree facts; neither is reachable from
+            //     the running app, so they are one honest "housekeeping" line and not two claims.
             //
-            // No `.changed` section this time. 2.5.4 had one because the DragonKit bump moved
-            // About's "Built with" row; the pin does not move here, so claiming anything beside the
-            // fix would be inventing a second change. `app.whatsNew.changed1` is removed from the
-            // seven .strings files rather than left holding 2.5.4's sentence.
+            // No `.fixed` section: nothing user-facing was fixed since 2.5.5, and `.improved`
+            // would be a claim this release cannot support. `app.whatsNew.fixed1` is removed from
+            // the seven .strings files rather than left holding 2.5.5's sentence — the same
+            // treatment `app.whatsNew.changed1` got a release ago, for the same reason.
             sections: [
-                ChangeSection(kind: .fixed, entries: [
-                    L("app.whatsNew.fixed1"),
+                ChangeSection(kind: .changed, entries: [
+                    L("app.whatsNew.changed1"),
+                    L("app.whatsNew.changed2"),
                 ]),
             ]
         )
