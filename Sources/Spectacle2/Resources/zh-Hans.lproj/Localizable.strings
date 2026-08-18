@@ -6,8 +6,9 @@
 "app.general.showInMenuBar" = "在菜单栏中显示";
 "app.general.showInMenuBarHint" = "隐藏菜单栏图标。如果启动时已隐藏，将自动打开设置以便重新开启。";
 "app.general.languageSection" = "语言";
-"app.whatsNew.summary" = "一处小修复：Spectacle 2 现在带有版权声明，与“关于”中显示的一致。其余功能与之前完全相同。";
-"app.whatsNew.fixed1" = "访达的“显示简介”现在会显示 Spectacle 2 的版权声明。此前应用完全没有版权声明，该行一直是空的。";
+"app.whatsNew.summary" = "这是一次维护更新。Spectacle 2 升级了所依赖的共享框架，并做了一些内部整理。日常使用的一切都与之前完全相同。";
+"app.whatsNew.changed1" = "共享框架 DragonKit 升级到 4.1.0，它负责“设置”、“关于”、“新增功能”以及软件更新。此次只是版本变化，这些面板的外观和行为都没有改变。";
+"app.whatsNew.changed2" = "源码整理：构成应用程序包的文件现在集中在同一个文件夹中，许可证文件同时署名原版 Spectacle 的 Eric Czarny 与本次重写的 Teddy Chan。这两项在应用内都看不到。";
 "app.uninstall.item.app" = "App 及其登录项";
 "app.uninstall.item.settings" = "所有设置";
 "app.uninstall.item.state" = "已保存的应用程序状态";

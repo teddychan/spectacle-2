@@ -6,8 +6,9 @@
 "app.general.showInMenuBar" = "Mostrar en la barra de menús";
 "app.general.showInMenuBarHint" = "Oculta el icono de la barra de menús. Si está oculto al iniciar, los Ajustes se abren automáticamente para que puedas volver a activarlo.";
 "app.general.languageSection" = "Idioma";
-"app.whatsNew.summary" = "Una pequeña corrección: Spectacle 2 ya incluye un aviso de copyright, el mismo que muestra Acerca de. Todo lo demás funciona exactamente igual que antes.";
-"app.whatsNew.fixed1" = "El panel «Obtener información» del Finder ahora muestra el aviso de copyright de Spectacle 2. La app no incluía ninguno, así que esa línea aparecía vacía.";
+"app.whatsNew.summary" = "Una versión de mantenimiento. Spectacle 2 incorpora la última versión del framework compartido en el que se basa, además de algo de orden interno. Nada de lo que usas a diario funciona de otra manera.";
+"app.whatsNew.changed1" = "Actualizado a DragonKit 4.1.0, el framework compartido detrás de Ajustes, Acerca de, Novedades y las actualizaciones de software. Solo cambió la versión: ninguno de esos paneles se ve ni se comporta de forma distinta.";
+"app.whatsNew.changed2" = "Orden interno en el código: los archivos que forman el paquete de la app ahora están juntos en una sola carpeta, y el archivo de licencia nombra tanto a Eric Czarny, por el Spectacle original, como a Teddy Chan, por esta reimplementación. Nada de esto se ve desde dentro de la app.";
 "app.uninstall.item.app" = "La app y su elemento de inicio";
 "app.uninstall.item.settings" = "Todos los ajustes";
 "app.uninstall.item.state" = "Estado guardado de la aplicación";
