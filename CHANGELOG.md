@@ -3,6 +3,29 @@
 All notable changes to Spectacle 2 are documented here. This project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## [2.5.7] - 2026-08-20
+
+One user-facing safety fix, inherited from the kit rather than written here.
+
+### Fixed
+- **Uninstall refuses to run when a second copy of the app is on the Mac.** Trashing the copy
+  you are running was always safe, but settings, the login item, support files and the Homebrew
+  record are all keyed to the app's *bundle identity*, not its location — so two copies share
+  every one of them and nothing can tell whose is whose. Uninstalling a spare could therefore
+  wipe the settings belonging to the copy actually in use, and where Homebrew was involved delete
+  that installed copy outright. It was reachable in practice: building the app yourself leaves a
+  second copy behind. Uninstall now checks first, stops before removing anything, and lists where
+  the copies are. It also stops if the app cannot confirm its own identity rather than guessing.
+  No Spectacle 2 source changed — the behaviour arrives with DragonKit 4.1.1.
+
+### Changed
+- **DragonKit 4.1.0 → 4.1.1**, a patch. The fix above is the whole reason for it. No pane moves,
+  so unlike 2.5.4 there is no About row to re-check.
+- **Local Debug builds no longer reach the real update checker.** Deliberately absent from What's
+  New: the button in Settings ▸ Updates used to surface a raw developer error, but only in a
+  Debug build, so no released Spectacle 2 could reach it. Recorded here because it is a
+  source-tree fact, not a user-visible one.
+
 ## [2.5.4] - 2026-08-11
 
 One user-visible fix, in About, plus the DragonKit major that makes it impossible to regress.
