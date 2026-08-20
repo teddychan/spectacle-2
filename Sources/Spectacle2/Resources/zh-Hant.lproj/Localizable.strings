@@ -6,9 +6,9 @@
 "app.general.showInMenuBar" = "在選單列中顯示";
 "app.general.showInMenuBarHint" = "隱藏選單列圖像。若啟動時已隱藏，將自動打開設定以便重新開啟。";
 "app.general.languageSection" = "語言";
-"app.whatsNew.summary" = "這是一次維護更新。Spectacle 2 升級了所依賴的共享框架，並做了一些內部整理。日常使用的一切都與先前完全相同。";
-"app.whatsNew.changed1" = "共享框架 DragonKit 升級到 4.1.0，它負責「設定」、「關於」、「新增功能」以及軟體更新。這次只是版本變化，這些面板的外觀和行為都沒有改變。";
-"app.whatsNew.changed2" = "原始碼整理：構成應用程式套件的檔案現在集中在同一個檔案夾中，授權檔案同時署名原版 Spectacle 的 Eric Czarny 與本次重寫的 Teddy Chan。這兩項在應用程式內都看不到。";
+"app.whatsNew.summary" = "這是「卸載」的一處安全修正，來自 Spectacle 2 所依賴的共享框架。視窗管理沒有任何變化。";
+"app.whatsNew.fixed1" = "如果 Mac 上有兩個或更多 Spectacle 2 副本，「卸載」現在會中止。把正在執行的副本移到垃圾桶一直是安全的，但設定、登入項目與支援檔案是依應用程式的識別碼而非所在位置儲存的，因此兩個副本會共用這些內容，無法分辨歸屬。卸載多餘的副本可能會刪除你實際使用的那個副本的設定。現在它會在刪除任何內容之前中止，並列出各個副本的位置，你可以先把不需要的移到垃圾桶，再重試一次。如果你只有一個副本（幾乎所有人都是），則沒有任何變化。";
+"app.whatsNew.changed1" = "共享框架 DragonKit 升級到 4.1.1，它負責「設定」、「關於」、「新增功能」以及軟體更新。上面這處修正來自該升級；這些面板的外觀和行為都沒有改變。";
 "app.uninstall.item.app" = "App 及其登入項目";
 "app.uninstall.item.settings" = "所有設定";
 "app.uninstall.item.state" = "已儲存的應用程式狀態";
